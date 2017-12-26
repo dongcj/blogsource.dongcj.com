@@ -1,0 +1,54 @@
+---
+title: Python2.6升级至python2.7
+author: dongcj <ntwk@163.com>
+date: 2016/11/28 17:44:33
+updated: 2017-08-09 09:03:50
+tags:
+  - python升级
+categories:
+  - linux
+---
+
+# 升级python
+## install
+    # 一定要先安装zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有zlib, 和 HTTPlib
+    $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
+
+## 如果要安装 MySQL-python，需要安装以下软件
+    $ yum -y install mysql mysql-devel
+
+## 如果要安装 lxml，需要安装以下软件
+    $ yum -y install libxml2-devel  libxslt-devel
+
+## 编译安装 python 新版
+    $ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+
+    # 加上 --enable-shared 解决 "Cannot build PL/Python because libpython is not a shared library"
+    $ tar -xzf Python-2.7.13.tgz && cd Python-2.7.13 && ./configure  --enable-shared
+    $ make all && make install && make clean && make distclean
+
+    $ echo "/usr/local/lib" >>/etc/ld.so.conf
+    $ ldconfig
+    $ mv /usr/bin/python /usr/bin/python2.6.bak
+    $ ln -s /usr/local/bin/python /usr/bin/python
+
+    # copy bz2 module
+    $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
+    $ python -V
+
+# 安装 easy_install 和 pip
+    # 参见：[《linux安装easy_install及pip》][1]
+
+## 修改 yum 中的 python 版本为 **python2.6**
+    $ vi /usr/bin/yum
+    $ vi /usr/bin/yum-config-manager
+
+## 安装一些基础软件
+    $ pip install readline
+
+## 在 virtualenv 里安装亦可
+    $ pip install MySQL-python pssh flask
+    $ pip install lxml virtualenv virtualenvwrapper websockify
+
+
+  [1]: http://blog.dongcj.com/linux/linux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip/
