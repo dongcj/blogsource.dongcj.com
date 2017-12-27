@@ -1,5 +1,5 @@
 ---
-title: Linux升级kernel及tcp_BBR
+title: Linux 升级 kernel 及 tcp_BBR
 author: dongcj <ntwk@163.com>
 date: 2016/08/28 17:44:33
 updated: 2016/06/07 14:25:00
@@ -15,13 +15,13 @@ tags:
 > https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage
   只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。
 
-> 快速自动化安装方法（仅支持Debian6+ / Ubuntu14+）
+> 快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）
     wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 
 
 ## 修改系统变量：
 ``` bash
-# 这二个是打开BBR必需的
+# 这二个是打开 BBR 必需的
 echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 
@@ -44,10 +44,10 @@ dpkg -i linux-image-4.11.6-041106-generic_4.11.6-041106.201706170517_amd64.deb
 dpkg -l|grep linux-image
 
 # 卸载旧内核
-apt-get remove `内核名`
+apt-get remove ` 内核名 `
 
 # 更新引导并重启
-update-grub  #更新引导
+update-grub  # 更新引导
 reboot
 
 
@@ -63,10 +63,10 @@ uname -r
 yum update -y
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
-# 如果是el7
+# 如果是 el7
 rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
 
-# 如果是el6
+# 如果是 el6
 rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
 
 # 安装内核
@@ -75,15 +75,15 @@ yum --enablerepo=elrepo-kernel install kernel-ml
 # 查看当前已安装的内核
 awk -F\' '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg
 
-# 设定默认内核(centos7)
+# 设定默认内核 (centos7)
 grub2-set-default 0
 reboot
 
-# 设定默认内核(centos6)
+# 设定默认内核 (centos6)
 vi /etc/grub.conf
-# 修改 default=<ID号>
+# 修改 default=<ID 号 >
 
-# 设定/etc/sysctl.conf
+# 设定 /etc/sysctl.conf
 net.core.default_qdisc = fq
 net.ipv4.tcp_congestion_control = bbr
 
@@ -110,9 +110,9 @@ depmod -a 4.9.0-11-generic
 ## 加入引导
 ```bash
 dracut -f -v --hostonly -k '/lib/modules/4.9.0-11-generic'  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic
-# 注: centos7和6的步骤不同，centos6是grub，需要手动自动写, 但注意：root=UUID=那里的uuid不能修改！！！；
+# 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；
 
-# centos7是grub2可以用下面命令:
+# centos7 是 grub2 可以用下面命令 :
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
@@ -133,7 +133,7 @@ if [ x"${feature_menuentry_id}" = xy ]; then
   menuentry 'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8' {
 ```
 
-###配置从默认内核启动
+### 配置从默认内核启动
     # 下面命令的内核名称根据系统内部查到的实际名称来替换：
     grub2-set-default 'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'
 

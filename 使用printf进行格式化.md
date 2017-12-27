@@ -1,5 +1,5 @@
 ---
-title: 使用printf进行格式化
+title: 使用 printf 进行格式化
 author: dongcj <ntwk@163.com>
 date: 2016/08/30 17:27:43
 updated: 2016/08/30 17:48:08

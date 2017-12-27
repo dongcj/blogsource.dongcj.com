@@ -1,5 +1,5 @@
 ---
-title: Curl、resty、httpie、httpstat、wuzz使用介绍
+title: Curl、resty、httpie、httpstat、wuzz 使用介绍
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -37,7 +37,7 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     curl -T file.txt
 
 
-## Cookie及认证
+## Cookie 及认证
     curl --cookie "name=xxx" www.example.com
     curl --user name@DOMAIN:password http://example.com
 
@@ -48,24 +48,24 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     curl -o [文件名] www.sina.com
 
 
-## 自动跳转,重定向
+## 自动跳转 , 重定向
     curl -L www.sina.com
 
 
 ## 下载并网速限制
     curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html
 
-## 对于https的方法，添加--insecure
+## 对于 https 的方法，添加 --insecure
     curl --insecure -LJO https://packages.gitlab.com/gitlab
 
 ## 发送表单信息
     GET：
     curl example.com/form.cgi?data=xxx
 
-## 增加头信息(-H)
+## 增加头信息 (-H)
     curl -i -X GET --header "Content-Type:application/json" http://example.com
     # 模拟服务地址（例如有些网站只能用域名访问的）
-    curl –H Host:web-test.proxy-test.local http://192.168.1.2:8080
+    curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
 
     POST：(-d)
     curl -i -X POST --data "data=xxx"           example.com/form.cgi
@@ -75,20 +75,20 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
 ## Referer(-e)
     curl --referer http://www.example.com http://www.example.com
 
-## User Agent字段(-A)
+## User Agent 字段 (-A)
     curl --user-agent "[User Agent]" http://www.example.com
 
 
 
-## 配置压缩(-I means "Fetch the HTTP-header only")
+## 配置压缩 (-I means "Fetch the HTTP-header only")
     curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom
 
 
 ## 超时设置
     --connect-timeout 3     # 3 秒连接时间
-    -m | --max-time   5     # 连接 5秒后自动断开
+    -m | --max-time   5     # 连接 5 秒后自动断开
 
-## 本地socket
+## 本地 socket
     curl --unix-socket /var/run/docker.sock http:/images/json
     or
     curl --unix-socket /var/run/docker.sock http://localhost/images/json
@@ -112,14 +112,14 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     1. 先得到 https://www.zabbix.com/documentation/2.0/manual/appendix/api/host/create 的 API，修改相应部分将内容 copy 至 linux 主机 /tmp/123.txt 。
 
     2. while read line; do printf "%s " "$line"; done </tmp/123.txt　将其格式化
-    2. echo `cat /tmp/123.txt` --- 这样也可以...
+    2. echo `cat /tmp/123.txt` --- 这样也可以 ...
 
-    3. curl -i -X POST -H 'Content-Type: application/json' -d '格式化后的内容' http://192.168.0.54/api_jsonrpc.php
+    3. curl -i -X POST -H 'Content-Type: application/json' -d ' 格式化后的内容 ' http://192.168.0.54/api_jsonrpc.php
 
-    # curl命令注解：
-    -i|--include :  在输出中包含HTTP头(如服务器名，日期，HTTP版本等)
+    # curl 命令注解：
+    -i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
     -s|--silent  :  静默模式
-    -X|--request :  请求HTTP服务，默认为GET
+    -X|--request :  请求 HTTP 服务，默认为 GET
 
   ---
 

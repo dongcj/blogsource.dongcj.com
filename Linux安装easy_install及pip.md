@@ -1,5 +1,5 @@
 ---
-title: linux安装easy_install及pip
+title: linux 安装 easy_install 及 pip
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:16:45
 updated:
@@ -10,20 +10,20 @@ categories:
   - linux
 ---
 
-> 需要先将 python2.6 升级至 2.7，请参见： [python2.6升级至python2.7][1]
+> 需要先将 python2.6 升级至 2.7，请参见： [python2.6 升级至 python2.7][1]
 
 
 # 安装 easy_install
     # 获取软件包
     $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-    # 解压:
+    # 解压 :
     $ tar -xvf setuptools-3.6.tar.gz && cd setuptools-3.6
     # 使用 Python 2.7.x 安装 setuptools
     /usr/local/bin/python2.7 setup.py install
 
     更多 easy_install 用法见： easy_install 用法
 
-# 安装PIP
+# 安装 PIP
     # 下载方法 1
     $ curl https://bootstrap.pypa.io/get-pip.py | python -
     # 下载方法 2
@@ -32,13 +32,13 @@ categories:
     # 安装方法 1
     $ yum install python-pip
 
-    # 安装方法2
-    $ /usr/local/bin/easy_install pip  (建议,如果升级使用此方法！)
+    # 安装方法 2
+    $ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
 
     # 升级 pip
     $ /usr/local/bin/easy_install --upgrade pip
 
-    # 升级 distribute(distribute是setuptools的替代方案，pip是easy_install的替代方案)
+    # 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
     $ pip install -U distribute
 
     # 升级 ez_setup
@@ -47,7 +47,7 @@ categories:
     > PIP 使用指定源，且不缓存到目录
     $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
-    > 安装墙内PIP
+    > 安装墙内 PIP
     http://realfavicongenerator.net/
 
 # easy_install 用法

@@ -1,5 +1,5 @@
 ---
-title: Graphite安装
+title: Graphite 安装
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -13,21 +13,21 @@ tags:
 > http://www.jsxubar.info/category/system-administration/page/3/
 
 
-> 更多集成 grafana及Diamond请看：
+> 更多集成 grafana 及 Diamond 请看：
 > http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/
 
 
-# 使用yum安装环境
+# 使用 yum 安装环境
     $ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
-    # 其它的使得pip安装就可以
+    # 其它的使得 pip 安装就可以
     $ pip install whisper
     $ pip install carbon
     $ pip install graphite-web
 
 
 # 安装并升级为最新的 zope.interface 及 twisted
-    # (确保这个版本要到 3.6.0 以上，如果不行，下载安装)及 twisted
+    # ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
     $ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
     $ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
 
@@ -71,7 +71,7 @@ tags:
 
 
 
-# 在httpd中启用virtualHost
+# 在 httpd 中启用 virtualHost
     $ cd ../../
     $ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
@@ -81,16 +81,16 @@ tags:
     WSGISocketPrefix /var/run/httpd/wsgi
 
 
-# 修改已知的bug
+# 修改已知的 bug
     $ vi /opt/graphite/webapp/graphite/storage.py
 
     def fetch(self, startTime, endTime, now=None):
-        return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个now
+        return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
 
 
 
 
-# 替换graphite的界面
+# 替换 graphite 的界面
     graph-index-master
     graphite-web-master
 

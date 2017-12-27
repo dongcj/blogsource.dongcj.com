@@ -15,13 +15,13 @@ tags:
 ---
 # 虚拟机增加系统盘根分区大小方法
 
-    # 此方法适用于分区后连接的空间,如果是swap,将其删除，并在最末尾建 swap )
+    # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
     # 先增加实例文件大小，可以使用 dd 命令
     $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
     $ cat /tmp/temp_expand >>/var/lib/libvirt/images/my_vm.img
 
-    # 挂载文件至系统，以便找出是否有swap device
+    # 挂载文件至系统，以便找出是否有 swap device
     $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
     # If has swap device, del the swap device
@@ -45,8 +45,8 @@ tags:
     # 将新的 lo 设备分区进行打印
     $ sfdisk -d /dev/loop0 >/tmp/sfdisk_dump
 
-    # 如果有 swap 分区，则root分区为(root start), (swap start - root start)；如果没有,则为(root start),
-      new_root=401625,14227239		(样例，要修改)
+    # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+      new_root=401625,14227239		( 样例，要修改 )
       converted_root_device=`echo "/dev/loop0p1" | sed -e 's/\//\\\\\//g'`
     $ sed -e "s/^${converted_root_device}.*$/$new_root/" /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 

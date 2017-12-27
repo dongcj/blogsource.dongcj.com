@@ -1,5 +1,5 @@
 ---
-title: SMATE、XFCE、VNC配置
+title: SMATE、XFCE、VNC 配置
 author: dongcj <ntwk@163.com>
 date: 2016/08/30 17:27:43
 updated: 2016/08/30 17:48:08
@@ -19,11 +19,11 @@ tags:
     yum install epel-release
 
     yum grouplist
-    yum groupinstall "GNOME Desktop Environment"（CentOS 5.x安装GNOME桌面环境）
-    yum groupinstall "X Window System" "Desktop"（CentOS 6.x安装GNOME桌面环境）
+    yum groupinstall "GNOME Desktop Environment"（CentOS 5.x 安装 GNOME 桌面环境）
+    yum groupinstall "X Window System" "Desktop"（CentOS 6.x 安装 GNOME 桌面环境）
 
 
-    yum groupinstall [ xfce | "MATE Desktop" ]（CentOS安装xfce桌面环境，可选）
+    yum groupinstall [ xfce | "MATE Desktop" ]（CentOS 安装 xfce 桌面环境，可选）
 
 
 
@@ -47,11 +47,11 @@ tags:
 
 # 安装 vnc server
     # 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-    yum install vnc-server vnc* （CentOS 5.x里）
-    yum install tigervnc-server tigervnc （CentOS 6.x里）
+    yum install vnc-server vnc* （CentOS 5.x 里）
+    yum install tigervnc-server tigervnc （CentOS 6.x 里）
     /etc/init.d/vncserver restart
 
-    # 关闭具体的vncserver命令:
+    # 关闭具体的 vncserver 命令 :
     vncserver -kill :1
 
 > http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7

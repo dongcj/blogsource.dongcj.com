@@ -1,5 +1,5 @@
 ---
-title: Postgresql主从配置
+title: Postgresql 主从配置
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -24,7 +24,7 @@ tags:
     $ source /etc/profile
 
 # 配置主服务器 192.168.10.11
-    # 使用root帐户
+    # 使用 root 帐户
     $ mkdir /pgdata
     $ chown -R postgres:postgres /pgdata/
 
@@ -40,7 +40,7 @@ tags:
 
     # 配置复制参数
     $ vi postgresql.conf
-      wal_level = hot_standby     # 主为wal的主机
+      wal_level = hot_standby     # 主为 wal 的主机
       max_wal_senders = 32        # 最多几个流复制
       wal_keep_segments = 256     # 设置流复制保留最多的 log 数目，每个 log 16M
       wal_sender_timeout = 60s    # 流复制主机发送数据的超时时间
@@ -49,11 +49,11 @@ tags:
     # 修改权限
     $ chmod -R 700 /pgdata/
 
-    # 重启pg
+    # 重启 pg
     $ pg_ctl restart
 
 # 配置从服务器 192.168.10.12
-    # 使用root帐户
+    # 使用 root 帐户
     # mkdir /pgdata_backup
     # chown -R postgres:postgres /pgdata_backup/
 
@@ -70,7 +70,7 @@ tags:
       primary_conninfo = 'host=192.168.10.11 port=5432 user=replica password=replica'
 
     $ vi postgresql.conf
-      max_connections = 1000  # (要大于主库的)
+      max_connections = 1000  # ( 要大于主库的 )
       hot_standby = on        # 说明这台机器不仅仅是用于数据归档，也用于数据查询
       max_standby_streaming_delay = 30s   # 多久向主报告一次从的状态，最长的间隔时间
       wal_receiver_status_interval = 5s   # 间隔多久将状态信息发送给主

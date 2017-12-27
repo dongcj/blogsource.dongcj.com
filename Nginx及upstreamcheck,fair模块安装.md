@@ -1,5 +1,5 @@
 ---
-title: Nginx及upstreamcheck,fair模块安装
+title: Nginx 及 upstreamcheck,fair 模块安装
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39

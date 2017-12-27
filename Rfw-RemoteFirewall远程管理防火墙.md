@@ -1,5 +1,5 @@
 ---
-title: Rfw-RemoteFirewall远程管理防火墙
+title: Rfw-RemoteFirewall 远程管理防火墙
 author: dongcj <ntwk@163.com>
 date: 2017/04/11 11:43:19
 updated: 2017/08/11 15:44:39
@@ -59,7 +59,7 @@ scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/
 ## start rfw(on server)
     $ rfw &
 
-    # 查看server的iptables，只允许white.list里的服务器访问
+    # 查看 server 的 iptables，只允许 white.list 里的服务器访问
     $ iptables -L -n
     Chain INPUT (policy ACCEPT)
     target     prot opt source               destination
@@ -83,6 +83,6 @@ scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/
     # Check if the rule is present now and not present after 5 minutes:
     $ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here https://11.11.11.11:7393/list
 
-## 在client上用web管理所有服务
+## 在 client 上用 web 管理所有服务
     # 未完。。。
 

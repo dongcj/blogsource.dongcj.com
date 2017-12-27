@@ -1,5 +1,5 @@
 ---
-title: GlusterFS安装
+title: GlusterFS 安装
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -25,7 +25,7 @@ tags:
     file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64
     file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64
 
-    # 删除lvm2
+    # 删除 lvm2
     $ rpm -e lvm2
 
 
@@ -34,7 +34,7 @@ tags:
     # mkdir
     $ mkdir /export/brick1
 
-    # 这里可以修改权限,其它程序可以使用， 注意所有服务器上都要修改！！！
+    # 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
     $ chmod 777 /export/brick1
 
     # firewall
@@ -46,7 +46,7 @@ tags:
     $ firewall-cmd --reload
 
 
-# 启动glusterd服务
+# 启动 glusterd 服务
     $ service glusterd start
 
     # if centos7:
@@ -66,7 +66,7 @@ tags:
     $ gluster peer status
 
 
-# 设置一个Gluster卷
+# 设置一个 Gluster 卷
     $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
     $ gluster volume start gv0
 
@@ -81,7 +81,7 @@ tags:
     # delete Volume
     $ gluster volume delete gv0
 
-    # detach命令：
+    # detach 命令：
     $ gluster peer detach NAME_OF_PEERNODE
 
 
@@ -93,7 +93,7 @@ tags:
     gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
 
 
-    # 如果使用nfs协议使用
+    # 如果使用 nfs 协议使用
     # GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
     $ vi /etc/nfsmount.conf
     Defaultvers=3
@@ -108,11 +108,11 @@ tags:
 
 
 
-# 配置Quorum()
+# 配置 Quorum()
     ......
 
-> 通过 CIFS 从 Linux／Windows 计算机进行访问
-> 参考: https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS
+> 通过 CIFS 从 Linux ／ Windows 计算机进行访问
+> 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS
 
 
 

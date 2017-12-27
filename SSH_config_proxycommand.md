@@ -1,3 +1,7 @@
+---
+title: SSH_config_proxycommand
+author: dongcj <ntwk@163.com>
+---
 
 # ProxyCommand
 ```bash

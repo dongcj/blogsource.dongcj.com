@@ -1,5 +1,5 @@
 ---
-title: Gearman安装
+title: Gearman 安装
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -14,33 +14,33 @@ tags:
     python gearman library home page
     http://samuelks.com/python-gearman/docs/
 
-    Tim Yang：利用Gearman来实现远程监控与管理
+    Tim Yang：利用 Gearman 来实现远程监控与管理
     http://timyang.net/linux/gearman-monitor/
 
 
 
-# 一、安装grarmand及libgearman-devel
-    $ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个php-pecl-gearman就不用第二步：安装PHP的API了)
+# 一、安装 grarmand 及 libgearman-devel
+    $ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )
 
-# 二、安装PHP的API
+# 二、安装 PHP 的 API
     $ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
     $ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
     $ cd gearman-1.1.2
     $ phpize
-    $ ./configure; make; make install		// 实际上是给PHP增加了个gearman的extension: /usr/lib64/php/modules/gearman.so
+    $ ./configure; make; make install		// 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-    # 增加php扩展
+    # 增加 php 扩展
     $ vi /etc/php.d/gearman.ini
     ; Enable gearman extension module
     extension=gearman.so
 
-# 三、启动gearmand
-    # (如果使用默认参数，需要开启IPV6)
+# 三、启动 gearmand
+    # ( 如果使用默认参数，需要开启 IPV6)
 
     # 可以设置成服务启动：
     $ vi /etc/sysconfig/gearmand
-        OPTIONS="-L 0.0.0.0 --verbose=DEBUG"	-->根据自己需求设置--verbose
+        OPTIONS="-L 0.0.0.0 --verbose=DEBUG"	--> 根据自己需求设置 --verbose
 
     $ service gearmand start
 
@@ -50,10 +50,10 @@ tags:
     # 如果需要使用数据库
     gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-    # 命令行API用法：
-    $ gearman -w -f wc -- wc -l	// 开启一个worker（-w）, 监听一个函数wc(-f wc)， 函数的内容为wc -l
+    # 命令行 API 用法：
+    $ gearman -w -f wc -- wc -l	// 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
-    # 将/etc/passwd 文件给函数wc进行处理
+    # 将 /etc/passwd 文件给函数 wc 进行处理
     $ gearman -f wc < /etc/passwd
 
 
@@ -63,7 +63,7 @@ tags:
           -- ...
 
 
-# PHP API用法：
+# PHP API 用法：
 
 ## 1. Worker:
     <?php
@@ -100,7 +100,7 @@ tags:
 
     echo "sending job\n";
 
-    $result = $client->doNormal("reverse", "Hello World!");		-->这里可以换成doBackground就可以后台
+    $result = $client->doNormal("reverse", "Hello World!");		--> 这里可以换成 doBackground 就可以后台
 
     if($result) {
         echo "Success: $result\n";

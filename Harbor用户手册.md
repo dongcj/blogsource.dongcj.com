@@ -1,3 +1,7 @@
+---
+title: Harbor 用户手册
+author: dongcj <ntwk@163.com>
+---
 
 # docker-compose 或自建商店安装
 > 如果之前有安装失败记录，需要进行清理，见『清理及故障处理』章节
@@ -31,7 +35,7 @@ docker-compose up -d
 
 6. 测试下，应该可以成功，如无法成功，运行步骤 7
 
-7. （`可选`）修改 `registry` 中的证书 `root.crt` 和 `ui` 的 `private_key.pem`
+7. （` 可选 `）修改 `registry` 中的证书 `root.crt` 和 `ui` 的 `private_key.pem`
 
 
 # 通过 curl 请求测试
@@ -47,17 +51,17 @@ Connection: keep-alive
 Docker-Distribution-Api-Version: registry/2.0
 Www-Authenticate: Bearer realm="https://<HARBOR.DOMAIN.COM>/service/token",service="token-service",scope="registry:catalog:*"
 
-## 会收到一条没有认证的消息，这个正常，返回一定是401
+## 会收到一条没有认证的消息，这个正常，返回一定是 401
 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"registry","Name":"catalog","Action":"*"}]}]}
 
 # 备注：请求格式
 /service/token?account=test&scope=repository:test/repo:push,pull&service=token-service
 
 # scope：指定类型（repository），repo（test/repo），请求的操作权限（pull && push）
-# service：即JWT验证中的Audience，Token接收方（即registry）
+# service：即 JWT 验证中的 Audience，Token 接收方（即 registry）
 ```
 
-# 附：jwt的claim格式
+# 附：jwt 的 claim 格式
 ```bash
 claim = {
     "iss": self.issuer,

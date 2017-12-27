@@ -1,5 +1,5 @@
 ---
-title: Rancher安装
+title: Rancher 安装
 author: dongcj <ntwk@163.com>
 date: 2017/12/24 15:43:19
 updated: 2017/12/24 15:44:39
@@ -14,7 +14,7 @@ tags:
 # 准备步骤
 
 ## 服务器时间同步
-> 如果不配置时间同步，可能会导致调度服务有可能不正常<br>
+> 如果不配置时间同步，可能会导致调度服务有可能不正常 <br>
 > 最好使用 UTC time:<br>
 
     rm -rf /etc/localtime
@@ -50,7 +50,7 @@ curl -sSL https://get.daocloud.io/docker | sh
 git clone https://github.com/rancher/install-docker.git
 cd ./install-docker && bash <LATEST__XX>.sh
 
-# Docker开机自启动
+# Docker 开机自启动
 systemctl  enable docker.service
 ```
 
@@ -138,14 +138,14 @@ codedevote/nginx-ssl-proxy-rancher
 
 
 # 
-## registry v2版本的查询所有镜像：
+## registry v2 版本的查询所有镜像：
 > https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image
 
 ```bash
 # 1. 先查出所有的镜像
 curl https://192.168.1.111/v2/_catalog
 
-# 2. 查出该镜像的tag列表
+# 2. 查出该镜像的 tag 列表
 curl https://192.168.1.111/v2/dongcj/webserver/tags/list
 
 # 3. 查看详细的镜像信息
@@ -154,27 +154,27 @@ curl https://192.168.1.111/v2/dongcj/webserver/manifests/v0.1
 # 4、删除所给的镜像
 https://github.com/burnettk/delete-docker-registry-image
 
-# 或者使用ui进行操作
+# 或者使用 ui 进行操作
 ```
 
 
 
-# 将日志展示在WEB UI的日志中
+# 将日志展示在 WEB UI 的日志中
     /var/log/nginx/error.log -> /dev/stderr
     /var/log/ngnix/access.log -> /dev/stdout
 
 
 
 
-# 自定义加入rancher网络
-    在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有rancher的网络IP
+# 自定义加入 rancher 网络
+    在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有 rancher 的网络 IP
 
 
 
 # Rancher 将自身也加入主机中
 
 ```bash
-# 需要在启动agent的参数中加 environment: CATTLE_AGENT_IP=<HOST_IP>
+# 需要在启动 agent 的参数中加 environment: CATTLE_AGENT_IP=<HOST_IP>
 sudo docker run -d -e CATTLE_AGENT_IP=<HOST_IP> --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock \
     rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx
@@ -182,15 +182,15 @@ sudo docker run -d -e CATTLE_AGENT_IP=<HOST_IP> --privileged \
 
 
 
-# 查询DNS的所有记录
+# 查询 DNS 的所有记录
 
 ```bash
-# external的DNS设置方法相同
-# 进入network-services-metadata-dns-X.
+# external 的 DNS 设置方法相同
+# 进入 network-services-metadata-dns-X.
 cat /etc/rancher-dns/answers.json
 ```
 
-> 注意：在独立的容器中（自建的），DNS只保留最后一个
+> 注意：在独立的容器中（自建的），DNS 只保留最后一个
 
 
 # Rancher LB `http` redirect to `https`
@@ -199,7 +199,7 @@ cat /etc/rancher-dns/answers.json
 
 ![](https://i.imgur.com/TEg1m2a.png)
 
-  - 在 `自定义 Haproxy.cfg` 中增加以下内容
+  - 在 ` 自定义 Haproxy.cfg` 中增加以下内容
 
 ```apache
 frontend http-frontend
@@ -210,7 +210,7 @@ frontend http-frontend
 ```
 
 # Rancher LB 使用 IP Hash
-在 `自定义 Haproxy.cfg` 中增加以下内容:
+在 ` 自定义 Haproxy.cfg` 中增加以下内容 :
 ```
 balance source
 ```

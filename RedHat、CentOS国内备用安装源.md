@@ -1,5 +1,5 @@
 ---
-title: 安装源_RedHat,CentOS备用源
+title: 安装源_RedHat,CentOS 备用源
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:16:45
 updated:
@@ -22,11 +22,11 @@ yum update
 
 # 常用源
 ## rpmforge 源
-    # (将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
+    # ( 将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
     rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el<X>.rf.x86_64.rpm
     rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el<X>.rf.i686.rpm
 
-## epel 源(elrepo.org)
+## epel 源 (elrepo.org)
     yum install epel-release
 
 
@@ -35,7 +35,7 @@ yum update
 
 
 ## remi 源
-    # (将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
+    # ( 将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
     rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 ## rpmfusion 源
@@ -51,7 +51,7 @@ yum update
 
 
 # 国内镜像站
-## CentOS 中国科学技术大学 USTC mirror(每小时更新一次)
+## CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )
 > 地址：http://centos.ustc.edu.cn/
 
     cd /etc/yum.repos.d

@@ -1,5 +1,6 @@
 ---
 title: Autossh
+author: dongcj <ntwk@163.com>
 date: 2016/08/04 16:32:12
 updated: 2016/08/04 16:32:45
 categories:
@@ -14,12 +15,12 @@ tag:
 
 
 
-# ÓÃ autossh ±£Ö¤ ssh ËíµÀÎÈ¶¨ĞÔ :
+# ç”¨ autossh ä¿è¯ ssh éš§é“ç¨³å®šæ€§ :
     autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
 
 
 
-# autossh ´úÀí
+# autossh ä»£ç†
     export AUTOSSH_PIDFILE=/var/run/autossh.pid
     export AUTOSSH_POLL=60
     export AUTOSSH_FIRST_POLL=30

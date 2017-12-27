@@ -1,5 +1,5 @@
 ---
-title: Postgresql安装
+title: Postgresql 安装
 author: dongcj <ntwk@163.com>
 date: 2016/06/13 09:25:58
 updated: 2016/08/04 17:26:08

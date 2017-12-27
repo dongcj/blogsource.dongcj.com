@@ -11,7 +11,7 @@ tags:
 ---
 
 > 建议：
-> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid！
+> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！
 
 
 ### 每块硬盘分一个区
@@ -59,7 +59,7 @@ tags:
 
 
 # 更改分区格式
-    # 按照上面的 /dev/sda 的分区例子依次给剩下的5块硬盘 sdc, sdd, sde, sdf, sdg 分区
+    # 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
     $ fdisk /dev/sdc
     ...
     $ fdisk /dev/sdd
@@ -159,7 +159,7 @@ tags:
            5       8       97        5      active sync   /dev/sdg1
 
 
-# 配置raid的配置文件
+# 配置 raid 的配置文件
     $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 > /etc/mdadm.conf
     $ mdadm --detail --scan >> /etc/mdadm.conf
 
@@ -172,8 +172,8 @@ tags:
     $ mdadm /dev/md0 -a /dev/sde1
 
 ## 停止并移除阵列
-    $ mdadm --stop /dev/md99    //停止
-    $ mdadm -As /dev/md0        //启动
+    $ mdadm --stop /dev/md99    // 停止
+    $ mdadm -As /dev/md0        // 启动
     $ mdadm --remove /dev/md99
 
 ## 销毁系统中的阵列

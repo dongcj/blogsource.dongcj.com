@@ -1,17 +1,17 @@
 ---
-title: Python2.6升级至python2.7
+title: Python2.6 升级至 python2.7
 author: dongcj <ntwk@163.com>
 date: 2016/11/28 17:44:33
 updated: 2017-08-09 09:03:50
 tags:
-  - python升级
+  - python 升级
 categories:
   - linux
 ---
 
-# 升级python
+# 升级 python
 ## install
-    # 一定要先安装zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有zlib, 和 HTTPlib
+    # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
     $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
 
 ## 如果要安装 MySQL-python，需要安装以下软件
@@ -37,7 +37,7 @@ categories:
     $ python -V
 
 # 安装 easy_install 和 pip
-    # 参见：[《linux安装easy_install及pip》][1]
+    # 参见：[《linux 安装 easy_install 及 pip》][1]
 
 ## 修改 yum 中的 python 版本为 **python2.6**
     $ vi /usr/bin/yum

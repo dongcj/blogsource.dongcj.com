@@ -1,5 +1,5 @@
 ---
-title: Supervisor安装与配置
+title: Supervisor 安装与配置
 author: dongcj <ntwk@163.com>
 date: 2016/06/13 09:25:58
 updated: 2016/08/04 17:26:08
