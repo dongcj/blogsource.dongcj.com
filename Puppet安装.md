@@ -1,5 +1,5 @@
 ---
-title: Puppet °²×°
+title: Puppet å®‰è£…
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -9,54 +9,54 @@ tags:
   - puppet
   - devops
 ---
-### /etc/hosts ¿ÉÒÔ ping Í¨¶Ô·½ÓòÃû
+### /etc/hosts å¯ä»¥ ping é€šå¯¹æ–¹åŸŸå
 
-### °²×° ntp ×öÊ±¼äÍ¬²½
+### å®‰è£… ntp åšæ—¶é—´åŒæ­¥
 
-### °²×° puppet
+### å®‰è£… puppet
 
     $ yum install ruby ruby-libs ruby-rdoc
-    $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( Õâ¸ö°æ±¾¿ÉÒÔĞŞ¸ÄÎª×îĞÂµÄ£©
+    $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( è¿™ä¸ªç‰ˆæœ¬å¯ä»¥ä¿®æ”¹ä¸ºæœ€æ–°çš„ï¼‰
     $ yum update
 
-    # ·şÎñ¶Ë°²×° puppet-server
+    # æœåŠ¡ç«¯å®‰è£… puppet-server
     $ yum install puppet-server
 
-    # ·şÎñ¶Ë°²×° puppet Í¼ĞÎ½çÃæ£¨¿ÉÑ¡£©
+    # æœåŠ¡ç«¯å®‰è£… puppet å›¾å½¢ç•Œé¢ï¼ˆå¯é€‰ï¼‰
     $ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
 
-    # ¿Í»§¶Ë°²×° puppet
+    # å®¢æˆ·ç«¯å®‰è£… puppet
     $ yum install puppet
 
 ### service puppetmaster start
 
-    # Æô¶¯ÆÚ¼ä»áÉú³É ca Ö¤Êé£¬Èç¹û²»ÄÜÉú³É£¬¿ÉÒÔÊ¹ÓÃÒÔÏÂÃüÁîÊÖ¶¯Éú³É£º
+    # å¯åŠ¨æœŸé—´ä¼šç”Ÿæˆ ca è¯ä¹¦ï¼Œå¦‚æœä¸èƒ½ç”Ÿæˆï¼Œå¯ä»¥ä½¿ç”¨ä»¥ä¸‹å‘½ä»¤æ‰‹åŠ¨ç”Ÿæˆï¼š
     $ puppet master --verbose --no-daemonize --cert_name "Puppet CA: `hostname -f`"
 
-    # ²é¿´Éú³ÉµÄÖ¤ÊéĞÅÏ¢
+    # æŸ¥çœ‹ç”Ÿæˆçš„è¯ä¹¦ä¿¡æ¯
     $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
 
-### ·şÎñ¶ËÔÊĞíÇëÇóÖ¤Êé
+### æœåŠ¡ç«¯å…è®¸è¯·æ±‚è¯ä¹¦
 
     $ cat > /etc/puppet/autosign.conf <<EOF
     *.xxx.com
     EOF
 
     $ service puppetmaster restart
-    $ puppet cert list --all	--> ²é¿´ÏÂÖ¤Êé£¬´ËÊ±ÊÇÃ»ÓĞ¿Í»§»úµÄ£¬Ö»ÓĞ×Ô¼º
+    $ puppet cert list --all	--> æŸ¥çœ‹ä¸‹è¯ä¹¦ï¼Œæ­¤æ—¶æ˜¯æ²¡æœ‰å®¢æˆ·æœºçš„ï¼Œåªæœ‰è‡ªå·±
 
-### ¿Í»§¶ËÇëÇóÖ¤Êé
+### å®¢æˆ·ç«¯è¯·æ±‚è¯ä¹¦
 
-    ÔÚ /etc/puppet/puppet.conf ÖĞÌí¼Ó server = bigdata.xxxx.com Ò»ĞĞ£¬ÎªÁË·½±ãÃüÁî¶¼¿ÉÒÔ²»ÓÃ --server bigdata.xxxx.com
+    åœ¨ /etc/puppet/puppet.conf ä¸­æ·»åŠ  server = bigdata.xxxx.com ä¸€è¡Œï¼Œä¸ºäº†æ–¹ä¾¿å‘½ä»¤éƒ½å¯ä»¥ä¸ç”¨ --server bigdata.xxxx.com
 
     $ puppetd --server bigdata.xxxx.com --test
-    »òÕß
+    æˆ–è€…
     $ puppet agent --no-daemonize --onetime --verbose --debug
 
-    # ÔÙµ½·şÎñ¶Ë²é¿´Ò»ÏÂÖ¤Êé
-    $ puppet cert list --all	--> ²é¿´ÏÂÖ¤Êé£¬´ËÊ±Éú³ÉÁË¿Í»§¶ËµÄ£¬¿ªÍ·Îª + ºÅ
+    # å†åˆ°æœåŠ¡ç«¯æŸ¥çœ‹ä¸€ä¸‹è¯ä¹¦
+    $ puppet cert list --all	--> æŸ¥çœ‹ä¸‹è¯ä¹¦ï¼Œæ­¤æ—¶ç”Ÿæˆäº†å®¢æˆ·ç«¯çš„ï¼Œå¼€å¤´ä¸º + å·
 
-### °²×° dashboard
+### å®‰è£… dashboard
 
     $ vi /usr/share/puppet-dashboard/config/database.yml
     production:
@@ -70,12 +70,12 @@ tags:
     config.time_zone = 'Beijing'
 
 
-### ³õÊ¼»¯Êı¾İ¿â
+### åˆå§‹åŒ–æ•°æ®åº“
     $ cd /usr/share/puppet-dashboard/
     rake RAILS_ENV=production db:migrate
 
 
-### ÕûºÏ Passenger ºÍ apache
+### æ•´åˆ Passenger å’Œ apache
     $ vi /etc/httpd/conf.d/passenger.conf
 
     LoadModule passenger_module modules/mod_passenger.so
@@ -96,27 +96,27 @@ tags:
     </VirtualHost>
 
 
-### ÈÃ Dashboard Ê¹ÓÃ Reports
+### è®© Dashboard ä½¿ç”¨ Reports
     $ vi /etc/puppet/puppet.conf
     [master]
     reports = store, http
     reporturl = http://bigdata.xxxx.com:80/reports/upload
 
 
-### ÖØÆô puppetmaster ·şÎñ
+### é‡å¯ puppetmaster æœåŠ¡
     $ /etc/init.d/puppetmaster restart
 
 
-### µ¼Èë±¨¸æ
+### å¯¼å…¥æŠ¥å‘Š
     $ cd /usr/share/puppet-dashboard
     $ rake RAILS_ENV=production reports:import
 
 
-### Ö´ĞĞµ¼ÈëµÄ reports
+### æ‰§è¡Œå¯¼å…¥çš„ reports
     $ rake jobs:work RAILS_ENV="production"
 
 
-### ÏÂÔØ¼°ÎÄµµµØÖ·
+### ä¸‹è½½åŠæ–‡æ¡£åœ°å€
     http://code.google.com/p/puppet-manifest-share/downloads/list
     http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
     http://dongxicheng.org/cluster-managemant/puppet/
