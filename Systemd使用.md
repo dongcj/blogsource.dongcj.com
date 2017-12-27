@@ -1,5 +1,5 @@
 ---
-title: Systemd,systemctl ÃüÁî
+title: Systemd,systemctl å‘½ä»¤
 author: dongcj <ntwk@163.com>
 date: 2016/06/13 09:25:58
 updated: 2016/08/04 17:26:08
@@ -9,62 +9,62 @@ tags:
   - systemd
   - systemctl
 ---
-# Systemd ºÍ Systemctl »ù´¡ÃüÁî
+# Systemd å’Œ Systemctl åŸºç¡€å‘½ä»¤
 
-## ¼¸¸ö³£ÓÃµÄ·şÎñ¿ØÖÆ
-    ²é¿´Ä¿Ç°×´Ì¬£º      systemctl status <SERVICE_NAME>
+## å‡ ä¸ªå¸¸ç”¨çš„æœåŠ¡æ§åˆ¶
+    æŸ¥çœ‹ç›®å‰çŠ¶æ€ï¼š      systemctl status <SERVICE_NAME>
 
-    [ Æô¶¯ | Í£Ö¹ ]:    systemctl [ start | stop ] <SERVICE_NAME>
+    [ å¯åŠ¨ | åœæ­¢ ]:    systemctl [ start | stop ] <SERVICE_NAME>
 
-    ÀàËÆ²é chkconfig:    systemctl list-unit-files | grep <SERVICE_NAME>
+    ç±»ä¼¼æŸ¥ chkconfig:    systemctl list-unit-files | grep <SERVICE_NAME>
                         systemctl is-enabled <SERVICE_NAME>
 
-    [²»]×Ô¶¯Æô¶¯£º      systemctl [ disable | enable ] <SERVICE_NAME>
+    [ä¸]è‡ªåŠ¨å¯åŠ¨ï¼š      systemctl [ disable | enable ] <SERVICE_NAME>
 
-    # ÏµÍ³¼¶µÄ systemd ÔÚ /etc/systemd/system
-    # ÓÃ»§¼¶µÄ systemd ÔÚ /usr/lib/systemd/system/ £¨main£©
-    # ÔËĞĞ¼¶µÄ systemd ÔÚ /run/systemd/system
+    # ç³»ç»Ÿçº§çš„ systemd åœ¨ /etc/systemd/system
+    # ç”¨æˆ·çº§çš„ systemd åœ¨ /usr/lib/systemd/system/ ï¼ˆmainï¼‰
+    # è¿è¡Œçº§çš„ systemd åœ¨ /run/systemd/system
 
-    # ÈçÉ¾³ı·şÎñ£¬ĞèÒª£º
+    # å¦‚åˆ é™¤æœåŠ¡ï¼Œéœ€è¦ï¼š
     systemctl stop <SERVICE_NAME>
     systemctl disable <SERVICE_NAME>
     rm -rf /[etc|run]/systemd/system/<SERVICE_NAME>
     systemctl daemon-reload
-    `systemctl reset-failed`   # Ö»ÓĞÔËĞĞÕâÑù²Å¿ÉÒÔ¿´µ½·şÎñÏûÊ§
+    `systemctl reset-failed`   # åªæœ‰è¿è¡Œè¿™æ ·æ‰å¯ä»¥çœ‹åˆ°æœåŠ¡æ¶ˆå¤±
 
 
-### 1. Ê×ÏÈ¼ì²éÄãµÄÏµÍ³ÖĞÊÇ·ñ°²×°ÓĞ systemd ²¢È·¶¨µ±Ç°°²×°µÄ°æ±¾
+### 1. é¦–å…ˆæ£€æŸ¥ä½ çš„ç³»ç»Ÿä¸­æ˜¯å¦å®‰è£…æœ‰ systemd å¹¶ç¡®å®šå½“å‰å®‰è£…çš„ç‰ˆæœ¬
 
     [root@manage ~]# systemctl --version
     systemd 215
     +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
-    ÉÏÀıÖĞºÜÇå³şµØ±íÃ÷£¬ÎÒÃÇ°²×°ÁË 215 °æ±¾µÄ systemd¡£
+    ä¸Šä¾‹ä¸­å¾ˆæ¸…æ¥šåœ°è¡¨æ˜ï¼Œæˆ‘ä»¬å®‰è£…äº† 215 ç‰ˆæœ¬çš„ systemdã€‚
 
-### 2. ¼ì²é systemd ºÍ systemctl µÄ¶ş½øÖÆÎÄ¼şºÍ¿âÎÄ¼şµÄ°²×°Î»ÖÃ
+### 2. æ£€æŸ¥ systemd å’Œ systemctl çš„äºŒè¿›åˆ¶æ–‡ä»¶å’Œåº“æ–‡ä»¶çš„å®‰è£…ä½ç½®
 
     [root@manage ~]# whereis systemd
     systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
     [root@manage ~]# whereis systemctl
     systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz
 
-### 3. ¼ì²é systemd ÊÇ·ñÔËĞĞ
+### 3. æ£€æŸ¥ systemd æ˜¯å¦è¿è¡Œ
     [root@manage ~]# ps -eaf | grep [s]ystemd
     root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
     root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
     root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
     root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
     dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
-    ×¢Òâ£ºsystemd ÊÇ×÷Îª¸¸½ø³Ì£¨PID=1£©ÔËĞĞµÄ¡£ÔÚÉÏÃæ´ø£¨-e£©²ÎÊıµÄ ps ÃüÁîÊä³öÖĞ£¬Ñ¡ÔñËùÓĞ½ø³Ì£¬£¨-a£©Ñ¡Ôñ³ı»á»°Ç°µ¼ÍâµÄËùÓĞ½ø³Ì£¬²¢Ê¹ÓÃ£¨-f£©²ÎÊıÊä³öÍêÕû¸ñÊ½ÁĞ±í£¨¼´ -eaf£©¡£
+    æ³¨æ„ï¼šsystemd æ˜¯ä½œä¸ºçˆ¶è¿›ç¨‹ï¼ˆPID=1ï¼‰è¿è¡Œçš„ã€‚åœ¨ä¸Šé¢å¸¦ï¼ˆ-eï¼‰å‚æ•°çš„ ps å‘½ä»¤è¾“å‡ºä¸­ï¼Œé€‰æ‹©æ‰€æœ‰è¿›ç¨‹ï¼Œï¼ˆ-aï¼‰é€‰æ‹©é™¤ä¼šè¯å‰å¯¼å¤–çš„æ‰€æœ‰è¿›ç¨‹ï¼Œå¹¶ä½¿ç”¨ï¼ˆ-fï¼‰å‚æ•°è¾“å‡ºå®Œæ•´æ ¼å¼åˆ—è¡¨ï¼ˆå³ -eafï¼‰ã€‚
 
-    Ò²Çë×¢ÒâÉÏÀıÖĞºóËæµÄ·½À¨ºÅºÍÀı×ÓÖĞÊ£Óà²¿·Ö¡£·½À¨ºÅ±í´ïÊ½ÊÇ grep µÄ×Ö·ûÀà±í´ïÊ½µÄÒ»²¿·Ö¡£
+    ä¹Ÿè¯·æ³¨æ„ä¸Šä¾‹ä¸­åéšçš„æ–¹æ‹¬å·å’Œä¾‹å­ä¸­å‰©ä½™éƒ¨åˆ†ã€‚æ–¹æ‹¬å·è¡¨è¾¾å¼æ˜¯ grep çš„å­—ç¬¦ç±»è¡¨è¾¾å¼çš„ä¸€éƒ¨åˆ†ã€‚
 
-### 4. ·ÖÎö systemd Æô¶¯½ø³Ì
+### 4. åˆ†æ systemd å¯åŠ¨è¿›ç¨‹
 
     [root@manage ~]# systemd-analyze
     Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s
 
 
-### 5. ·ÖÎöÆô¶¯Ê±¸÷¸ö½ø³Ì»¨·ÑµÄÊ±¼ä
+### 5. åˆ†æå¯åŠ¨æ—¶å„ä¸ªè¿›ç¨‹èŠ±è´¹çš„æ—¶é—´
 
     [root@manage ~]# systemd-analyze blame
     8.565s mariadb.service
@@ -78,37 +78,37 @@ tags:
     1.394s lvm2-monitor.service
     1.126s systemd-logind.service
     ....
-### 6. ·ÖÎöÆô¶¯Ê±µÄ¹Ø¼üÁ´
+### 6. åˆ†æå¯åŠ¨æ—¶çš„å…³é”®é“¾
 
     [root@manage ~]# systemd-analyze critical-chain
     The time after the unit is active or started is printed after the "@" character.
     The time the unit takes to start is printed after the "+" character.
     multi-user.target @20.222s
-    ©¸©¤ mariadb.service @11.657s +8.565s
-      ©¸©¤ network.target @11.168s
-        ©¸©¤ network.service @9.456s +1.712s
-          ©¸©¤ NetworkManager.service @8.858s +596ms
-            ©¸©¤ firewalld.service @4.931s +3.926s
-              ©¸©¤ basic.target @4.916s
-                ©¸©¤ sockets.target @4.916s
-                  ©¸©¤ dbus.socket @4.916s
-                    ©¸©¤ sysinit.target @4.905s
-                      ©¸©¤ systemd-update-utmp.service @4.864s +39ms
-                        ©¸©¤ auditd.service @4.563s +301ms
-                          ©¸©¤ systemd-tmpfiles-setup.service @4.485s +69ms
-                            ©¸©¤ rhel-import-state.service @4.342s +142ms
-                              ©¸©¤ local-fs.target @4.324s
-                                ©¸©¤ boot.mount @4.286s +31ms
-                                  ©¸©¤ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
-                                    ©¸©¤ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
-    ÖØÒª£ºSystemctl ½ÓÊÜ·şÎñ£¨.service£©£¬¹ÒÔØµã£¨.mount£©£¬Ì×½Ó¿Ú£¨.socket£©ºÍÉè±¸£¨.device£©×÷Îªµ¥Ôª¡£
+    â””â”€ mariadb.service @11.657s +8.565s
+      â””â”€ network.target @11.168s
+        â””â”€ network.service @9.456s +1.712s
+          â””â”€ NetworkManager.service @8.858s +596ms
+            â””â”€ firewalld.service @4.931s +3.926s
+              â””â”€ basic.target @4.916s
+                â””â”€ sockets.target @4.916s
+                  â””â”€ dbus.socket @4.916s
+                    â””â”€ sysinit.target @4.905s
+                      â””â”€ systemd-update-utmp.service @4.864s +39ms
+                        â””â”€ auditd.service @4.563s +301ms
+                          â””â”€ systemd-tmpfiles-setup.service @4.485s +69ms
+                            â””â”€ rhel-import-state.service @4.342s +142ms
+                              â””â”€ local-fs.target @4.324s
+                                â””â”€ boot.mount @4.286s +31ms
+                                  â””â”€ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
+                                    â””â”€ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
+    é‡è¦ï¼šSystemctl æ¥å—æœåŠ¡ï¼ˆ.serviceï¼‰ï¼ŒæŒ‚è½½ç‚¹ï¼ˆ.mountï¼‰ï¼Œå¥—æ¥å£ï¼ˆ.socketï¼‰å’Œè®¾å¤‡ï¼ˆ.deviceï¼‰ä½œä¸ºå•å…ƒã€‚
 
 
-### 7. ÁĞ³öËùÓĞ¿ÉÓÃµ¥Ôª state =[ static | enabled | disabled | invalid ]
+### 7. åˆ—å‡ºæ‰€æœ‰å¯ç”¨å•å…ƒ state =[ static | enabled | disabled | invalid ]
                     type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
 
     [root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]
-` Õâ¸ö×÷ÓÃÀàËÆÓÚ chkconfig`
+` è¿™ä¸ªä½œç”¨ç±»ä¼¼äº chkconfig`
 
     UNIT FILE                                   STATE
     proc-sys-fs-binfmt_misc.automount           static
@@ -124,7 +124,7 @@ tags:
 
 
 
-### 8. ÁĞ³öËùÓĞÔËĞĞÖĞµ¥Ôª
+### 8. åˆ—å‡ºæ‰€æœ‰è¿è¡Œä¸­å•å…ƒ
 
     [root@manage ~]# systemctl list-units
     UNIT                                        LOAD   ACTIVE SUB       DESCRIPTION
@@ -136,7 +136,7 @@ tags:
     sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
 
 
-### 9. ÁĞ³öËùÓĞÊ§°Üµ¥Ôª
+### 9. åˆ—å‡ºæ‰€æœ‰å¤±è´¥å•å…ƒ
 
     [root@manage ~]# systemctl --failed
     UNIT          LOAD   ACTIVE SUB    DESCRIPTION
@@ -149,20 +149,20 @@ tags:
 
 
 
-### 10. ¼ì²éÄ³¸öµ¥Ôª£¨Èç cron.service£©ÊÇ·ñÆôÓÃ
+### 10. æ£€æŸ¥æŸä¸ªå•å…ƒï¼ˆå¦‚ cron.serviceï¼‰æ˜¯å¦å¯ç”¨
 
     [root@manage ~]# systemctl is-enabled crond.service
     enabled
 
 
-### 11. ÈçºÎ¼¤»î·şÎñ²¢ÔÚÆô¶¯Ê±ÆôÓÃ»ò½ûÓÃ·şÎñ£¨¼´ÏµÍ³Æô¶¯Ê±×Ô¶¯Æô¶¯·şÎñ£©
+### 11. å¦‚ä½•æ¿€æ´»æœåŠ¡å¹¶åœ¨å¯åŠ¨æ—¶å¯ç”¨æˆ–ç¦ç”¨æœåŠ¡ï¼ˆå³ç³»ç»Ÿå¯åŠ¨æ—¶è‡ªåŠ¨å¯åŠ¨æœåŠ¡ï¼‰
 
     [root@manage ~]# systemctl is-active httpd.service
     [root@manage ~]# systemctl enable    httpd.service
     [root@manage ~]# systemctl disable   httpd.service
 
 
-### 12. ¼ì²éÄ³¸öµ¥Ôª»ò·şÎñÊÇ·ñÔËĞĞ
+### 12. æ£€æŸ¥æŸä¸ªå•å…ƒæˆ–æœåŠ¡æ˜¯å¦è¿è¡Œ
 
     [root@manage ~]# systemctl status firewalld.service
     firewalld.service - firewalld - dynamic firewall daemon
@@ -170,14 +170,14 @@ tags:
        Active: active (running) since Tue 2015-04-28 16:27:55 IST; 34min ago
      Main PID: 549 (firewalld)
        CGroup: /system.slice/firewalld.service
-               ©¸©¤ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
+               â””â”€ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
     Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
     Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
-    Ê¹ÓÃ Systemctl ¿ØÖÆ²¢¹ÜÀí·şÎñ
+    ä½¿ç”¨ Systemctl æ§åˆ¶å¹¶ç®¡ç†æœåŠ¡
 
 
 
-### 14. Linux ÖĞÈçºÎÆô¶¯¡¢ÖØÆô¡¢Í£Ö¹¡¢ÖØÔØ·şÎñÒÔ¼°¼ì²é·şÎñ£¨Èç httpd.service£©×´Ì¬
+### 14. Linux ä¸­å¦‚ä½•å¯åŠ¨ã€é‡å¯ã€åœæ­¢ã€é‡è½½æœåŠ¡ä»¥åŠæ£€æŸ¥æœåŠ¡ï¼ˆå¦‚ httpd.serviceï¼‰çŠ¶æ€
 
     [root@manage ~]# systemctl start httpd.service
     [root@manage ~]# systemctl restart httpd.service
@@ -193,32 +193,32 @@ tags:
      Main PID: 2881 (httpd)
        Status: "Processing requests..."
        CGroup: /system.slice/httpd.service
-               ©À©¤ 2881 /usr/sbin/httpd -DFOREGROUND
-               ©À©¤ 2884 /usr/sbin/httpd -DFOREGROUND
-               ©À©¤ 2885 /usr/sbin/httpd -DFOREGROUND
-               ©À©¤ 2886 /usr/sbin/httpd -DFOREGROUND
-               ©À©¤ 2887 /usr/sbin/httpd -DFOREGROUND
-               ©¸©¤ 2888 /usr/sbin/httpd -DFOREGROUND
+               â”œâ”€ 2881 /usr/sbin/httpd -DFOREGROUND
+               â”œâ”€ 2884 /usr/sbin/httpd -DFOREGROUND
+               â”œâ”€ 2885 /usr/sbin/httpd -DFOREGROUND
+               â”œâ”€ 2886 /usr/sbin/httpd -DFOREGROUND
+               â”œâ”€ 2887 /usr/sbin/httpd -DFOREGROUND
+               â””â”€ 2888 /usr/sbin/httpd -DFOREGROUND
     Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
     Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server's fully q...ssage
     Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
     Hint: Some lines were ellipsized, use -l to show in full.
-    ×¢Òâ£ºµ±ÎÒÃÇÊ¹ÓÃ systemctl µÄ start£¬restart£¬stop ºÍ reload ÃüÁîÊ±£¬ÎÒÃÇ²»»á´ÓÖÕ¶Ë»ñÈ¡µ½ÈÎºÎÊä³öÄÚÈİ£¬Ö»ÓĞ status ÃüÁî¿ÉÒÔ´òÓ¡Êä³ö¡£
+    æ³¨æ„ï¼šå½“æˆ‘ä»¬ä½¿ç”¨ systemctl çš„ startï¼Œrestartï¼Œstop å’Œ reload å‘½ä»¤æ—¶ï¼Œæˆ‘ä»¬ä¸ä¼šä»ç»ˆç«¯è·å–åˆ°ä»»ä½•è¾“å‡ºå†…å®¹ï¼Œåªæœ‰ status å‘½ä»¤å¯ä»¥æ‰“å°è¾“å‡ºã€‚
 
 
 
-### 15. ÈçºÎÆÁ±Î£¨ÈÃËü²»ÄÜÆô¶¯£©»òÏÔÊ¾·şÎñ£¨Èç httpd.service£©
+### 15. å¦‚ä½•å±è”½ï¼ˆè®©å®ƒä¸èƒ½å¯åŠ¨ï¼‰æˆ–æ˜¾ç¤ºæœåŠ¡ï¼ˆå¦‚ httpd.serviceï¼‰
 
-    # ×¢Òâ£ºÕâÊÇÒ»¸öÑİÊ¾ÈçºÎÔö¼ÓÒ»¸ö·şÎñ
+    # æ³¨æ„ï¼šè¿™æ˜¯ä¸€ä¸ªæ¼”ç¤ºå¦‚ä½•å¢åŠ ä¸€ä¸ªæœåŠ¡
     [root@manage ~]# systemctl mask httpd.service
     ln -s '/dev/null' '/etc/systemd/system/httpd.service'
 
-    # É¾³ı·şÎñ
+    # åˆ é™¤æœåŠ¡
     [root@manage ~]# systemctl unmask httpd.service
     rm '/etc/systemd/system/httpd.service'
 
 
-### 16. Ê¹ÓÃ systemctl ÃüÁîÉ±ËÀ·şÎñ
+### 16. ä½¿ç”¨ systemctl å‘½ä»¤æ€æ­»æœåŠ¡
 
     [root@manage ~]# systemctl kill httpd
     [root@manage ~]# systemctl status httpd
@@ -238,9 +238,9 @@ tags:
     Apr 28 18:01:42 tecmint systemd[1]: httpd.service: control process exited, code=exited status=226
     Apr 28 18:01:42 tecmint systemd[1]: Unit httpd.service entered failed state.
     Hint: Some lines were ellipsized, use -l to show in full.
-    Ê¹ÓÃ Systemctl ¿ØÖÆ²¢¹ÜÀí¹ÒÔØµã
+    ä½¿ç”¨ Systemctl æ§åˆ¶å¹¶ç®¡ç†æŒ‚è½½ç‚¹
 
-### 17. ÁĞ³öËùÓĞÏµÍ³¹ÒÔØµã
+### 17. åˆ—å‡ºæ‰€æœ‰ç³»ç»ŸæŒ‚è½½ç‚¹
 
     [root@manage ~]# systemctl list-unit-files --type=mount
     UNIT FILE                     STATE
@@ -253,7 +253,7 @@ tags:
     tmp.mount                     disabled
 
 
-### 18. ¹ÒÔØ¡¢Ğ¶ÔØ¡¢ÖØĞÂ¹ÒÔØ¡¢ÖØÔØÏµÍ³¹ÒÔØµã²¢¼ì²éÏµÍ³ÖĞ¹ÒÔØµã×´Ì¬
+### 18. æŒ‚è½½ã€å¸è½½ã€é‡æ–°æŒ‚è½½ã€é‡è½½ç³»ç»ŸæŒ‚è½½ç‚¹å¹¶æ£€æŸ¥ç³»ç»Ÿä¸­æŒ‚è½½ç‚¹çŠ¶æ€
 
     [root@manage ~]# systemctl start tmp.mount
     [root@manage ~]# systemctl stop tmp.mount
@@ -274,7 +274,7 @@ tags:
 
 
 
-### 19. ÔÚÆô¶¯Ê±¼¤»î¡¢ÆôÓÃ»ò½ûÓÃ¹ÒÔØµã£¨ÏµÍ³Æô¶¯Ê±×Ô¶¯¹ÒÔØ£©
+### 19. åœ¨å¯åŠ¨æ—¶æ¿€æ´»ã€å¯ç”¨æˆ–ç¦ç”¨æŒ‚è½½ç‚¹ï¼ˆç³»ç»Ÿå¯åŠ¨æ—¶è‡ªåŠ¨æŒ‚è½½ï¼‰
 
     [root@manage ~]# systemctl is-active tmp.mount
     [root@manage ~]# systemctl enable tmp.mount
@@ -282,15 +282,15 @@ tags:
 
 
 
-### 20. ÔÚ Linux ÖĞÆÁ±Î£¨ÈÃËü²»ÄÜÆôÓÃ£©»ò¿É¼û¹ÒÔØµã
+### 20. åœ¨ Linux ä¸­å±è”½ï¼ˆè®©å®ƒä¸èƒ½å¯ç”¨ï¼‰æˆ–å¯è§æŒ‚è½½ç‚¹
 
     [root@manage ~]# systemctl mask tmp.mount
     ln -s '/dev/null' '/etc/systemd/system/tmp.mount'
     [root@manage ~]# systemctl unmask tmp.mount
     rm '/etc/systemd/system/tmp.mount'
-    Ê¹ÓÃ Systemctl ¿ØÖÆ²¢¹ÜÀíÌ×½Ó¿Ú
+    ä½¿ç”¨ Systemctl æ§åˆ¶å¹¶ç®¡ç†å¥—æ¥å£
 
-### 21. ÁĞ³öËùÓĞ¿ÉÓÃÏµÍ³Ì×½Ó¿Ú
+### 21. åˆ—å‡ºæ‰€æœ‰å¯ç”¨ç³»ç»Ÿå¥—æ¥å£
 
     [root@manage ~]# systemctl list-unit-files --type=socket
     UNIT FILE                    STATE
@@ -309,7 +309,7 @@ tags:
 
 
 
-### 22. ÔÚ Linux ÖĞÆô¶¯¡¢ÖØÆô¡¢Í£Ö¹¡¢ÖØÔØÌ×½Ó¿Ú²¢¼ì²éÆä×´Ì¬
+### 22. åœ¨ Linux ä¸­å¯åŠ¨ã€é‡å¯ã€åœæ­¢ã€é‡è½½å¥—æ¥å£å¹¶æ£€æŸ¥å…¶çŠ¶æ€
 
     [root@manage ~]# systemctl start cups.socket
     [root@manage ~]# systemctl restart cups.socket
@@ -324,7 +324,7 @@ tags:
     Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.
 
 
-### 23. ÔÚÆô¶¯Ê±¼¤»îÌ×½Ó¿Ú£¬²¢ÆôÓÃ»ò½ûÓÃËü£¨ÏµÍ³Æô¶¯Ê±×ÔÆô¶¯£©
+### 23. åœ¨å¯åŠ¨æ—¶æ¿€æ´»å¥—æ¥å£ï¼Œå¹¶å¯ç”¨æˆ–ç¦ç”¨å®ƒï¼ˆç³»ç»Ÿå¯åŠ¨æ—¶è‡ªå¯åŠ¨ï¼‰
 
     [root@manage ~]# systemctl is-active cups.socket
     [root@manage ~]# systemctl enable cups.socket
@@ -332,20 +332,20 @@ tags:
 
 
 
-# ·şÎñµÄ CPU ÀûÓÃÂÊ£¨·ÖÅä¶î£©
+# æœåŠ¡çš„ CPU åˆ©ç”¨ç‡ï¼ˆåˆ†é…é¢ï¼‰
 
-### 25. »ñÈ¡µ±Ç°Ä³¸ö·şÎñµÄ CPU ·ÖÅä¶î£¨Èç httpd£©
+### 25. è·å–å½“å‰æŸä¸ªæœåŠ¡çš„ CPU åˆ†é…é¢ï¼ˆå¦‚ httpdï¼‰
 
     [root@manage ~]# systemctl show -p CPUShares httpd.service
     CPUShares=1024
-    [root@manage ~]# ×¢Òâ£º¸÷¸ö·şÎñµÄÄ¬ÈÏ CPU ·ÖÅä·İ¶î =1024£¬Äã¿ÉÒÔÔö¼Ó / ¼õÉÙÄ³¸ö½ø³ÌµÄ CPU ·ÖÅä·İ¶î¡£
+    [root@manage ~]# æ³¨æ„ï¼šå„ä¸ªæœåŠ¡çš„é»˜è®¤ CPU åˆ†é…ä»½é¢ =1024ï¼Œä½ å¯ä»¥å¢åŠ  / å‡å°‘æŸä¸ªè¿›ç¨‹çš„ CPU åˆ†é…ä»½é¢ã€‚
 
-### 26. ½«Ä³¸ö·şÎñ£¨httpd.service£©µÄ CPU ·ÖÅä·İ¶îÏŞÖÆÎª 2000 CPUShares/
+### 26. å°†æŸä¸ªæœåŠ¡ï¼ˆhttpd.serviceï¼‰çš„ CPU åˆ†é…ä»½é¢é™åˆ¶ä¸º 2000 CPUShares/
 
     [root@manage ~]# systemctl set-property httpd.service CPUShares=2000
     [root@manage ~]# systemctl show -p CPUShares httpd.service
     CPUShares=2000
-    [root@manage ~]# ×¢Òâ£ºµ±ÄãÎªÄ³¸ö·şÎñÉèÖÃ CPUShares£¬»á×Ô¶¯´´½¨Ò»¸öÒÔ·şÎñÃûÃüÃûµÄÄ¿Â¼£¨Èç httpd.service£©£¬ÀïÃæ°üº¬ÁËÒ»¸öÃûÎª 90-CPUShares.conf µÄÎÄ¼ş£¬¸ÃÎÄ¼şº¬ÓĞ CPUShare ÏŞÖÆĞÅÏ¢£¬Äã¿ÉÒÔÍ¨¹ıÒÔÏÂ·½Ê½²é¿´¸ÃÎÄ¼ş£º
+    [root@manage ~]# æ³¨æ„ï¼šå½“ä½ ä¸ºæŸä¸ªæœåŠ¡è®¾ç½® CPUSharesï¼Œä¼šè‡ªåŠ¨åˆ›å»ºä¸€ä¸ªä»¥æœåŠ¡åå‘½åçš„ç›®å½•ï¼ˆå¦‚ httpd.serviceï¼‰ï¼Œé‡Œé¢åŒ…å«äº†ä¸€ä¸ªåä¸º 90-CPUShares.conf çš„æ–‡ä»¶ï¼Œè¯¥æ–‡ä»¶å«æœ‰ CPUShare é™åˆ¶ä¿¡æ¯ï¼Œä½ å¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹å¼æŸ¥çœ‹è¯¥æ–‡ä»¶ï¼š
 
     [root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
     [Service]
@@ -353,7 +353,7 @@ tags:
 
 
 
-### 27. ¼ì²éÄ³¸ö·şÎñµÄËùÓĞÅäÖÃÏ¸½Ú
+### 27. æ£€æŸ¥æŸä¸ªæœåŠ¡çš„æ‰€æœ‰é…ç½®ç»†èŠ‚
 
     [root@manage ~]# systemctl show httpd
     Id=httpd.service
@@ -372,78 +372,78 @@ tags:
     ....
 
 
-### 28. ·ÖÎöÄ³¸ö·şÎñ£¨httpd£©µÄ¹Ø¼üÁ´
+### 28. åˆ†ææŸä¸ªæœåŠ¡ï¼ˆhttpdï¼‰çš„å…³é”®é“¾
 
     [root@manage ~]# systemd-analyze critical-chain httpd.service
     The time after the unit is active or started is printed after the "@" character.
     The time the unit takes to start is printed after the "+" character.
     httpd.service +142ms
-    ©¸©¤ network.target @11.168s
-      ©¸©¤ network.service @9.456s +1.712s
-        ©¸©¤ NetworkManager.service @8.858s +596ms
-          ©¸©¤ firewalld.service @4.931s +3.926s
-            ©¸©¤ basic.target @4.916s
-              ©¸©¤ sockets.target @4.916s
-                ©¸©¤ dbus.socket @4.916s
-                  ©¸©¤ sysinit.target @4.905s
-                    ©¸©¤ systemd-update-utmp.service @4.864s +39ms
-                      ©¸©¤ auditd.service @4.563s +301ms
-                        ©¸©¤ systemd-tmpfiles-setup.service @4.485s +69ms
-                          ©¸©¤ rhel-import-state.service @4.342s +142ms
-                            ©¸©¤ local-fs.target @4.324s
-                              ©¸©¤ boot.mount @4.286s +31ms
-                                ©¸©¤ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
-                                  ©¸©¤ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
+    â””â”€ network.target @11.168s
+      â””â”€ network.service @9.456s +1.712s
+        â””â”€ NetworkManager.service @8.858s +596ms
+          â””â”€ firewalld.service @4.931s +3.926s
+            â””â”€ basic.target @4.916s
+              â””â”€ sockets.target @4.916s
+                â””â”€ dbus.socket @4.916s
+                  â””â”€ sysinit.target @4.905s
+                    â””â”€ systemd-update-utmp.service @4.864s +39ms
+                      â””â”€ auditd.service @4.563s +301ms
+                        â””â”€ systemd-tmpfiles-setup.service @4.485s +69ms
+                          â””â”€ rhel-import-state.service @4.342s +142ms
+                            â””â”€ local-fs.target @4.324s
+                              â””â”€ boot.mount @4.286s +31ms
+                                â””â”€ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
+                                  â””â”€ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
 
 
-### 29. »ñÈ¡Ä³¸ö·şÎñ£¨httpd£©µÄÒÀÀµĞÔÁĞ±í
+### 29. è·å–æŸä¸ªæœåŠ¡ï¼ˆhttpdï¼‰çš„ä¾èµ–æ€§åˆ—è¡¨
 
     [root@manage ~]# systemctl list-dependencies httpd.service
     httpd.service
-    ©À©¤ system.slice
-    ©¸©¤ basic.target
-      ©À©¤ firewalld.service
-      ©À©¤ microcode.service
-      ©À©¤ rhel-autorelabel-mark.service
-      ©À©¤ rhel-autorelabel.service
-      ©À©¤ rhel-configure.service
-      ©À©¤ rhel-dmesg.service
-      ©À©¤ rhel-loadmodules.service
-      ©À©¤ paths.target
-      ©À©¤ slices.target
-      ©¦ ©À©¤ -.slice
-      ©¦ ©¸©¤ system.slice
-      ©À©¤ sockets.target
-      ©¦ ©À©¤ dbus.socket
+    â”œâ”€ system.slice
+    â””â”€ basic.target
+      â”œâ”€ firewalld.service
+      â”œâ”€ microcode.service
+      â”œâ”€ rhel-autorelabel-mark.service
+      â”œâ”€ rhel-autorelabel.service
+      â”œâ”€ rhel-configure.service
+      â”œâ”€ rhel-dmesg.service
+      â”œâ”€ rhel-loadmodules.service
+      â”œâ”€ paths.target
+      â”œâ”€ slices.target
+      â”‚ â”œâ”€ -.slice
+      â”‚ â””â”€ system.slice
+      â”œâ”€ sockets.target
+      â”‚ â”œâ”€ dbus.socket
     ....
 
 
 
-### 30. °´µÈ¼¶ÁĞ³ö¿ØÖÆ×é
+### 30. æŒ‰ç­‰çº§åˆ—å‡ºæ§åˆ¶ç»„
 
     [root@manage ~]# systemd-cgls
-    ©À©¤ 1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
-    ©À©¤ user.slice
-    ©¦ ©¸©¤ user-0.slice
-    ©¦   ©¸©¤ session-1.scope
-    ©¦     ©À©¤ 2498 sshd: root@pts/0
-    ©¦     ©À©¤ 2500 -bash
-    ©¦     ©À©¤ 4521 systemd-cgls
-    ©¦     ©¸©¤ 4522 systemd-cgls
-    ©¸©¤ system.slice
-      ©À©¤ httpd.service
-      ©¦ ©À©¤ 4440 /usr/sbin/httpd -DFOREGROUND
-      ©¦ ©À©¤ 4442 /usr/sbin/httpd -DFOREGROUND
-      ©¦ ©À©¤ 4443 /usr/sbin/httpd -DFOREGROUND
-      ©¦ ©À©¤ 4444 /usr/sbin/httpd -DFOREGROUND
-      ©¦ ©À©¤ 4445 /usr/sbin/httpd -DFOREGROUND
-      ©¦ ©¸©¤ 4446 /usr/sbin/httpd -DFOREGROUND
-      ©À©¤ polkit.service
-      ©¦ ©¸©¤ 721 /usr/lib/polkit-1/polkitd --no-debug
+    â”œâ”€ 1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+    â”œâ”€ user.slice
+    â”‚ â””â”€ user-0.slice
+    â”‚   â””â”€ session-1.scope
+    â”‚     â”œâ”€ 2498 sshd: root@pts/0
+    â”‚     â”œâ”€ 2500 -bash
+    â”‚     â”œâ”€ 4521 systemd-cgls
+    â”‚     â””â”€ 4522 systemd-cgls
+    â””â”€ system.slice
+      â”œâ”€ httpd.service
+      â”‚ â”œâ”€ 4440 /usr/sbin/httpd -DFOREGROUND
+      â”‚ â”œâ”€ 4442 /usr/sbin/httpd -DFOREGROUND
+      â”‚ â”œâ”€ 4443 /usr/sbin/httpd -DFOREGROUND
+      â”‚ â”œâ”€ 4444 /usr/sbin/httpd -DFOREGROUND
+      â”‚ â”œâ”€ 4445 /usr/sbin/httpd -DFOREGROUND
+      â”‚ â””â”€ 4446 /usr/sbin/httpd -DFOREGROUND
+      â”œâ”€ polkit.service
+      â”‚ â””â”€ 721 /usr/lib/polkit-1/polkitd --no-debug
     ....
 
 
-### 31. °´ CPU¡¢ÄÚ´æ¡¢ÊäÈëºÍÊä³öÁĞ³ö¿ØÖÆ×é
+### 31. æŒ‰ CPUã€å†…å­˜ã€è¾“å…¥å’Œè¾“å‡ºåˆ—å‡ºæ§åˆ¶ç»„
 
     [root@manage ~]# systemd-cgtop
     Path                                                              Tasks   %CPU   Memory  Input/s Output/s
@@ -469,16 +469,16 @@ tags:
     /system.slice/systemd-udevd.service                                   1      -        -        -        -
     /system.slice/webmin.service                                          1      -        -        -        -
     /user.slice/user-0.slice/session-1.scope                              3      -        -        -        -
-    ¿ØÖÆÏµÍ³ÔËĞĞµÈ¼¶
+    æ§åˆ¶ç³»ç»Ÿè¿è¡Œç­‰çº§
 
-### 32. Æô¶¯ÏµÍ³¾ÈÔ®Ä£Ê½
+### 32. å¯åŠ¨ç³»ç»Ÿæ•‘æ´æ¨¡å¼
 
     [root@manage ~]# systemctl rescue
     Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
     The system is going down to rescue mode NOW!
 
 
-### 33. ½øÈë½ô¼±Ä£Ê½
+### 33. è¿›å…¥ç´§æ€¥æ¨¡å¼
 
     [root@manage ~]# systemctl emergency
     Welcome to emergency mode! After logging in, type "journalctl -xb" to view
@@ -486,33 +486,33 @@ tags:
     to boot into default mode.
 
 
-### 34. ÁĞ³öµ±Ç°Ê¹ÓÃµÄÔËĞĞµÈ¼¶
+### 34. åˆ—å‡ºå½“å‰ä½¿ç”¨çš„è¿è¡Œç­‰çº§
 
     [root@manage ~]# systemctl get-default
     multi-user.target
 
 
-### 35. Æô¶¯ÔËĞĞµÈ¼¶ 5£¬¼´Í¼ĞÎÄ£Ê½
+### 35. å¯åŠ¨è¿è¡Œç­‰çº§ 5ï¼Œå³å›¾å½¢æ¨¡å¼
 
     [root@manage ~]# systemctl isolate runlevel5.target
-    »ò
+    æˆ–
     [root@manage ~]# systemctl isolate graphical.target
 
 
-### 36. Æô¶¯ÔËĞĞµÈ¼¶ 3£¬¼´¶àÓÃ»§Ä£Ê½£¨ÃüÁîĞĞ£©
+### 36. å¯åŠ¨è¿è¡Œç­‰çº§ 3ï¼Œå³å¤šç”¨æˆ·æ¨¡å¼ï¼ˆå‘½ä»¤è¡Œï¼‰
 
     [root@manage ~]# systemctl isolate runlevel3.target
-    »ò
+    æˆ–
     [root@manage ~]# systemctl isolate multiuser.target
 
 
-### 37. ÉèÖÃ¶àÓÃ»§Ä£Ê½»òÍ¼ĞÎÄ£Ê½ÎªÄ¬ÈÏÔËĞĞµÈ¼¶
+### 37. è®¾ç½®å¤šç”¨æˆ·æ¨¡å¼æˆ–å›¾å½¢æ¨¡å¼ä¸ºé»˜è®¤è¿è¡Œç­‰çº§
 
     [root@manage ~]# systemctl set-default runlevel3.target
     [root@manage ~]# systemctl set-default runlevel5.target
 
 
-### 38. ÖØÆô¡¢Í£Ö¹¡¢¹ÒÆğ¡¢ĞİÃßÏµÍ³»òÊ¹ÏµÍ³½øÈë»ìºÏË¯Ãß
+### 38. é‡å¯ã€åœæ­¢ã€æŒ‚èµ·ã€ä¼‘çœ ç³»ç»Ÿæˆ–ä½¿ç³»ç»Ÿè¿›å…¥æ··åˆç¡çœ 
 
     [root@manage ~]# systemctl reboot
     [root@manage ~]# systemctl halt
