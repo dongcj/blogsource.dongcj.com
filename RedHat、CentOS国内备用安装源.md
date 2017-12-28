@@ -162,3 +162,8 @@ yum makecache
     # 编辑 /etc/yum.conf 并加入以下一行：
     exclude = *.i?86
 
+
+
+
+
+

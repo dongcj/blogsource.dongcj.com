@@ -120,3 +120,7 @@ tags:
     http://code.google.com/p/puppet-manifest-share/downloads/list
     http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
     http://dongxicheng.org/cluster-managemant/puppet/
+
+
+
+

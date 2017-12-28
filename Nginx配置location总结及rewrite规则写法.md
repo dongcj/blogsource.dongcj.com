@@ -255,3 +255,8 @@ http {
 > 来源： <http://seanlook.com/2015/05/17/nginx-location-rewrite/>
 
 
+
+
+
+
+

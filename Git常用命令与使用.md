@@ -9,7 +9,9 @@ categories:
   - linux
 ---
 
-> 参考：http://www.jianshu.com/p/f7b5431418d2
+> 参考：[http://www.jianshu.com/p/f7b5431418d2](http://www.jianshu.com/p/f7b5431418d2)
+
+> 猴子都能懂的 git 入门：[https://backlog.com/git-tutorial/cn/intro/intro5_2.html](https://backlog.com/git-tutorial/cn/intro/intro5_2.html)
 
 # 常见问题
 ## 使用 key 方式认证
@@ -28,10 +30,41 @@ ssh git@github.com
     # 删除以下文件夹中的文件：
     %appdata%\..\Local\Microsoft\Credentials
 
-## 同一网站，多个不同的帐号使用 git key 切换
+    # 但是还是好麻烦，请看下面
 
-### 安装时使用 ssh 而不是 plink 
-在安装时指定 ssh 
+## 同一网站，多个不同的帐号使用 git key 切换
+  - 安装 Git
+  - 安装 [TortoiseGit](https://tortoisegit.org/) (Windows 下初学者推荐 )
+  - 在安装时指定 ssh，而不是 plink
+  - vi ~/.ssh/config
+
+```bash
+#
+#--------------------------------------------------------------------------
+# <GIT_DOMAIN>
+#--------------------------------------------------------------------------
+#
+# git clone git@<ID1>.<GIT_DOMAIN>:<GIT_USER1>/<GIT_REPO1>.git
+host <ID1>.<GIT_DOMAIN>
+    hostname <GIT_DOMAIN>
+    Port 22
+    User <GIT_USER>
+    IdentityFile ~/.ssh/<GIT_DOMAIN>-<GIT_USER>-id_rsa
+
+
+#
+#--------------------------------------------------------------------------
+# <GIT_DOMAIN>
+#--------------------------------------------------------------------------
+#
+# git clone git@<ID2>.<GIT_DOMAIN>:<GIT_USER2>/<GIT_REPO2>.git
+host <ID2>.<GIT_DOMAIN>
+    hostname <GIT_DOMAIN>
+    Port 22
+    User <GIT_USER>
+    IdentityFile ~/.ssh/<GIT_DOMAIN>-<GIT_USER>-id_rsa
+```
+  - 使用不同的 ssh 别名连接 Git (host 后面接的即为别名 )
 
 ### 取消 global 的 email
     git config --global --unset user.name
@@ -228,3 +261,8 @@ git mv README README2                                     # 重命名文件 READ
 
 git rebase
 ```
+
+
+
+
+

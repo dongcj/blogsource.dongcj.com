@@ -290,3 +290,8 @@ Expire >= 7Days
 
 一般來說，如果 DNS RR 資料變更情況頻繁的，那麼上述的相關數值可以訂定的小一些，如果 DNS RR 是很穩定的， 為了節省頻寬，則可以將 Refresh 設定的較大一些。
 
+
+
+
+
+

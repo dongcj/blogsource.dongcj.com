@@ -53,3 +53,8 @@ tags:
     $ nslookup u1
     $ getent ahosts u1
 
+
+
+
+
+

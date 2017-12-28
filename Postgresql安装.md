@@ -63,3 +63,8 @@ postgres=# create database <DB_NAME>;
 postgres=# \c <DB_NAME>;
 \i <DB_FILE>.sql
 ```
+
+
+
+
+

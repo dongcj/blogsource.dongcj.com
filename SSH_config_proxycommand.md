@@ -34,3 +34,8 @@ user root
 IdentityFile /cygdrive/c/Users/root/id_rsa
 ProxyCommand ssh -i /cygdrive/c/Users/root/id_rsa root@203.195.207.108 -p 46707 nc 118.193.254.66 22
 ```
+
+
+
+
+

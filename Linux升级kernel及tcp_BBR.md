@@ -12,11 +12,10 @@ tags:
   - tcp_bbr
 ---
 
-> https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage
-  只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。
+> 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。
 
-> 快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）
-    wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
+> 快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br>
+> wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 
 
 ## 修改系统变量：
@@ -33,27 +32,29 @@ lsmod | grep bbr
 ```
 
 # Debian、Ubuntu 升级内核
-```bash
-# 下载内核
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.11.6/linux-image-4.11.6-041106-generic_4.11.6-041106.201706170517_amd64.deb
 
-# 安装内核
-dpkg -i linux-image-4.11.6-041106-generic_4.11.6-041106.201706170517_amd64.deb
+```bash
+# 直接使用 apt-get 安装内核
+apt-get update
+apt-cache search linux-image-extra
+
+# 安装最新的内核
+apt-get install linux-image-extra-<NEWEST_KERNEL_RELEASE>
 
 # 查看已经安装的内核
-dpkg -l|grep linux-image
+dpkg -l | grep linux-image
 
 # 卸载旧内核
-apt-get remove ` 内核名 `
+apt-get remove <OLD_KERNEL_RELEASE>
 
 # 更新引导并重启
-update-grub  # 更新引导
+update-grub
 reboot
 
-
-# 然后我们可以查看一下目前的内核版本：
+# 查看一下目前的内核版本
+# 应该是显示为 <NEWEST_KERNEL_RELEASE>
 uname -r
-4.9.0-rc8-amd64
+
 ```
 
 
@@ -142,4 +143,5 @@ if [ x"${feature_menuentry_id}" = xy ]; then
 
     # 输出结果：
     saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
+
     # 重启就可以完成更新内核了！

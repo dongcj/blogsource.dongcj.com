@@ -139,3 +139,8 @@ vi /opt/pgsql/data/recovery.conf
 [postgres@node2 ~]$ pg_ctl start
 ```
 
+
+
+
+
+
