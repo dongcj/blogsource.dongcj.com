@@ -87,6 +87,7 @@ yum list installed | grep docker
 ```
 
 # 配置 docker 加速器（用于国内加速）
+> 以下操作需重启 docker 服务生效
 
 vi /etc/docker/daemon.json
 
