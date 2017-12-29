@@ -1,5 +1,5 @@
 ---
-title: PXE °²×°ÓëÉè¶¨
+title: PXE å®‰è£…ä¸Žè®¾å®š
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:43:19
 updated: 2016/08/11 15:44:39
@@ -11,20 +11,20 @@ tags:
   - kickstart
 ---
 
-# °²×°Èí¼þ
+# å®‰è£…è½¯ä»¶
 
-    # °²×°µÄÈí¼þ£º
+    # å®‰è£…çš„è½¯ä»¶ï¼š
     dhcp-3.0.5-7.el5.x86_64.rpm
-    vsftpd-2.0.5-10.el5.x86_64.rpm( ²»Ðë×° )
+    vsftpd-2.0.5-10.el5.x86_64.rpm( ä¸é¡»è£… )
     xinetd-2.3.14-10.el5.x86_64.rpm
     tftp-server-0.42-3.1.x86_64.rpm
     pykickstart-0.43.3-1.el5.noarch.rpm
     system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
     syslinux
 
-    # ¹Ø±Õ selinux & iptables
+    # å…³é—­ selinux & iptables
 
-# dhcp ÅäÖÃ
+# dhcp é…ç½®
     ddns-update-style interim;
     ignore client-updates;
     allow booting;
@@ -46,29 +46,29 @@ tags:
     }
 
 
-# Ôö¼Ó tftp ÎÄ¼þ
-    ¿½ÎÄ¼þÖÁ tftpboot( ×¢£ºmenu.c32 ºÍ pxelinux.0 Òª´Ó±¾»ú¿½±´£¬·ñÔò TIMEOUT ÎÞÐ§£¡ )
+# å¢žåŠ  tftp æ–‡ä»¶
+    æ‹·æ–‡ä»¶è‡³ tftpboot( æ³¨ï¼šmenu.c32 å’Œ pxelinux.0 è¦ä»Žæœ¬æœºæ‹·è´ï¼Œå¦åˆ™ TIMEOUT æ— æ•ˆï¼ )
     $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
     $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 
     $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
     $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-    $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default ÎÄ¼þÒ²¿ÉÒÔ×Ô¼ºÐÞ¸Ä
+    $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default æ–‡ä»¶ä¹Ÿå¯ä»¥è‡ªå·±ä¿®æ”¹
 
-# ÅäÖÃ kickstart
-    # ÔÚ /tftpboot/pxelinux.cfg/default ÖÐÌí¼Ó KS Èë¿Ú
+# é…ç½® kickstart
+    # åœ¨ /tftpboot/pxelinux.cfg/default ä¸­æ·»åŠ  KS å…¥å£
       label linux
         menu label ^Install or upgrade an existing system
         menu default
         kernel vmlinuz
         append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
-    # ÐÞ¸Ä kickstart ×Ô¶¯°²×° linux( ¼û°²×°ÎÄ¼þ )
+    # ä¿®æ”¹ kickstart è‡ªåŠ¨å®‰è£… linux( è§å®‰è£…æ–‡ä»¶ )
 
 
 
- > ¸½Â¼£ºÍêÕû DHCP ÑùÀý
+ > é™„å½•ï¼šå®Œæ•´ DHCP æ ·ä¾‹
 
     ddns-update-style interim;
     ddns-updates on;

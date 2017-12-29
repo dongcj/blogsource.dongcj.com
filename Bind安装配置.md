@@ -1,3 +1,4 @@
+  
 ---
 title: Bind 安装配置
 author: dongcj <ntwk@163.com>
