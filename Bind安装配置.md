@@ -1,5 +1,5 @@
 ---
-title: Bind °²×°ÅäÖÃ
+title: Bind å®‰è£…é…ç½®
 author: dongcj <ntwk@163.com>
 date: 2016/07/11 15:40:19
 updated: 2016/08/11 15:44:39
@@ -10,21 +10,21 @@ tags:
   - dns
 ---
 
-> ²Î¿¼£º
+> å‚è€ƒï¼š
 http://linux.vbird.org/linux_server/0350dns.php#server_settings
-DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
+DDNS çš„å®‰è£…è§ï¼šhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
 
-# °²×°
+# å®‰è£…
     $ rpm -ivh bind bind-chroot
 
 
-# ÅäÖÃ
+# é…ç½®
 
-    1. Éú³É rndc key
+    1. ç”Ÿæˆ rndc key
     $ rndc-confgen -r /dev/random >/etc/rndc.conf
     $ chown root:named /etc/rndc.conf
 
-    2. ÅäÖÃ named.conf
+    2. é…ç½® named.conf
     $ vi /etc/named.conf
     options
     {
@@ -36,14 +36,14 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
             allow-query             { any; };
             recursion               yes;
             listen-on port 53       { any; };
-            allow-transfer          { none; }; // ²»ÔÊÐí±ðÈË½øÐÐ zone ×ªÒÆ , Èç¹ûÓÐ slave DNS£¬Ôò¿ÉÒÔ¿ªÆô
+            allow-transfer          { none; }; // ä¸å…è®¸åˆ«äººè¿›è¡Œ zone è½¬ç§» , å¦‚æžœæœ‰ slave DNSï¼Œåˆ™å¯ä»¥å¼€å¯
     };
 
-    acl intranet { 192.168.1.0/24; }; // ±¾µØÀ´Ô´ IP
-    acl internet { ! 192.168.1.0/24; any; }; // Íâ²¿À´Ô´ IP. ¾ªÌ¾ºÅ±íÊ¾·´ÏòÑ¡Ôñ
+    acl intranet { 192.168.1.0/24; }; // æœ¬åœ°æ¥æº IP
+    acl internet { ! 192.168.1.0/24; any; }; // å¤–éƒ¨æ¥æº IP. æƒŠå¹å·è¡¨ç¤ºåå‘é€‰æ‹©
 
-    view "lan" {                    // lan Ö»ÊÇÒ»¸öÃû×Ö¶øÒÑ£¬´ú±íµÄÊÇÄÚÍø
-            match-clients { "intranet"; };  // ÎÇºÏµÄ²ÅÊ¹ÓÃµ×ÏÂµÄ zone
+    view "lan" {                    // lan åªæ˜¯ä¸€ä¸ªåå­—è€Œå·²ï¼Œä»£è¡¨çš„æ˜¯å†…ç½‘
+            match-clients { "intranet"; };  // å»åˆçš„æ‰ä½¿ç”¨åº•ä¸‹çš„ zone
             zone "." IN {
                     type hint;
                     file "named.ca";
@@ -61,7 +61,7 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
     };
 
     view "wan" {
-            match-clients { "internet"; };  // ÎÇºÏµÄ²ÅÊ¹ÓÃµ×ÏÂµÄ zone
+            match-clients { "internet"; };  // å»åˆçš„æ‰ä½¿ç”¨åº•ä¸‹çš„ zone
             zone "." IN {
                     type hint;
                     file "named.ca";
@@ -73,7 +73,7 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
             };
     };
 
-    key "rndc-key" {			// ÕâÀïÊÇ rndc µÄÃÜÔ¿£¬ÐèÒªÐÞ¸ÄÎª /etc/rndc.conf ÖÐÒ»ÑùµÄ secret
+    key "rndc-key" {			// è¿™é‡Œæ˜¯ rndc çš„å¯†é’¥ï¼Œéœ€è¦ä¿®æ”¹ä¸º /etc/rndc.conf ä¸­ä¸€æ ·çš„ secret
           algorithm hmac-md5;
           secret "wFLLOzcaq3T2CFNvbT3d7g==";
     };
@@ -83,83 +83,83 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
                   allow { 127.0.0.1; } keys { "rndc-key"; };
     };
 
-    logging {                               // ·ÀÖ¹Íâ²¿·þÎñÆ÷´íÎóµ¼ÖÂ log ¼ÇÂ¼
+    logging {                               // é˜²æ­¢å¤–éƒ¨æœåŠ¡å™¨é”™è¯¯å¯¼è‡´ log è®°å½•
             category lame-servers { null; };
     };
 
 
 
-# zone ÅäÖÃ
-    1. ÕýÏò zone ÄÚÍøÅäÖÃ
+# zone é…ç½®
+    1. æ­£å‘ zone å†…ç½‘é…ç½®
     $ vi /var/named/named.xdol.vicp.net
 
     $TTL    600
     @                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
-    @                       IN      NS      master.xdol.vicp.net.   ;DNS ·þÎñÆ÷Ãû³Æ
-    master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS ·þÎñÆ÷ IP
-    @                       IN      MX      10 www.xdol.vicp.net.   ; ÓÊ¼þ·þÎñÆ÷
+    @                       IN      NS      master.xdol.vicp.net.   ;DNS æœåŠ¡å™¨åç§°
+    master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS æœåŠ¡å™¨ IP
+    @                       IN      MX      10 www.xdol.vicp.net.   ; é‚®ä»¶æœåŠ¡å™¨
 
-    ; ¹ØÓÚ 192.168.1.109 Õâ²¿Ö÷»úµÄÕý½âÉè¶¨
-    www.xdol.vicp.net.      IN      A       192.168.1.109		; ÄÚ²¿Íø¿¨µÄ IP
+    ; å…³äºŽ 192.168.1.109 è¿™éƒ¨ä¸»æœºçš„æ­£è§£è®¾å®š
+    www.xdol.vicp.net.      IN      A       192.168.1.109		; å†…éƒ¨ç½‘å¡çš„ IP
     ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
     ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 
-    ; ÆäËüÖ÷»úµÄÕýÈ·Éè¶¨
+    ; å…¶å®ƒä¸»æœºçš„æ­£ç¡®è®¾å®š
     client.xdol.vicp.net.   IN      A       192.168.1.246
 
 
-    2. ÕýÏò zone ÍâÍøÅäÖÃ
+    2. æ­£å‘ zone å¤–ç½‘é…ç½®
     $ vi /var/named/named.xdol.vicp.net.inter
 
     $TTL    600
     @                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
-    @                       IN      NS      master.xdol.vicp.net.   ;DNS ·þÎñÆ÷Ãû³Æ
-    master.xdol.vicp.net.   IN      A       11.11.11.11		;DNS ·þÎñÆ÷ IP
-    @                       IN      MX      10 www.xdol.vicp.net.   ; ÓÊ¼þ·þÎñÆ÷
+    @                       IN      NS      master.xdol.vicp.net.   ;DNS æœåŠ¡å™¨åç§°
+    master.xdol.vicp.net.   IN      A       11.11.11.11		;DNS æœåŠ¡å™¨ IP
+    @                       IN      MX      10 www.xdol.vicp.net.   ; é‚®ä»¶æœåŠ¡å™¨
 
-    ; ¹ØÓÚ 192.168.1.109 Õâ²¿Ö÷»úµÄÕý½âÉè¶¨
-    www.xdol.vicp.net.      IN      A       11.11.11.11		; Íâ²¿Íø¿¨µÄ IP
+    ; å…³äºŽ 192.168.1.109 è¿™éƒ¨ä¸»æœºçš„æ­£è§£è®¾å®š
+    www.xdol.vicp.net.      IN      A       11.11.11.11		; å¤–éƒ¨ç½‘å¡çš„ IP
     ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
     ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
 
-    ; ÆäËüÖ÷»úµÄÕýÈ·Éè¶¨
+    ; å…¶å®ƒä¸»æœºçš„æ­£ç¡®è®¾å®š
     client.xdol.vicp.net.   IN      A       192.168.1.246
 
-    3. ·´Ïò zone ÄÚ¡¢ÍâÍøÉèÖÃ ( ÍâÍø²»ÐèÒª·´Ïò zone)
+    3. åå‘ zone å†…ã€å¤–ç½‘è®¾ç½® ( å¤–ç½‘ä¸éœ€è¦åå‘ zone)
     $ vi /var/named/named.192.168.1
 
     $TTL    600
     @       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D )
     @       IN      NS      master.xdol.vicp.net.
-    109     IN      PTR     master.xdol.vicp.net. ; ½«Ô­À´µÄ A ¸ÄÎª PTR ±êÖ¾¶øÒÑ
+    109     IN      PTR     master.xdol.vicp.net. ; å°†åŽŸæ¥çš„ A æ”¹ä¸º PTR æ ‡å¿—è€Œå·²
 
     109     IN      PTR     www.xdol.vicp.net.
     246     IN      PTR     client.xdol.vicp.net.
 
 
-# Æô¶¯·þÎñ
+# å¯åŠ¨æœåŠ¡
     service named start
     chkconfig named on
     
 
-# ÅäÖÃ DDNS( ¿ÉÑ¡ )
-    1. DNS ·þÎñ¶ËÉú³ÉÖ÷»ú¶ËµÄ key( ÔÚµ±Ç°Ä¿Â¼ÏÂ»áÉú³ÉÒ»¸ö¹«Ô¿¼°Ò»¸öË½Ô¿ )
+# é…ç½® DDNS( å¯é€‰ )
+    1. DNS æœåŠ¡ç«¯ç”Ÿæˆä¸»æœºç«¯çš„ key( åœ¨å½“å‰ç›®å½•ä¸‹ä¼šç”Ÿæˆä¸€ä¸ªå…¬é’¥åŠä¸€ä¸ªç§é’¥ )
     dnssec-keygen -r /dev/urandom -a HMAC-MD5 -b 512 -n HOST greatwall
 
 
-    2. ½«¹«Ô¿¼ÓÈëµ½ÅäÖÃÎÄ¼þÖÐ
+    2. å°†å…¬é’¥åŠ å…¥åˆ°é…ç½®æ–‡ä»¶ä¸­
     $ vi /etc/named.conf
-    // ÏÈÔÚÈÎÒâµØ·½¼ÓÈëß@‚€ Key µÄÏàêPÃÜ´aÙYÓ£¡ ( ¼Ó¶ø²»ÊÇ¸üÐÂÆäËüµÄ )
+    // å…ˆåœ¨ä»»æ„åœ°æ–¹åŠ å…¥é€™å€‹ Key çš„ç›¸é—œå¯†ç¢¼è³‡è¨Šï¼ ( åŠ è€Œä¸æ˜¯æ›´æ–°å…¶å®ƒçš„ )
     key "greatwall" {
             algorithm hmac-md5;
-            secret "xZmUo8ozG8f2OSg/cqH8Bqxk59Ho8....3s9IjUxpFB4Q==";  // ÕâÀï»»³ÉËã³öµÄ¹«Ô¿ cat ³öÀ´µÄÄÚÈÝ
+            secret "xZmUo8ozG8f2OSg/cqH8Bqxk59Ho8....3s9IjUxpFB4Q==";  // è¿™é‡Œæ¢æˆç®—å‡ºçš„å…¬é’¥ cat å‡ºæ¥çš„å†…å®¹
     };
 
-    // È»ááŒ¢ÄãÔ­±¾µÄ zone ¼ÓÈëµ×ÏÂß@Ò»¶ÎÐûÊ¾
+    // ç„¶å¾Œå°‡ä½ åŽŸæœ¬çš„ zone åŠ å…¥åº•ä¸‹é€™ä¸€æ®µå®£ç¤º
     zone "centos.vbird" IN {
             type master;
             file "named.centos.vbird";
-            update-policy {					// Õâ¸ö update-policy ¼°ºóÃæ¾ÍÊÇÌí¼ÓµÄ
+            update-policy {					// è¿™ä¸ª update-policy åŠåŽé¢å°±æ˜¯æ·»åŠ çš„
                     grant greatwall name greatwall.xdol.vicp.net. A;
             };
     };
@@ -167,12 +167,12 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
     $ chmod g+w /var/named
     $ chown named /var/named/named.centos.vbird
     $ /etc/init.d/named restart
-    $ setsebool -P named_write_master_zones=1		// selinux µÄ
+    $ setsebool -P named_write_master_zones=1		// selinux çš„
 
 
 
-    3. ¿Í»§¶Ë¸üÐÂ
-    ½« ddns µÄ key ´«¸ø¿Í»§¶Ë£¬²¢ÔÚ¿Í»§¶Ë crontab ÖÐÌí¼ÓÒÔÏÂ×Ô¶¯ÔËÐÐµÄ½Å±¾
+    3. å®¢æˆ·ç«¯æ›´æ–°
+    å°† ddns çš„ key ä¼ ç»™å®¢æˆ·ç«¯ï¼Œå¹¶åœ¨å®¢æˆ·ç«¯ crontab ä¸­æ·»åŠ ä»¥ä¸‹è‡ªåŠ¨è¿è¡Œçš„è„šæœ¬
 
     #!/bin/bash
     #
@@ -230,65 +230,65 @@ DDNS µÄ°²×°¼û£ºhttp://wenku.baidu.com/view/31f263d233d4b14e8524687e.html
 
 
 
-# ¸½Â¼£º Ãû´Ê½âÊÍ
+# é™„å½•ï¼š åè¯è§£é‡Š
 ---
 
 TLD: 	Top Level Domain
 ccTLD: 	Country code TLD
 TTL: Time to live
 
-ÉêÕˆ DNS îIÓò²éÔƒÊÚ™à
+ç”³è«‹ DNS é ˜åŸŸæŸ¥è©¢æŽˆæ¬Š
 
-NS ¼ÇÂ¼£º NameServer
-A ¼ÇÂ¼£º  Address
-MX ¼ÇÂ¼£º Mail
-CNAME       ŒëH´ú±íß@‚€Ö÷™C„eÃûµÄÖ÷™CÃû×Ö
+NS è®°å½•ï¼š NameServer
+A è®°å½•ï¼š  Address
+MX è®°å½•ï¼š Mail
+CNAME       å¯¦éš›ä»£è¡¨é€™å€‹ä¸»æ©Ÿåˆ¥åçš„ä¸»æ©Ÿåå­—
 
-SOA£º¾ÍÊÇé_Ê¼òž×C (Start of Authority) µÄ¿sŒ‘
-
-
-PTR£º¾ÍÊÇÖ¸Ïò (PoinTeR) µÄ¿sŒ‘£¬ááÃæÓ›ä›µÄÙYÁÏ¾ÍÊÇ·´½âµ½Ö÷™CÃû·Q‡Ó£¡
+SOAï¼šå°±æ˜¯é–‹å§‹é©—è­‰ (Start of Authority) çš„ç¸®å¯«
 
 
-Ó›ä› . µÄ zone µÄîÐÍ£¬¾Í±»ÎÒ‚ƒ·Qžé hint îÐÍ
-
-ÒòžéÊ¹ÓÃ DHCP •r£¬Ïµ½y•þÖ÷„ÓµÄÊ¹ÓÃ DHCP ËÅ·þÆ÷‚÷íµÄÙYÁÏßMÐÐÏµ½yÔO¶¨™nµÄÐÞÓ†¡£Òò´Ë£¬Äã±Øíš¸æÖªÏµ½y£¬²»ÒªÊ¹ÓÃ DHCP ‚÷íµÄËÅ·þÆ÷ÔO¶¨Öµ¡£ ´Ë•r£¬ÄãµÃÒªÔÚ /etc/sysconfig/network-scripts/ifcfg-eth0 µÈÏàêP™n°¸ƒÈ£¬Ôö¼ÓÒ»ÐÐ£º¡ºPEERDNS=no¡»£¬È»ááÖØÐÂ†¢„Ó¾WÂ·¼´¿É¡£
+PTRï¼šå°±æ˜¯æŒ‡å‘ (PoinTeR) çš„ç¸®å¯«ï¼Œå¾Œé¢è¨˜éŒ„çš„è³‡æ–™å°±æ˜¯åè§£åˆ°ä¸»æ©Ÿåç¨±å›‰ï¼
 
 
-ÔÚ domain µÄ²¿·Ö£¬Èô¿ÉÄÜµÄÔ’£¬Õˆ±MÁ¿Ê¹ÓÃ FQDN£¬Òà¼´ÊÇÖ÷™CÃû·Q½YÎ²¼ÓÉÏÒ»‚€Ð¡”µüc
+è¨˜éŒ„ . çš„ zone çš„é¡žåž‹ï¼Œå°±è¢«æˆ‘å€‘ç¨±ç‚º hint é¡žåž‹
+
+å› ç‚ºä½¿ç”¨ DHCP æ™‚ï¼Œç³»çµ±æœƒä¸»å‹•çš„ä½¿ç”¨ DHCP ä¼ºæœå™¨å‚³ä¾†çš„è³‡æ–™é€²è¡Œç³»çµ±è¨­å®šæª”çš„ä¿®è¨‚ã€‚å› æ­¤ï¼Œä½ å¿…é ˆå‘ŠçŸ¥ç³»çµ±ï¼Œä¸è¦ä½¿ç”¨ DHCP å‚³ä¾†çš„ä¼ºæœå™¨è¨­å®šå€¼ã€‚ æ­¤æ™‚ï¼Œä½ å¾—è¦åœ¨ /etc/sysconfig/network-scripts/ifcfg-eth0 ç­‰ç›¸é—œæª”æ¡ˆå…§ï¼Œå¢žåŠ ä¸€è¡Œï¼šã€ŽPEERDNS=noã€ï¼Œç„¶å¾Œé‡æ–°å•Ÿå‹•ç¶²è·¯å³å¯ã€‚
 
 
+åœ¨ domain çš„éƒ¨åˆ†ï¼Œè‹¥å¯èƒ½çš„è©±ï¼Œè«‹ç›¡é‡ä½¿ç”¨ FQDNï¼Œäº¦å³æ˜¯ä¸»æ©Ÿåç¨±çµå°¾åŠ ä¸Šä¸€å€‹å°æ•¸é»ž
 
 
 
-SOA Ö÷ÒªÊÇÅcîIÓòÓÐêP£¬ËùÒÔÇ°Ãæ®”È»ÒªŒ‘ ksu.edu.tw ß@‚€îIÓòÃû¡£¶ø SOA ááÃæ¹²•þ½ÓÆß‚€…¢”µ£¬ß@Æß‚€…¢”µµÄÒâÁxÒÀÐòÊÇ£º
-1.Master DNS ËÅ·þÆ÷Ö÷™CÃû·Q£ºß@‚€îIÓòÖ÷ÒªÊÇÄÄ²¿ DNS ×÷žé master µÄÒâË¼¡£ÔÚ±¾ÀýÖÐ£¬ dns1.ksu.edu.tw žé ksu.edu.tw ß@‚€îIÓòµÄÖ÷Òª DNS ËÅ·þÆ÷‡Ó£»
 
 
-2. ¹ÜÀí†TµÄ email£ºÄÇüN¹ÜÀí†TµÄ email žéºÎ£¿°lÉú†–î}¿ÉÒÔÂ“½jß@‚€¹ÜÀí†T¡£Òª×¢ÒâµÄÊÇ£¬ ÓÉì¶ @ ÔÚÙYÁÏŽì™n°¸ÖÐÊÇÓÐÌØ„eÒâÁxµÄ£¬Òò´Ëß@Ñe¾ÍŒ¢ abuse@mail.ksu.edu.tw ¸ÄŒ‘³É abuse.mail.ksu.edu.tw £¬ß@˜Ó¿´µÄ¶®ÁË†á£¿
+SOA ä¸»è¦æ˜¯èˆ‡é ˜åŸŸæœ‰é—œï¼Œæ‰€ä»¥å‰é¢ç•¶ç„¶è¦å¯« ksu.edu.tw é€™å€‹é ˜åŸŸåã€‚è€Œ SOA å¾Œé¢å…±æœƒæŽ¥ä¸ƒå€‹åƒæ•¸ï¼Œé€™ä¸ƒå€‹åƒæ•¸çš„æ„ç¾©ä¾åºæ˜¯ï¼š
+1.Master DNS ä¼ºæœå™¨ä¸»æ©Ÿåç¨±ï¼šé€™å€‹é ˜åŸŸä¸»è¦æ˜¯å“ªéƒ¨ DNS ä½œç‚º master çš„æ„æ€ã€‚åœ¨æœ¬ä¾‹ä¸­ï¼Œ dns1.ksu.edu.tw ç‚º ksu.edu.tw é€™å€‹é ˜åŸŸçš„ä¸»è¦ DNS ä¼ºæœå™¨å›‰ï¼›
 
 
-3. ÐòÌ– (Serial)£ºß@‚€ÐòÌ–´ú±íµÄÊÇß@‚€ÙYÁÏŽì™n°¸µÄÐÂÅf£¬ÐòÌ–Ô½´ó´ú±íÔ½ÐÂ¡£ ®” slave ÒªÅÐ”àÊÇ·ñÖ÷„ÓÏÂÝdÐÂµÄÙYÁÏŽì•r£¬¾ÍÒÔÐòÌ–ÊÇ·ñ±È slave ÉÏµÄß€ÒªÐÂíÅÐ”à£¬ÈôÊÇ„tÏÂÝd£¬Èô²»ÊÇ„t²»ÏÂÝd¡£ ËùÒÔ®”ÄãÐÞÓ†ÁËÙYÁÏŽìƒÈÈÝ•r£¬Ó›µÃÒªŒ¢ß@‚€”µÖµ·Å´ó²ÅÐÐ£¡ žéÁË·½±ãÊ¹ÓÃÕßÓ›‘›£¬Í¨³£ÐòÌ–¶¼•þÊ¹ÓÃÈÕÆÚ¸ñÊ½¡ºYYYYMMDDNU¡»íÓ›‘›£¬ÀýÈç‹É½¿Æ´óµÄ 2010080369 ÐòÌ–´ú±í 2010/08/03 ®”ÌìµÄµÚ 69 ´Î¸üÐÂµÄ¸ÐÓX¡£²»ß^£¬ÐòÌ–²»¿É´óì¶ 2 µÄ 32 ´Î·½£¬Òà¼´±ØíšÐ¡ì¶ 4294967296 ²ÅÐÐà¸¡£
+2. ç®¡ç†å“¡çš„ emailï¼šé‚£éº¼ç®¡ç†å“¡çš„ email ç‚ºä½•ï¼Ÿç™¼ç”Ÿå•é¡Œå¯ä»¥è¯çµ¡é€™å€‹ç®¡ç†å“¡ã€‚è¦æ³¨æ„çš„æ˜¯ï¼Œ ç”±æ–¼ @ åœ¨è³‡æ–™åº«æª”æ¡ˆä¸­æ˜¯æœ‰ç‰¹åˆ¥æ„ç¾©çš„ï¼Œå› æ­¤é€™è£¡å°±å°‡ abuse@mail.ksu.edu.tw æ”¹å¯«æˆ abuse.mail.ksu.edu.tw ï¼Œé€™æ¨£çœ‹çš„æ‡‚äº†å—Žï¼Ÿ
 
 
-4. ¸üÐÂîlÂÊ (Refresh)£ºÄÇüNÉ¶•r slave •þÈ¥Ïò master ÒªÇóÙYÁÏ¸üÐÂµÄÅÐ”à£¿ ¾ÍÊÇß@‚€”µÖµ¶¨ÁxµÄ¡£‹É½¿Æ´óµÄ DNS ÔO¶¨Ã¿ 1800 ÃëßMÐÐÒ»´Î slave Ïò master ÒªÇóÙYÁÏ¸üÐÂ¡£ÄÇÃ¿´Î slave È¥¸üÐÂ•r£¬ Èç¹û°l¬FÐòÌ–›]ÓÐ±ÈÝ^´ó£¬ÄÇ¾Í²»•þÏÂÝdÙYÁÏŽì™n°¸¡£
+3. åºè™Ÿ (Serial)ï¼šé€™å€‹åºè™Ÿä»£è¡¨çš„æ˜¯é€™å€‹è³‡æ–™åº«æª”æ¡ˆçš„æ–°èˆŠï¼Œåºè™Ÿè¶Šå¤§ä»£è¡¨è¶Šæ–°ã€‚ ç•¶ slave è¦åˆ¤æ–·æ˜¯å¦ä¸»å‹•ä¸‹è¼‰æ–°çš„è³‡æ–™åº«æ™‚ï¼Œå°±ä»¥åºè™Ÿæ˜¯å¦æ¯” slave ä¸Šçš„é‚„è¦æ–°ä¾†åˆ¤æ–·ï¼Œè‹¥æ˜¯å‰‡ä¸‹è¼‰ï¼Œè‹¥ä¸æ˜¯å‰‡ä¸ä¸‹è¼‰ã€‚ æ‰€ä»¥ç•¶ä½ ä¿®è¨‚äº†è³‡æ–™åº«å…§å®¹æ™‚ï¼Œè¨˜å¾—è¦å°‡é€™å€‹æ•¸å€¼æ”¾å¤§æ‰è¡Œï¼ ç‚ºäº†æ–¹ä¾¿ä½¿ç”¨è€…è¨˜æ†¶ï¼Œé€šå¸¸åºè™Ÿéƒ½æœƒä½¿ç”¨æ—¥æœŸæ ¼å¼ã€ŽYYYYMMDDNUã€ä¾†è¨˜æ†¶ï¼Œä¾‹å¦‚å´‘å±±ç§‘å¤§çš„ 2010080369 åºè™Ÿä»£è¡¨ 2010/08/03 ç•¶å¤©çš„ç¬¬ 69 æ¬¡æ›´æ–°çš„æ„Ÿè¦ºã€‚ä¸éŽï¼Œåºè™Ÿä¸å¯å¤§æ–¼ 2 çš„ 32 æ¬¡æ–¹ï¼Œäº¦å³å¿…é ˆå°æ–¼ 4294967296 æ‰è¡Œå–”ã€‚
 
 
-5. Ê§”¡ÖØÐÂ‡LÔ‡•rég (Retry)£ºÈç¹ûÒòžéÄ³Ð©ÒòËØ£¬Œ§ÖÂ slave Ÿo·¨Œ¦ master ß_³ÉßB¾€£¬ ÄÇüNÔÚ¶à¾ÃµÄ•régƒÈ£¬slave •þ‡LÔ‡ÖØÐÂßB¾€µ½ master¡£ÔÚ‹É½¿Æ´óµÄÔO¶¨ÖÐ£¬900 Ãë•þÖØÐÂ‡LÔ‡Ò»´Î¡£ÒâË¼ÊÇÕf£¬Ã¿ 1800 Ãë slave •þÖ÷„ÓÏò master ßB¾€£¬µ«Èç¹ûÔ“´ÎßB¾€›]ÓÐ³É¹¦£¬ÄÇ½ÓÏÂí‡LÔ‡ßB¾€µÄ•rég•þ×ƒ³É 900 Ãë¡£ÈôááíÓÐ³É¹¦£¬„tÓÖ•þ»ÖÍµ½ 1800 Ãë²ÅÔÙÒ»´ÎßB¾€¡£
+4. æ›´æ–°é »çŽ‡ (Refresh)ï¼šé‚£éº¼å•¥æ™‚ slave æœƒåŽ»å‘ master è¦æ±‚è³‡æ–™æ›´æ–°çš„åˆ¤æ–·ï¼Ÿ å°±æ˜¯é€™å€‹æ•¸å€¼å®šç¾©çš„ã€‚å´‘å±±ç§‘å¤§çš„ DNS è¨­å®šæ¯ 1800 ç§’é€²è¡Œä¸€æ¬¡ slave å‘ master è¦æ±‚è³‡æ–™æ›´æ–°ã€‚é‚£æ¯æ¬¡ slave åŽ»æ›´æ–°æ™‚ï¼Œ å¦‚æžœç™¼ç¾åºè™Ÿæ²’æœ‰æ¯”è¼ƒå¤§ï¼Œé‚£å°±ä¸æœƒä¸‹è¼‰è³‡æ–™åº«æª”æ¡ˆã€‚
 
 
-6. Ê§Ð§•rég (Expire)£ºÈç¹ûÒ»Ö±Ê§”¡‡LÔ‡•rég£¬³ÖÀmßB¾€µ½ß_ß@‚€ÔO¶¨Öµ•rÏÞ£¬ ÄÇüN slave Œ¢²»ÔÙÀ^Àm‡LÔ‡ßB¾€£¬KÇÒ‡LÔ‡„h³ýß@·ÝÏÂÝdµÄ zone file ÙYÓ¡£‹É½¿Æ´óÔO¶¨žé 604800 Ãë¡£ÒâË¼ÊÇÕf£¬®”ßB¾€Ò»Ö±Ê§”¡£¬Ã¿ 900 Ãë‡LÔ‡µ½ß_ 604800 Ãëáá£¬‹É½¿Æ´óµÄ slave Œ¢²»ÔÙ¸üÐÂ£¬Ö»ÄÜµÈ´ýÏµ½y¹ÜÀí†TµÄÌŽÀí¡£
+5. å¤±æ•—é‡æ–°å˜—è©¦æ™‚é–“ (Retry)ï¼šå¦‚æžœå› ç‚ºæŸäº›å› ç´ ï¼Œå°Žè‡´ slave ç„¡æ³•å° master é”æˆé€£ç·šï¼Œ é‚£éº¼åœ¨å¤šä¹…çš„æ™‚é–“å…§ï¼Œslave æœƒå˜—è©¦é‡æ–°é€£ç·šåˆ° masterã€‚åœ¨å´‘å±±ç§‘å¤§çš„è¨­å®šä¸­ï¼Œ900 ç§’æœƒé‡æ–°å˜—è©¦ä¸€æ¬¡ã€‚æ„æ€æ˜¯èªªï¼Œæ¯ 1800 ç§’ slave æœƒä¸»å‹•å‘ master é€£ç·šï¼Œä½†å¦‚æžœè©²æ¬¡é€£ç·šæ²’æœ‰æˆåŠŸï¼Œé‚£æŽ¥ä¸‹ä¾†å˜—è©¦é€£ç·šçš„æ™‚é–“æœƒè®Šæˆ 900 ç§’ã€‚è‹¥å¾Œä¾†æœ‰æˆåŠŸï¼Œå‰‡åˆæœƒæ¢å¾©åˆ° 1800 ç§’æ‰å†ä¸€æ¬¡é€£ç·šã€‚
 
 
-7. ¿ìÈ¡•rég (Minumum TTL)£ºÈç¹ûß@‚€ÙYÁÏŽì zone file ÖÐ£¬Ã¿¹P RR Ó›ä›¶¼›]ÓÐŒ‘µ½ TTL ¿ìÈ¡•régµÄÔ’£¬ÄÇüN¾ÍÒÔß@‚€ SOA µÄÔO¶¨ÖµžéÖ÷¡£
+6. å¤±æ•ˆæ™‚é–“ (Expire)ï¼šå¦‚æžœä¸€ç›´å¤±æ•—å˜—è©¦æ™‚é–“ï¼ŒæŒçºŒé€£ç·šåˆ°é”é€™å€‹è¨­å®šå€¼æ™‚é™ï¼Œ é‚£éº¼ slave å°‡ä¸å†ç¹¼çºŒå˜—è©¦é€£ç·šï¼Œä¸¦ä¸”å˜—è©¦åˆªé™¤é€™ä»½ä¸‹è¼‰çš„ zone file è³‡è¨Šã€‚å´‘å±±ç§‘å¤§è¨­å®šç‚º 604800 ç§’ã€‚æ„æ€æ˜¯èªªï¼Œç•¶é€£ç·šä¸€ç›´å¤±æ•—ï¼Œæ¯ 900 ç§’å˜—è©¦åˆ°é” 604800 ç§’å¾Œï¼Œå´‘å±±ç§‘å¤§çš„ slave å°‡ä¸å†æ›´æ–°ï¼Œåªèƒ½ç­‰å¾…ç³»çµ±ç®¡ç†å“¡çš„è™•ç†ã€‚
 
-³ýÁË Serial ²»¿ÉÒÔ³¬ß^ 2 µÄ 32 ´Î·½Ö®Íâ£¬ÓÐ›]ÓÐÆäËüµÄÏÞÖÆ°¡á˜Œ¦ß@Ž×‚€”µÖµ£¿ÊÇÓÐµÄ£¬»ù±¾ÉÏ¾ÍÊÇß@˜Ó£º
+
+7. å¿«å–æ™‚é–“ (Minumum TTL)ï¼šå¦‚æžœé€™å€‹è³‡æ–™åº« zone file ä¸­ï¼Œæ¯ç­† RR è¨˜éŒ„éƒ½æ²’æœ‰å¯«åˆ° TTL å¿«å–æ™‚é–“çš„è©±ï¼Œé‚£éº¼å°±ä»¥é€™å€‹ SOA çš„è¨­å®šå€¼ç‚ºä¸»ã€‚
+
+é™¤äº† Serial ä¸å¯ä»¥è¶…éŽ 2 çš„ 32 æ¬¡æ–¹ä¹‹å¤–ï¼Œæœ‰æ²’æœ‰å…¶å®ƒçš„é™åˆ¶å•Šé‡å°é€™å¹¾å€‹æ•¸å€¼ï¼Ÿæ˜¯æœ‰çš„ï¼ŒåŸºæœ¬ä¸Šå°±æ˜¯é€™æ¨£ï¼š
 Refresh >= Retry *2
 Refresh + Retry < Expire
 Expire >= Rrtry * 10
 Expire >= 7Days
 
-Ò»°ãíÕf£¬Èç¹û DNS RR ÙYÁÏ×ƒ¸üÇé›rîl·±µÄ£¬ÄÇüNÉÏÊöµÄÏàêP”µÖµ¿ÉÒÔÓ†¶¨µÄÐ¡Ò»Ð©£¬Èç¹û DNS RR ÊÇºÜ·€¶¨µÄ£¬ žéÁË¹Ê¡îlŒ’£¬„t¿ÉÒÔŒ¢ Refresh ÔO¶¨µÄÝ^´óÒ»Ð©¡£
+ä¸€èˆ¬ä¾†èªªï¼Œå¦‚æžœ DNS RR è³‡æ–™è®Šæ›´æƒ…æ³é »ç¹çš„ï¼Œé‚£éº¼ä¸Šè¿°çš„ç›¸é—œæ•¸å€¼å¯ä»¥è¨‚å®šçš„å°ä¸€äº›ï¼Œå¦‚æžœ DNS RR æ˜¯å¾ˆç©©å®šçš„ï¼Œ ç‚ºäº†ç¯€çœé »å¯¬ï¼Œå‰‡å¯ä»¥å°‡ Refresh è¨­å®šçš„è¼ƒå¤§ä¸€äº›ã€‚
 
 
 
