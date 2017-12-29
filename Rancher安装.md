@@ -60,6 +60,7 @@ systemctl  enable docker.service
 vi /etc/docker/daemon.json
 # 编辑完后重启 docker 生效
 ```
+
 ```json
 {
   "registry-mirrors": [
@@ -214,6 +215,9 @@ frontend http-frontend
 ```
 balance source
 ```
+
+
+
 
 
 

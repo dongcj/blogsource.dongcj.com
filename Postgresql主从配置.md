@@ -144,3 +144,7 @@ vi /opt/pgsql/data/recovery.conf
 
 
 
+
+
+
+
