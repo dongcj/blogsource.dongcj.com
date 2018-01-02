@@ -51,3 +51,4 @@ autorestart=true
     # 如下即表示正常
     supervisorctl status
     remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
+

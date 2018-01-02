@@ -1,4 +1,4 @@
-
+---
 title: Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .md
 author: dongcj <ntwk@163.com>
 date: 2016/08/11 15:22:41
@@ -15,6 +15,8 @@ tags:
   - git
   - goAgent
   - 代理
+---
+
   - proxy
 
 # yum 配置代理

@@ -70,3 +70,4 @@ categories:
     easy_install -m PackageName
 
   [1]: http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/
+

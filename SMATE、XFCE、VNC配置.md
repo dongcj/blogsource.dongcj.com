@@ -49,3 +49,4 @@ tags:
     vncserver -kill :1
 
 > http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7
+
