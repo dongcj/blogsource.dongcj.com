@@ -101,7 +101,6 @@ pg_ctl start
 
 # 主从切换命令
 
-```bash 
 # node1 上模拟主库故障
 [postgres@node1 ~]$ pg_ctl stop -m f
 
@@ -138,13 +137,4 @@ vi /opt/pgsql/data/recovery.conf
 # 启动 node2 上的数据库：
 [postgres@node2 ~]$ pg_ctl start
 ```
-
-
-
-
-
-
-
-
-
 

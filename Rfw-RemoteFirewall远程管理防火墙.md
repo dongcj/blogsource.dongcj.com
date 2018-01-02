@@ -55,7 +55,6 @@ scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/
     $ vi /etc/rfw/white.list
     116.23.45.8
 
-
 ## start rfw(on server)
     $ rfw &
 
@@ -85,13 +84,4 @@ scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/
 
 ## 在 client 上用 web 管理所有服务
     # 未完。。。
-
-
-
-
-
-
-
-
-
 

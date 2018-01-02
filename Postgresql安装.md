@@ -64,11 +64,3 @@ postgres=# \c <DB_NAME>;
 \i <DB_FILE>.sql
 ```
 
-
-
-
-
-
-
-
-

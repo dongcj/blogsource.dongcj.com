@@ -28,8 +28,6 @@ tags:
     # 删除 lvm2
     $ rpm -e lvm2
 
-
-
 # 挂载分区及配置防火墙
     # mkdir
     $ mkdir /export/brick1
@@ -44,7 +42,6 @@ tags:
     $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
     --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
     $ firewall-cmd --reload
-
 
 # 启动 glusterd 服务
     $ service glusterd start
@@ -65,14 +62,12 @@ tags:
     # check peer
     $ gluster peer status
 
-
 # 设置一个 Gluster 卷
     $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
     $ gluster volume start gv0
 
     $ gluster volume info
     $ gluster volume status
-
 
     # How to remove a volume or peer
     # stop Volume
@@ -84,14 +79,12 @@ tags:
     # detach 命令：
     $ gluster peer detach NAME_OF_PEERNODE
 
-
 # Test Gluster volume
     # mount to /mnt
     $ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
 
     $ vi /etc/fstab
     gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
-
 
     # 如果使用 nfs 协议使用
     # GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
@@ -106,23 +99,9 @@ tags:
 
     $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
 
-
-
 # 配置 Quorum()
     ......
 
 > 通过 CIFS 从 Linux ／ Windows 计算机进行访问
 > 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS
-
-
-
-
-
-
-
-
-
-
-
-
 

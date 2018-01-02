@@ -241,26 +241,14 @@ http {
 
     rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&height=$3? last;
 
-
 例 3：
 见 ssl 部分页面加密 。
 
 ----------
-
 
 **参考**:  参考以下
 > http://www.nginx.cn/216.html
 > http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/
 > 老僧系列 nginx 之 rewrite 规则快速上手 http://fantefei.blog.51cto.com/2229719/919431
 > 来源： <http://seanlook.com/2015/05/17/nginx-location-rewrite/>
-
-
-
-
-
-
-
-
-
-
 

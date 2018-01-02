@@ -32,7 +32,6 @@ tags:
     systemctl daemon-reload
     `systemctl reset-failed`   # 只有运行这样才可以看到服务消失
 
-
 ### 1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本
 
     [root@manage ~]# systemctl --version
@@ -62,7 +61,6 @@ tags:
 
     [root@manage ~]# systemd-analyze
     Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s
-
 
 ### 5. 分析启动时各个进程花费的时间
 
@@ -103,7 +101,6 @@ tags:
                                     └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
     重要：Systemctl 接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。
 
-
 ### 7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]
                     type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
 
@@ -122,8 +119,6 @@ tags:
     brandbot.path                               disabled
     .....
 
-
-
 ### 8. 列出所有运行中单元
 
     [root@manage ~]# systemctl list-units
@@ -134,7 +129,6 @@ tags:
     sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC'97 Audio Controller
     sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
     sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
-
 
 ### 9. 列出所有失败单元
 
@@ -147,20 +141,16 @@ tags:
     1 loaded units listed. Pass --all to see loaded but inactive units, too.
     To show all installed unit files use 'systemctl list-unit-files'.
 
-
-
 ### 10. 检查某个单元（如 cron.service）是否启用
 
     [root@manage ~]# systemctl is-enabled crond.service
     enabled
-
 
 ### 11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）
 
     [root@manage ~]# systemctl is-active httpd.service
     [root@manage ~]# systemctl enable    httpd.service
     [root@manage ~]# systemctl disable   httpd.service
-
 
 ### 12. 检查某个单元或服务是否运行
 
@@ -174,8 +164,6 @@ tags:
     Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
     Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
     使用 Systemctl 控制并管理服务
-
-
 
 ### 14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态
 
@@ -205,8 +193,6 @@ tags:
     Hint: Some lines were ellipsized, use -l to show in full.
     注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。
 
-
-
 ### 15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）
 
     # 注意：这是一个演示如何增加一个服务
@@ -216,7 +202,6 @@ tags:
     # 删除服务
     [root@manage ~]# systemctl unmask httpd.service
     rm '/etc/systemd/system/httpd.service'
-
 
 ### 16. 使用 systemctl 命令杀死服务
 
@@ -252,7 +237,6 @@ tags:
     sys-kernel-debug.mount        static
     tmp.mount                     disabled
 
-
 ### 18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态
 
     [root@manage ~]# systemctl start tmp.mount
@@ -272,15 +256,11 @@ tags:
     Apr 28 17:46:06 tecmint systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
     Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.
 
-
-
 ### 19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）
 
     [root@manage ~]# systemctl is-active tmp.mount
     [root@manage ~]# systemctl enable tmp.mount
     [root@manage ~]# systemctl disable  tmp.mount
-
-
 
 ### 20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点
 
@@ -307,8 +287,6 @@ tags:
     systemd-udevd-kernel.socket  static
     11 unit files listed.
 
-
-
 ### 22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态
 
     [root@manage ~]# systemctl start cups.socket
@@ -323,14 +301,11 @@ tags:
     Apr 28 18:10:59 tecmint systemd[1]: Starting CUPS Printing Service Sockets.
     Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.
 
-
 ### 23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）
 
     [root@manage ~]# systemctl is-active cups.socket
     [root@manage ~]# systemctl enable cups.socket
     [root@manage ~]# systemctl disable cups.socket
-
-
 
 # 服务的 CPU 利用率（分配额）
 
@@ -351,8 +326,6 @@ tags:
     [Service]
     CPUShares=2000
 
-
-
 ### 27. 检查某个服务的所有配置细节
 
     [root@manage ~]# systemctl show httpd
@@ -370,7 +343,6 @@ tags:
     SubState=running
     FragmentPath=/usr/lib/systemd/system/httpd.service
     ....
-
 
 ### 28. 分析某个服务（httpd）的关键链
 
@@ -395,7 +367,6 @@ tags:
                                 └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
                                   └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
 
-
 ### 29. 获取某个服务（httpd）的依赖性列表
 
     [root@manage ~]# systemctl list-dependencies httpd.service
@@ -416,8 +387,6 @@ tags:
       ├─ sockets.target
       │ ├─ dbus.socket
     ....
-
-
 
 ### 30. 按等级列出控制组
 
@@ -441,7 +410,6 @@ tags:
       ├─ polkit.service
       │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
     ....
-
 
 ### 31. 按 CPU、内存、输入和输出列出控制组
 
@@ -477,7 +445,6 @@ tags:
     Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
     The system is going down to rescue mode NOW!
 
-
 ### 33. 进入紧急模式
 
     [root@manage ~]# systemctl emergency
@@ -485,12 +452,10 @@ tags:
     system logs, "systemctl reboot" to reboot, "systemctl default" to try again
     to boot into default mode.
 
-
 ### 34. 列出当前使用的运行等级
 
     [root@manage ~]# systemctl get-default
     multi-user.target
-
 
 ### 35. 启动运行等级 5，即图形模式
 
@@ -498,19 +463,16 @@ tags:
     或
     [root@manage ~]# systemctl isolate graphical.target
 
-
 ### 36. 启动运行等级 3，即多用户模式（命令行）
 
     [root@manage ~]# systemctl isolate runlevel3.target
     或
     [root@manage ~]# systemctl isolate multiuser.target
 
-
 ### 37. 设置多用户模式或图形模式为默认运行等级
 
     [root@manage ~]# systemctl set-default runlevel3.target
     [root@manage ~]# systemctl set-default runlevel5.target
-
 
 ### 38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠
 
@@ -519,14 +481,4 @@ tags:
     [root@manage ~]# systemctl suspend
     [root@manage ~]# systemctl hibernate
     [root@manage ~]# systemctl hybrid-sleep
-
-
-
-
-
-
-
-
-
-
 

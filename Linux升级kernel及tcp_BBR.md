@@ -17,7 +17,6 @@ tags:
 > 快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br>
 > wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 
-
 ## 修改系统变量：
 ``` bash
 # 这二个是打开 BBR 必需的
@@ -57,8 +56,6 @@ uname -r
 
 ```
 
-
-
 # RHEL、CentOS 升级内核
 ```bash
 yum update -y
@@ -96,7 +93,6 @@ sysctl -p
 
 ## 下载内核二进制包
 > 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/
-
 
 ## 解压安装
 ```bash
@@ -145,3 +141,4 @@ if [ x"${feature_menuentry_id}" = xy ]; then
     saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
 
     # 重启就可以完成更新内核了！
+

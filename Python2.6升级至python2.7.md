@@ -50,5 +50,4 @@ categories:
     $ pip install MySQL-python pssh flask
     $ pip install lxml virtualenv virtualenvwrapper websockify
 
-
   [1]: http://blog.dongcj.com/linux/linux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip/

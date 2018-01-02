@@ -1,6 +1,12 @@
 ---
 title: Harbor 用户手册
 author: dongcj <ntwk@163.com>
+date: 
+updated: 
+categories: 
+  - 
+tags: 
+  - 
 ---
 
 # docker-compose 或自建商店安装
@@ -16,13 +22,11 @@ mkdir -p /opt/svicloud/tools/harbor/data/cert/
 
 3. 将证书的 `server.crt` 和 `server.key` 放置于上述目录
 
-
 4. 生成一个 `secretkey` 文件，也放置于以上目录
 
 ```bash
 echo -n "svicloud85509336" >/opt/svicloud/tools/harbor/data/cert/secretkey
 ```
-
 
 5. 使用 docker-compose 安装 harbor
 
@@ -36,7 +40,6 @@ docker-compose up -d
 6. 测试下，应该可以成功，如无法成功，运行步骤 7
 
 7. （` 可选 `）修改 `registry` 中的证书 `root.crt` 和 `ui` 的 `private_key.pem`
-
 
 # 通过 curl 请求测试
 ```bash
@@ -105,13 +108,4 @@ docker volume prune
 ```bash
 docker rmi dongcj/harbor-setupwrapper:v1.2.2
 ```
-
-
-
-
-
-
-
-
-
 

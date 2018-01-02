@@ -6,16 +6,12 @@ updated:
 categories: 
   -
 tags:  
-  - 
+  -
 ---
 
-# Ubuntu 安装 docker 
-
-## 升级 kernel 及安装 linux-image-extra-* 包 
 > 为了支持 bbr、aufs，必须安装 extra, 详见：[Linux 升级 kernel 及 tcp_BBR](http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/)
 
-
-## 安装 docker
+## 安装 Docker
 
 ```bash
 # clone 后直接脚本安装
@@ -29,7 +25,6 @@ git clone https://github.com/rancher/install-docker.git
 > WARNING: No swap limit support
 > 解决方法见第 1 步，配置 `grub` 参数
 
-
 > WARNING: bridge-nf-call-ip6tables is disabled
 > 解决方法：
 
@@ -40,16 +35,14 @@ git clone https://github.com/rancher/install-docker.git
 
     sysctl -p
 
-
-# CentOS 安装 docker
+# CentOS 安装 Docker
 > ( 本方法只适用于 `centos6` 及以下 )
 
     yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
     yum install docker-io
 
-
-> ( 本方法只适用于 `centos7` 及以上 )
+> ( 本方法只适用于 `CentOS7` 及以上 )
 
 ```bash
 # remove existing docker if exist
@@ -86,8 +79,8 @@ yum install 17.03.1.ce-1.el7.centos
 yum list installed | grep docker
 ```
 
-# 配置 docker 加速器（用于国内加速）
-> 以下操作需重启 docker 服务生效
+# 配置 Docker 加速器（用于国内加速）
+> 以下操作需重启 Docker 服务生效
 
 vi /etc/docker/daemon.json
 
@@ -102,7 +95,7 @@ vi /etc/docker/daemon.json
 }
 ```
 
-# 配置 docker 代理（用于国内加速）
+# 配置 Docker 代理（用于国内加速）
 
 ```bash
 vi /etc/docker/daemon.json
@@ -149,11 +142,11 @@ docker-machine create --driver amazonec2 --amazonec2-access-key AKI******* --ama
 docker-machine create --driver none --url=tcp://192.168.1.112:2376 svi1r01n02
 ```
 
-# docker 常用配置
+# Docker 常用配置
 > 如果是 systemctl 启动的 docker, 需要在 /lib/systemd/system/docker.service 中修改
 
 ```bash
-## 配置 docker 启动参数：（在 /etc/default/docker 中）
+## 配置 Docker 启动参数：（在 /etc/default/docker 中）
 DOCKER_OPTS="--storage-driver=aufs --tls=true --tlscert=/var/docker/server.pem --tlskey=/var/docker/serverkey.pem -H tcp://192.168.1.112:2376"
 
 other_args="--exec-driver=lxc \
@@ -170,37 +163,26 @@ docker -d -b br0
 other_args="--exec-driver=lxc --selinux-enabled -b=br0"     
 ```
 
-
-
-## docker 直接使用外部块存储
+## Docker 直接使用外部块存储
 > 映射为 container 内部盘，可以自定义使用 read、write、mknode 操作
 
     docker run --device=/dev/sdc:/dev/xvdc:[rwm] --device=/dev/sdd --device=/dev/zero:/dev/nulo -i -t ubuntu ls -l /dev/{xvdc,sdd,nulo}
 
-
-
 ## Restart policies
     docker run --restart=[always|no|on-failure|unless-stopped] redis
-
-
 
 ## 向容器中增加主机名与 IP 对应 (add /etc/hosts entry)
     docker run --add-host=docker:10.180.0.1 --rm -it debian
 
-
 ## 设置容器的 ulimit
     docker run --ulimit nofile=1024:1024 --rm debian sh -c "ulimit -n"
 
-
-
-## docker 重启 daemon 不重启 container
+## Docker 重启 daemon 不重启 container
 ```bash
 # 以下二种方法任一种都可以
   - 将 /etc/docker/daemon.json 中的 "live-restore" 设置为 true，然后 SIGHUP（kill -HUP PID）
   - sudo dockerd --live-restore
 ```
-
-
 
 ## Docker Daemon 的配置文件
 > 可以使用 --config-file 指定，默认位置为 /etc/docker/daemon.json
@@ -240,7 +222,6 @@ other_args="--exec-driver=lxc --selinux-enabled -b=br0"
 }
 ```
 
-
 # Docker 的 API 操作
 ```bash
 # 镜像
@@ -252,7 +233,6 @@ curl --no-buffer -XGET --unix-socket /var/run/docker.sock http://localhost/event
 # container 信息
 curl --unix-socket /var/run/docker.sock "http://localhost/containers/json?all=1&before=8dfafdbc3a40&size=1"
 ```
-
 
 # Docker 小技巧
 ## set metadata on container
@@ -270,30 +250,21 @@ com.example.label2=another\ label
 com.example.label3
 ```
 
-
 ## 直接设置 sysctl( 不能与 --network=host 同用 )
     docker run --sysctl net.ipv4.ip_forward=1 ubuntu
 
-
-
 ## 从 container 的变化中新建一个 image
     docker commit $CONTAINER_ID [REPOSITORY[:TAG]]
-
-
 
 # 常用 Docker 命令
 
 ## 备份容器中的数据（将容器中的数据目录拷贝至当前目录下）
     docker run --rm --volume-from dbdata -v ${pwd}:/backup  ubuntu tar cvf /backup/backup.tar /dbdata
 
-
-
 ## 已运行容器通过 iptbles 来 nat
 
     # 相当于端口映射
     iptables -t nat -A  DOCKER -p tcp --dport 3306 -j DNAT --to-destination 172.17.0.2:3306
-
-
 
 # Docker Inspect
 ```bash
@@ -315,7 +286,6 @@ docker inspect \
 
 172.17.0.2
 
-
 # 以 json 的格式展示
 docker inspect --format '{{json .Mounts}}' pensive_blackwell
 
@@ -330,7 +300,6 @@ docker inspect \
 
   80/tcp -> 80
 
-
 # Getting size information on a container
 docker inspect -s d2cc496561d6 |　grep -i Size
 
@@ -343,7 +312,6 @@ docker inspect -f '{{.Config.Image}}' 5cf58382b2f0
 # logging driver
 docker inspect -f '{{.HostConfig.LogConfig.Type}}' <CONTAINER>
 
-# 匹配所有暴露 (exposed) 的端口 
 # 格式 host:port , 并且把他们输入一个 java properties 文件：
 sut_ip=${BOOT_2_DOCKER_HOST_IP}
 
@@ -356,16 +324,4 @@ for line in ${tomcat_host_port} ; do
 done
 ```
 > 详见：[https://docs.docker.com/engine/admin/logging/overview/](https://docs.docker.com/engine/admin/logging/overview/)
-
-
-
-
-
-
-
-
-
-
-
-
 

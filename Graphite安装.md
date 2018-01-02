@@ -12,10 +12,8 @@ tags:
 > http://www.jsxubar.info/category/system-administration/graphite/
 > http://www.jsxubar.info/category/system-administration/page/3/
 
-
 > 更多集成 grafana 及 Diamond 请看：
 > http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/
-
 
 # 使用 yum 安装环境
     $ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
@@ -24,7 +22,6 @@ tags:
     $ pip install whisper
     $ pip install carbon
     $ pip install graphite-web
-
 
 # 安装并升级为最新的 zope.interface 及 twisted
     # ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
@@ -39,21 +36,16 @@ tags:
     >>> from twisted.python.compat import _PY3
     >>>
 
-
-
 # Check for missing dependencies
     $ python /tmp/pip-build-me/graphite-web/check-dependencies.py
 
-
 # 设置权限
     $ chown -R apache:apache /opt/graphite/storage/
-
 
 # 配置文件
     $ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
     $ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
     $ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
-
 
 # 同步数据库
     # 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
@@ -67,19 +59,13 @@ tags:
     $ cd /opt/graphite/webapp/graphite
     $ cp local_settings.py.example local_settings.py
 
-
-
-
-
 # 在 httpd 中启用 virtualHost
     $ cd ../../
     $ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
-
     # 并修改
     $ vi /etc/httpd/conf.d/vhost-graphite.conf
     WSGISocketPrefix /var/run/httpd/wsgi
-
 
 # 修改已知的 bug
     $ vi /opt/graphite/webapp/graphite/storage.py
@@ -87,28 +73,7 @@ tags:
     def fetch(self, startTime, endTime, now=None):
         return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
 
-
-
-
 # 替换 graphite 的界面
     graph-index-master
     graphite-web-master
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

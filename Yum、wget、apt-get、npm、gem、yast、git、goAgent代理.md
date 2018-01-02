@@ -18,7 +18,6 @@ tags:
   - proxy
 ---
 
-
 # yum 配置代理
 ---
     $ vi /etc/yum.conf
@@ -27,14 +26,12 @@ tags:
       proxy_username=yum-user
       proxy_password=qwerty
 
-
     # yum 出现以下错误：
     > UnicodeDecodeError: 'ascii' codec can't decode byte 0xd1 in position 72: ordinal not in range(128)
 
     # 解决方法：
     使用光盘中的 GPGKEY：
     $ rpm --import RPM-GPG-KEY-redhat-release
-
 
 # wget 配置代理
 ---
@@ -49,8 +46,6 @@ tags:
     # 进行断点下载示例
     $ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip
 
-
-
 # apt-get 配置代理
 ---
     # 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
@@ -63,12 +58,10 @@ tags:
 
     $ apt-get install postfix -c /etc/apt/apt.proxy.conf
 
-
     # 方法 2：将以下代码写入 /etc/apt/apt.conf( 永久使用 )
       Acquire::http::proxy  "http:// 用户名 : 密码 @ 代理地址 : 端口 ";
       Acquire::https::proxy  "https:// 用户名 : 密码 @ 代理地址 : 端口 ";
       Acquire::ftp::proxy  "ftp:// 用户名 : 密码 @ 代理地址 : 端口 ";
-
 
 # curl 配置代理
 ---
@@ -78,9 +71,6 @@ tags:
     # 或者
     $ vi /root/.bashrc
       export http_proxy = http://PROXYSERVER:18023
-
-
-
 
 # git 配置代理
 ---
@@ -114,7 +104,6 @@ tags:
 
 ----------------------------------------------------------------------
 
-
 # yast 配置代理
 ---
 
@@ -123,7 +112,6 @@ tags:
       PROXY_ENABLED="on"
       HTTP_PROXY="http://192.168.11.35:808"
 
-
 # GoAgent 代理
 ---
 
@@ -131,22 +119,17 @@ tags:
     （如果不建，则会报：certutil: could not authenticate to token NSS Certificate DB.: An I/O error occurred during security authorization.）
     $ modutil -changepw "NSS Certificate DB" -dbdir $HOME/.pki/nssdb
 
-
     # 查看证书
     $ certutil -d sql:$HOME/.pki/nssdb -L
-
 
     # 导入证书
     $ pk12util -d sql:$HOME/.pki/nssdb -i XXXX.pfx
 
-
     # GoAgent 证书导入
     $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "GoAgent" -i /tmp/CA.crt
 
-
     # 删除证书
     $ certutil -d sql:$HOME/.pki/nssdb -D -t "C,," -n GoAgent
-
 
 # npm 代理：
 ---
@@ -159,7 +142,6 @@ tags:
     # 取消 :
     $ npm config delete proxy
 
-
 # gem 代理：
 ---
 
@@ -169,17 +151,4 @@ tags:
     # 取消 :
     # 安装时不加上 --http-proxy 参数
     $ gem install sass
-
-
-
-
-
-
-
-
-
-
-
-
-
 

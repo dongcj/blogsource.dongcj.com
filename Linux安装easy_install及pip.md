@@ -12,7 +12,6 @@ categories:
 
 > 需要先将 python2.6 升级至 2.7，请参见： [python2.6 升级至 python2.7][1]
 
-
 # 安装 easy_install
     # 获取软件包
     $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz

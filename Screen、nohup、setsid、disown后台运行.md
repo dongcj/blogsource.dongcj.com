@@ -30,30 +30,15 @@ tags:
 
     ctrl A 然后再按 D 退出会话
 
-
-
-
 # nohup 后台
     nohup ping www.ibm.com &
 
 # setsid 后台
     setsid ping www.ibm.com (ctrl+c 后就跑后台去了 )
 
-
 # subshell 后台
     (ping www.ibm.com &)
 
-
 # disown 后台
     disown -h JOBID
-
-
-
-
-
-
-
-
-
-
 

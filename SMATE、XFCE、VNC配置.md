@@ -12,7 +12,6 @@ tags:
   - vnc
 ---
 
-
 # YUM 安装图像界面及 VNC
 ( 参考：http://www.ha97.com/4634.html )
 
@@ -22,17 +21,13 @@ tags:
     yum groupinstall "GNOME Desktop Environment"（CentOS 5.x 安装 GNOME 桌面环境）
     yum groupinstall "X Window System" "Desktop"（CentOS 6.x 安装 GNOME 桌面环境）
 
-
     yum groupinstall [ xfce | "MATE Desktop" ]（CentOS 安装 xfce 桌面环境，可选）
-
-
 
     # runlevel 5
     systemctl isolate graphical.target
 
     # Start the GUI on boot
     systemctl set-default graphical.target
-
 
     # 切换 display manager
     # 查看
@@ -43,7 +38,6 @@ tags:
 
     # 刷新
     systemctl isolate graphical.target
-
 
 # 安装 vnc server
     # 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可

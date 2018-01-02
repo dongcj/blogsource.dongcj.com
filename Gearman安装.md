@@ -17,8 +17,6 @@ tags:
     Tim Yang：利用 Gearman 来实现远程监控与管理
     http://timyang.net/linux/gearman-monitor/
 
-
-
 # 一、安装 grarmand 及 libgearman-devel
     $ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )
 
@@ -56,12 +54,10 @@ tags:
     # 将 /etc/passwd 文件给函数 wc 进行处理
     $ gearman -f wc < /etc/passwd
 
-
     $ gearadmin --show-jobs
           --status
           --workers
           -- ...
-
 
 # PHP API 用法：
 
@@ -91,7 +87,6 @@ tags:
 
     ?>
 
-
 ## 2. client:
     <?php
 
@@ -109,16 +104,4 @@ tags:
     }
 
     ?>
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -30,7 +30,6 @@ tags:
     # Del swap
     $ parted -s ${loop} rm ${swap_part_num}
 
-
     # If does't have, add the new swap device
     $ parted -s /dev/loop1 "unit mb mkpart primary linux-swap -2048MB -0"
 
@@ -57,9 +56,6 @@ tags:
     # fs resize
     $ e2fsck -pv /dev/mapper/loop0p1
     $ resize2fs -f /dev/mapper/loop0p1
-
-
-
 
 # parted 使用
 
@@ -96,3 +92,4 @@ tags:
 
     (parted) align-check optimal 1
       1 aligned
+

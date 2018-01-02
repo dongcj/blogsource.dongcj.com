@@ -69,11 +69,9 @@ tags:
     $ vi /usr/share/puppet-dashboard/config/environment.rb
     config.time_zone = 'Beijing'
 
-
 ### 初始化数据库
     $ cd /usr/share/puppet-dashboard/
     rake RAILS_ENV=production db:migrate
-
 
 ### 整合 Passenger 和 apache
     $ vi /etc/httpd/conf.d/passenger.conf
@@ -95,36 +93,24 @@ tags:
       CustomLog /var/log/httpd/puppet-dashboard_access.log combined
     </VirtualHost>
 
-
 ### 让 Dashboard 使用 Reports
     $ vi /etc/puppet/puppet.conf
     [master]
     reports = store, http
     reporturl = http://bigdata.xxxx.com:80/reports/upload
 
-
 ### 重启 puppetmaster 服务
     $ /etc/init.d/puppetmaster restart
-
 
 ### 导入报告
     $ cd /usr/share/puppet-dashboard
     $ rake RAILS_ENV=production reports:import
 
-
 ### 执行导入的 reports
     $ rake jobs:work RAILS_ENV="production"
-
 
 ### 下载及文档地址
     http://code.google.com/p/puppet-manifest-share/downloads/list
     http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
     http://dongxicheng.org/cluster-managemant/puppet/
-
-
-
-
-
-
-
 

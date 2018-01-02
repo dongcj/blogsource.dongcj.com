@@ -21,7 +21,6 @@ pip install supervisor
 echo_supervisord_conf >/etc/supervisord.conf
 ```
 
-
 # 配置
 > 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例
 
@@ -47,7 +46,6 @@ autorestart=true
     $ service supervisord start
 
     > 如果使用 pip 安装，需要自已写启动脚本
-
 
 # 检查安装
     # 如下即表示正常

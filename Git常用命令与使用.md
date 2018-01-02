@@ -51,7 +51,6 @@ host <ID1>.<GIT_DOMAIN>
     User <GIT_USER>
     IdentityFile ~/.ssh/<GIT_DOMAIN>-<GIT_USER>-id_rsa
 
-
 #
 #--------------------------------------------------------------------------
 # <GIT_DOMAIN>
@@ -102,7 +101,6 @@ host svicloud.lb.gogs.pro.svi.pub
 ## 打包下载 git 文件中目录
     $ git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp
 
-
 # 常用配置
 ## 配置认证、支持中文
 
@@ -113,7 +111,6 @@ host svicloud.lb.gogs.pro.svi.pub
 
     $ git config --list
 
-
 ## 重新设置 git url 或 新增远程仓库
     
     # 重新设置远程仓库地址
@@ -121,8 +118,6 @@ host svicloud.lb.gogs.pro.svi.pub
 
     # 提交到多个远程仓库
     $ git remote add origin git@github.com:dongcj/blog.git
-
-
 
 # git 日常用法
 
@@ -157,7 +152,6 @@ git --no-pager log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 
 > 更多格式化输出 : https://ruby-china.org/topics/939
 
-
 ## git show
 ```php
 git show dfb02e6e4f2f7b573337763e5c0013802e392818         # 显示某个提交修改的详细内容
@@ -173,7 +167,6 @@ git show HEAD@{5}
 git show master@{yesterday}                               # 显示 master 分支昨天的状态
 ```
 
-
 # git diff
 ```bash
 git diff                                                  # 显示所有未添加至 index 的变更
@@ -183,7 +176,6 @@ git diff HEAD -- ./lib                                    # 比较与 HEAD 版�
 git diff origin/master..master                            # 比较远程分支 master 上有本地分支 master 上没有的
 git diff origin/master..master --stat                     # 只显示差异的文件，不显示具体内容
 ```
-
 
 ## git branch
 ```bash
@@ -219,7 +211,6 @@ git reset --hard origin/master                            # 2. 先运行 1，再
 git reset --hard HEAD                                     # 将当前版本重置为 HEAD（通常用于 merge 失败回退）
 ```
 
-
 ## git tag
 ```bash
 git tag                               # git 列表
@@ -234,7 +225,6 @@ git push origin :refs/tags/v0.9       # 删除远程标签 ( 需要先删除本�
 git push origin v0.1.2                # 提交单一标签
 git push origin --tags                # 提交所有标签
 git show v1.2.5                       # 查看标签内容
-
 
 git tag -l | xargs git tag -d         # Delete local tags.
 git fetch                             # Fetch remote tags.
@@ -253,20 +243,10 @@ git push origin master                                    # 将当前分支 push
 git push origin :hotfixes/BJVEP933                        # 删除远程仓库的 hotfixes/BJVEP933 分支
 git push --tags                                           # 把所有 tag 推送到远程仓库
 
-
-
 git pull origin master                                    # 获取远程分支 master 并 merge 到当前分支
 
 git mv README README2                                     # 重命名文件 README 为 README2
 
 git rebase
 ```
-
-
-
-
-
-
-
-
 

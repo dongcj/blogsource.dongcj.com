@@ -13,7 +13,6 @@ tags:
   - wizz
 ---
 
-
 # curl
 ## 下载文件
 ```bash
@@ -31,11 +30,9 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     curl --trace-ascii output.txt www.sina.com
     curl  -s  --head  www.sina.com
 
-
 ## 上传文件
     curl --form upload=@localfilename --form press=OK [URL]
     curl -T file.txt
-
 
 ## Cookie 及认证
     curl --cookie "name=xxx" www.example.com
@@ -43,14 +40,11 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
 
     curl -fsSL ...
 
-
 ## 下载网页保存为文件名
     curl -o [文件名] www.sina.com
 
-
 ## 自动跳转 , 重定向
     curl -L www.sina.com
-
 
 ## 下载并网速限制
     curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html
@@ -71,18 +65,14 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     curl -i -X POST --data "data=xxx"           example.com/form.cgi
     curl -i -X POST --data-urlencode "date=April 1"     example.com/form.cgi
 
-
 ## Referer(-e)
     curl --referer http://www.example.com http://www.example.com
 
 ## User Agent 字段 (-A)
     curl --user-agent "[User Agent]" http://www.example.com
 
-
-
 ## 配置压缩 (-I means "Fetch the HTTP-header only")
     curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom
-
 
 ## 超时设置
     --connect-timeout 3     # 3 秒连接时间
@@ -105,7 +95,6 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
     Content-Type: application/json
 
     {"jsonrpc":"2.0","result":"c12f74265ea3cfb772b5e1d56957645b","id":0}
-
 
     # zabbix 利用 tokern 和 id 进行注册主机
 
@@ -176,11 +165,4 @@ curl -sSL ${DOCKERIZE_DOWNLOADURL} | tar zxvf - -C ${MODULE_HOME}
 
 # wuzz
 ![wuzz](http://i.imgur.com/fdWQco8.gif)
-
-
-
-
-
-
-
 

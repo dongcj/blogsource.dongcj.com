@@ -10,7 +10,6 @@ tags:
   - 国内源
 ---
 
-
 # yum 更新
 ```bash
 yum search fastestmirror
@@ -29,10 +28,8 @@ yum update
 ## epel 源 (elrepo.org)
     yum install epel-release
 
-
 ## elrepo(update kernel)
     rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-
 
 ## remi 源
     # ( 将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
@@ -46,9 +43,6 @@ yum update
 
    # redhat/centos 7 only have x86_64 packages
     rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
-
-
-
 
 # 国内镜像站
 ## CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )
@@ -137,7 +131,6 @@ enabled=0
 gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6
 ```
 
-
 ## 网易开源镜像站
 > 地址：http://mirrors.163.com/.help/centos.html
 
@@ -161,13 +154,4 @@ yum makecache
     # 防止 32 位元组件在未来更新时被安装
     # 编辑 /etc/yum.conf 并加入以下一行：
     exclude = *.i?86
-
-
-
-
-
-
-
-
-
 

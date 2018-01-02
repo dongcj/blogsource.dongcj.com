@@ -45,12 +45,10 @@ tags:
     max-lease-time 43200;
     }
 
-
 # 增加 tftp 文件
     拷文件至 tftpboot( 注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！ )
     $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
     $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
-
 
     $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
     $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
@@ -65,8 +63,6 @@ tags:
         append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
     # 修改 kickstart 自动安装 linux( 见安装文件 )
-
-
 
  > 附录：完整 DHCP 样例
 
@@ -93,7 +89,6 @@ tags:
         next-server 192.168.88.1;   # for pxe only
     }
 
-
     class "MSFT" {
         match if substring(option vendor-class-identifier, 0, 4) = "MSFT";
         option host-name = config-option server.ddns-hostname;
@@ -109,7 +104,6 @@ tags:
         );
     }
 
-
     option host-name = config-option server.ddns-hostname;
     ddns-hostname = pick (option host-name, concat("v",
             suffix(concat("0", binary-to-ascii(16, 8, "", substring (hardware, 1, 1))), 2),
@@ -120,7 +114,6 @@ tags:
             suffix(concat("0", binary-to-ascii(16, 8, "", substring (hardware, 6, 1))), 2)
     ));
     set vendor-string = option vendor-class-identifier;
-
 
     subnet 192.168.88.0 netmask 255.255.255.0 {
         option routers 192.168.88.1;
@@ -139,13 +132,4 @@ tags:
         #    hardware ethernet 00:a0:cc:cf:9C:14;    # host's mac address
         #    fixed-address 192.168.1.30;             # host's ip address
     }
-
-
-
-
-
-
-
-
-
 

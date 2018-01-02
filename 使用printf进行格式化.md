@@ -40,15 +40,12 @@ printf "%s\n" "1" "2" "\n3"
 2
 \n3
 
-
 printf "%b\n" "1" "2" "\n3"
 1
 2
 
 3
 $
-
-
 
 printf "%d\n" 255 0xff 0377 3.5
 255
@@ -57,14 +54,11 @@ printf "%d\n" 255 0xff 0377 3.5
 bash: printf: 3.5: invalid number
 3
 
-
 printf "%f\n" 255 0xff 0377 3.5
 255.000000
 255.000000
 377.000000
 3.500000
-
-
 
 printf "%.1f\n" 255 0xff 0377 3.5
 255.0
@@ -78,11 +72,4 @@ printf "%.1f\n" 255 0xff 0377 3.5
 for i in $( seq 1 10 ); do printf "%03d\t" "$i"; done
 001     002     003     004     005     006     007     008     009     010
 ```
-
-
-
-
-
-
-
 

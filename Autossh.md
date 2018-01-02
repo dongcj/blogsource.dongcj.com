@@ -1,3 +1,5 @@
+tags: 
+  - 
 ---
 title: Autossh
 author: dongcj <ntwk@163.com>
@@ -13,12 +15,8 @@ tag:
 
 > http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html
 
-
-
 # 用 autossh 保证 ssh 隧道稳定性 :
     autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-
-
 
 # autossh 代理
     export AUTOSSH_PIDFILE=/var/run/autossh.pid
@@ -29,15 +27,4 @@ tag:
     autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o "ServerAliveInterval 60" \
         -o "ServerAliveCountMax 3" -o BatchMode=yes \
         -o StrictHostKeyChecking=no USER@HOSTNAME
-
-
-
-
-
-
-
-
-
-
-
 

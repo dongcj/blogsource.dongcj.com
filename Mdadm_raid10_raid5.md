@@ -13,7 +13,6 @@ tags:
 > 建议：
 > 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！
 
-
 ### 每块硬盘分一个区
     # 分区格式为 Linux software raid：
 
@@ -57,7 +56,6 @@ tags:
       Calling ioctl() to re-read partition table.
       Syncing disks.
 
-
 # 更改分区格式
     # 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
     $ fdisk /dev/sdc
@@ -71,7 +69,6 @@ tags:
     $ fdisk /dev/sdg
     ...
 
-
 # 创建 RAID
     # 在上面的 6 个相同大小的分区上创建 raid10
     $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
@@ -81,7 +78,6 @@ tags:
     mdadm: size set to 732440576K
     mdadm: Defaulting to version 1.2 metadata
     mdadm: array /dev/md0 started.
-
 
     # 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
     # watch cat /proc/mdstat
@@ -95,7 +91,6 @@ tags:
 
     unused devices:
 
-
 # 给 md0 设备创建分区和文件系统
     $ fdisk /dev/md0
     $ mkfs.ext4 /dev/md0p1
@@ -103,12 +98,10 @@ tags:
     $ mkdir /raid10
     $ mount /dev/md0p1 /raid10
 
-
 # 修改 /etc/fstab 启动时自动挂载
     $ vi /etc/fstab
       ...
       /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-
 
 > 在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法，
 > 因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID：
@@ -116,13 +109,11 @@ tags:
       ...
       /dev/md0p1: UUID="093e0605-1fa2-4279-99b2-746c70b78f1b" TYPE="ext4"
 
-
     # 然后修改相应的 fstab，使用 UUID 挂载：
     $ vi /etc/fstab
       ...
       /dev/md0p1 /raid10 ext4 noatime,rw 0 0
       **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
-
 
 # 查看 RAID 的状态
     $ mdadm --query --detail /dev/md0
@@ -158,11 +149,9 @@ tags:
            4       8       81        4      active sync   /dev/sdf1
            5       8       97        5      active sync   /dev/sdg1
 
-
 # 配置 raid 的配置文件
     $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 > /etc/mdadm.conf
     $ mdadm --detail --scan >> /etc/mdadm.conf
-
 
 # RAID 维护命令
 ## 删除故障盘
@@ -181,3 +170,4 @@ tags:
     mdadm --manage /dev/md99 --remove /dev/sd[cde]1
     mdadm --manage /dev/md99 --stop
     mdadm --zero-superblock /dev/sd[cde]1
+

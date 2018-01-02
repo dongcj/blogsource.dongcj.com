@@ -97,7 +97,6 @@ http {
         # fairly scheduler
         fair;
 
-
     }
 
     # fastcgi config
@@ -117,8 +116,6 @@ http {
     gzip_comp_level 2;
     gzip_types       text/plain application/x-javascript text/css application/xml;
     gzip_vary on;
-
-
 
     server {
         listen 80;
@@ -147,7 +144,6 @@ http {
             proxy_pass http://lb.xxx.com;
         }
 
-
         # static file expires
             location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) {
             expires      30d;
@@ -162,7 +158,6 @@ http {
 }
 
 ```
-
 
 ```nginx
 vi /usr/local/nginx/conf/proxy.conf
@@ -196,13 +191,4 @@ pkill nginx
 # reload
 nginx -s reload
 ```
-
-
-
-
-
-
-
-
-
 

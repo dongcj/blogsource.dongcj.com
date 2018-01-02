@@ -35,11 +35,9 @@ vi /etc/network/interfaces
 dns-nameservers 114.114.114.114
 ```
 
-
 ## 设置 hostname
     [root@rancher-server] echo "<HOSTNAME>" >/etc/hostname && hostname <HOSTNAME>
     [root@rancher-server] hostnamectl set-hostname svi1r01n08
-
 
 ## install docker
 ```bash
@@ -72,7 +70,6 @@ vi /etc/docker/daemon.json
 }
 ```
 
-
 # 安装 Rancher
 ## 单机安装
 ```bash
@@ -81,7 +78,6 @@ docker run -d --restart=always \
 -v /opt/svicloud/rancher/server_db:/var/lib/mysql \
 --name rancher-server -p 8080:8080  rancher/server
 ```
-
 
 ## HA 模式安装（可选）
 1. 安装一个外部主从模式的 MySQL
@@ -96,7 +92,6 @@ docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-
   --db-name cattle \
   --advertise-address <IP_of_the_Node>
 
-# The following are default values: 
 db.cattle.database=mysql
 db.cattle.username=cattle
 db.cattle.password=cattle
@@ -136,9 +131,6 @@ codedevote/nginx-ssl-proxy-rancher
 ## 使用 Salt 进行自动化安装 Server、agent
 > 参见 GitHub：komljen/rancher-salt
 
-
-
-# 
 ## registry v2 版本的查询所有镜像：
 > https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image
 
@@ -158,19 +150,12 @@ https://github.com/burnettk/delete-docker-registry-image
 # 或者使用 ui 进行操作
 ```
 
-
-
 # 将日志展示在 WEB UI 的日志中
     /var/log/nginx/error.log -> /dev/stderr
     /var/log/ngnix/access.log -> /dev/stdout
 
-
-
-
 # 自定义加入 rancher 网络
     在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有 rancher 的网络 IP
-
-
 
 # Rancher 将自身也加入主机中
 
@@ -181,8 +166,6 @@ sudo docker run -d -e CATTLE_AGENT_IP=<HOST_IP> --privileged \
     rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx
 ```
 
-
-
 # 查询 DNS 的所有记录
 
 ```bash
@@ -192,7 +175,6 @@ cat /etc/rancher-dns/answers.json
 ```
 
 > 注意：在独立的容器中（自建的），DNS 只保留最后一个
-
 
 # Rancher LB `http` redirect to `https`
 
@@ -215,14 +197,4 @@ frontend http-frontend
 ```
 balance source
 ```
-
-
-
-
-
-
-
-
-
-
 
