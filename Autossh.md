@@ -6,8 +6,8 @@ updated: 2016/08/04 16:32:45
 categories:
   - linux
 tag:
-  - Linux
-  - LinuxCommand
+  - linux
+  - linuxCommand
   - autossh
 tags: 
   - 
