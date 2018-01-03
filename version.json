@@ -1,3 +1,14 @@
+---
+title: version
+tags: 
+  - 
+---
+categories: 
+  - 
+updated: 
+date: 
+author: dongcj <ntwk@163.com>
+
 {
   "authcenter": {
     "server_version": "V01R01B19_20170607-6162",
@@ -16,3 +27,4 @@
     "web_version": "V01R01B13_20170607-6076"
   }
 }
+

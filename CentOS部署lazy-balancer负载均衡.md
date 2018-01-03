@@ -1,5 +1,5 @@
 ---
-title: Centos 部署 lazy-balancer 负载均衡
+title: CentOS部署lazy-balancer负载均衡　
 author: dongcj <ntwk@163.com>
 date: 2016/08/28 17:44:33
 updated:
@@ -9,7 +9,6 @@ tags:
   - nginx
   - tengine
   - lazy-balancer
-  - 负载均衡
 ---
 
 # clone soft
