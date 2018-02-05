@@ -10,9 +10,6 @@ tags:
   - mdadm
 ---
 
-> 建议：
-> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！
-
 ### 每块硬盘分一个区
     # 分区格式为 Linux software raid：
 
@@ -91,31 +88,25 @@ tags:
 
     unused devices:
 
-# 给 md0 设备创建分区和文件系统
     $ fdisk /dev/md0
     $ mkfs.ext4 /dev/md0p1
 
     $ mkdir /raid10
     $ mount /dev/md0p1 /raid10
 
-# 修改 /etc/fstab 启动时自动挂载
     $ vi /etc/fstab
       ...
       /dev/md0p1 /raid10 ext4 noatime,rw 0 0
 
-> 在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法，
-> 因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID：
     $ blkid
       ...
       /dev/md0p1: UUID="093e0605-1fa2-4279-99b2-746c70b78f1b" TYPE="ext4"
 
-    # 然后修改相应的 fstab，使用 UUID 挂载：
     $ vi /etc/fstab
       ...
       /dev/md0p1 /raid10 ext4 noatime,rw 0 0
       **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
 
-# 查看 RAID 的状态
     $ mdadm --query --detail /dev/md0
     /dev/md0:
             Version : 1.2
@@ -149,7 +140,6 @@ tags:
            4       8       81        4      active sync   /dev/sdf1
            5       8       97        5      active sync   /dev/sdg1
 
-# 配置 raid 的配置文件
     $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 > /etc/mdadm.conf
     $ mdadm --detail --scan >> /etc/mdadm.conf
 
@@ -160,12 +150,10 @@ tags:
 ## 增加新盘
     $ mdadm /dev/md0 -a /dev/sde1
 
-## 停止并移除阵列
     $ mdadm --stop /dev/md99    // 停止
     $ mdadm -As /dev/md0        // 启动
     $ mdadm --remove /dev/md99
 
-## 销毁系统中的阵列
     mdadm --manage /dev/md99 --fail /dev/sd[cde]1
     mdadm --manage /dev/md99 --remove /dev/sd[cde]1
     mdadm --manage /dev/md99 --stop

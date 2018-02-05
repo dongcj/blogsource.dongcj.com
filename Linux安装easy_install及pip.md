@@ -43,7 +43,6 @@ categories:
     # 升级 ez_setup
     $ curl https://bootstrap.pypa.io/ez_setup.py | python -
 
-    > PIP 使用指定源，且不缓存到目录
     $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
     > 安装墙内 PIP

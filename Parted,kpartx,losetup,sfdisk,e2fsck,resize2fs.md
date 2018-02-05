@@ -82,13 +82,7 @@ tags:
     $ cat /sys/block/sdb/queue/physical_block_size
       512
 
-    #  把 optimal_io_size 的值与 alignment_offset 的值相加，之后除以 physical_block_size 的值。
-    # 在此例子中：(1048576 + 0) / 512 = 2048。
-    # 这个数值是分区起始的扇区。新的 parted 命令应该写成类似下面这样：
-
     $ mkpart primary 2048s 100%
-
-    # 检查分区是否对齐
 
     (parted) align-check optimal 1
       1 aligned

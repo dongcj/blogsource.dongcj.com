@@ -11,14 +11,9 @@ tags:
 ---
 > VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题
 
-# 错误信息：
-
 > 返回 代码 : E_FAIL (0x80004005)
 > 组件 : MachineWrap
 > 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}
-
-总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是新建的也不行。
-这个问题困扰了我很多年，从 VirtualBox 更新到 4.3.14 以后就一直让我头大。
 
 # 寻找原因
 直到最近重装系统，我才找到了问题的原因—— MacType。
@@ -34,7 +29,6 @@ VBoxSVC.exe
 VirtualBox.exe
 ```
 
-# 另一个问题
 鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written
 ```bat
 sfc /scannow

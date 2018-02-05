@@ -14,10 +14,8 @@ categories:
     # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
     $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
 
-## 如果要安装 MySQL-python，需要安装以下软件
     $ yum -y install mysql mysql-devel
 
-## 如果要安装 lxml，需要安装以下软件
     $ yum -y install libxml2-devel  libxslt-devel
 
 ## 编译安装 python 新版
@@ -46,7 +44,6 @@ categories:
 ## 安装一些基础软件
     $ pip install readline
 
-## 在 virtualenv 里安装亦可
     $ pip install MySQL-python pssh flask
     $ pip install lxml virtualenv virtualenvwrapper websockify
 

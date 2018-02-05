@@ -6,19 +6,17 @@ updated:
 categories: 
   -
 tags:  
-  -
+  - 
 ---
 
 > 为了支持 bbr、aufs，必须安装 extra, 详见：[Linux 升级 kernel 及 tcp_BBR](http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/)
 
-## 安装 Docker
+# 安装 Docker
 
 ```bash
 # clone 后直接脚本安装
 git clone https://github.com/rancher/install-docker.git
 ```
-
-## 检查
 
     docker info | grep WARN
     
@@ -34,6 +32,8 @@ git clone https://github.com/rancher/install-docker.git
         net.bridge.bridge-nf-call-arptables = 1
 
     sysctl -p
+
+<!-- more -->
 
 # CentOS 安装 Docker
 > ( 本方法只适用于 `centos6` 及以下 )
@@ -53,7 +53,6 @@ yum remove docker \
     docker-engine \
     docker-engine-selinux
 
-# 如果需要安装高版本的
 curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.10.1 && chmod +x docker-1.10.1 && sudo mv docker-1.10.1 /usr/local/bin/docker
 ```
 
@@ -68,7 +67,6 @@ yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-# 启用源
 yum-config-manager --enable docker-ce-edge
 
 # 查找指定版本
@@ -100,7 +98,6 @@ vi /etc/docker/daemon.json
 ```bash
 vi /etc/docker/daemon.json
 
-# 直接启动（当然也可以写入 systemd）
 http_proxy=<IP_ADDR>:<PORT> https_proxy=<IP_ADDR>:<PORT> dockerd
 ```
 
@@ -138,7 +135,6 @@ cp /tmp/docker-machine /usr/local/bin/docker-machine
 # create aws machine
 docker-machine create --driver amazonec2 --amazonec2-access-key AKI******* --amazonec2-secret-key 8T93C*******  aws-sandbox
 
-# 直接使用本地服务器
 docker-machine create --driver none --url=tcp://192.168.1.112:2376 svi1r01n02
 ```
 
@@ -153,8 +149,6 @@ other_args="--exec-driver=lxc \
     --selinux-enabled [-H tcp://0.0.0.0:2376] [-b=br0]"   # 如果用了 -H，连接时也要用 -H 指定 !!
 ```
 
-## Docker 使用不同的桥接方式
-
 ```bash
 # 前台启动
 docker -d -b br0
@@ -163,7 +157,6 @@ docker -d -b br0
 other_args="--exec-driver=lxc --selinux-enabled -b=br0"     
 ```
 
-## Docker 直接使用外部块存储
 > 映射为 container 内部盘，可以自定义使用 read、write、mknode 操作
 
     docker run --device=/dev/sdc:/dev/xvdc:[rwm] --device=/dev/sdd --device=/dev/zero:/dev/nulo -i -t ubuntu ls -l /dev/{xvdc,sdd,nulo}
@@ -184,7 +177,6 @@ other_args="--exec-driver=lxc --selinux-enabled -b=br0"
   - sudo dockerd --live-restore
 ```
 
-## Docker Daemon 的配置文件
 > 可以使用 --config-file 指定，默认位置为 /etc/docker/daemon.json
 ```json
 {
@@ -234,7 +226,6 @@ curl --no-buffer -XGET --unix-socket /var/run/docker.sock http://localhost/event
 curl --unix-socket /var/run/docker.sock "http://localhost/containers/json?all=1&before=8dfafdbc3a40&size=1"
 ```
 
-# Docker 小技巧
 ## set metadata on container
 
 ```bash
@@ -258,12 +249,10 @@ com.example.label3
 
 # 常用 Docker 命令
 
-## 备份容器中的数据（将容器中的数据目录拷贝至当前目录下）
     docker run --rm --volume-from dbdata -v ${pwd}:/backup  ubuntu tar cvf /backup/backup.tar /dbdata
 
 ## 已运行容器通过 iptbles 来 nat
 
-    # 相当于端口映射
     iptables -t nat -A  DOCKER -p tcp --dport 3306 -j DNAT --to-destination 172.17.0.2:3306
 
 # Docker Inspect
@@ -271,10 +260,8 @@ com.example.label3
 # 如果镜像和实例名字重名，使用 --type 区分
 docker inspect --type=image rhel7
 
-# 获取正在运行的容器 IP 的示例
 container_ip=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' ${container_id})
 
-# docker inspect 输出结果的解析
 docker inspect `docker ps -q` | grep IPAddress | cut -d '"' -f 4
 # 或者
 docker inspect `dl` | jq -r '.[0].NetworkSettings.IPAddress'
@@ -286,10 +273,8 @@ docker inspect \
 
 172.17.0.2
 
-# 以 json 的格式展示
 docker inspect --format '{{json .Mounts}}' pensive_blackwell
 
-# 大小写
 docker inspect --format "{{lower .Name}}" pensive_blackwell
 
 # Listing all port bindings
@@ -306,13 +291,11 @@ docker inspect -s d2cc496561d6 |　grep -i Size
 # 找到 container 的 pid
 PID=$(docker inspect --format {{.State.Pid}} <container_name_or_ID>)
 
-# 找到 container 使用的镜像
 docker inspect -f '{{.Config.Image}}' 5cf58382b2f0
 
 # logging driver
 docker inspect -f '{{.HostConfig.LogConfig.Type}}' <CONTAINER>
 
-# 格式 host:port , 并且把他们输入一个 java properties 文件：
 sut_ip=${BOOT_2_DOCKER_HOST_IP}
 
 template='{{ range $key, $value := .NetworkSettings.Ports }}{{ $key }}='"${BOOT_2_DOCKER_HOST_IP}:"'{{ (index $value 0).HostPort }} {{ end }}'

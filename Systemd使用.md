@@ -11,7 +11,6 @@ tags:
 ---
 # Systemd 和 Systemctl 基础命令
 
-## 几个常用的服务控制
     查看目前状态：      systemctl status <SERVICE_NAME>
 
     [ 启动 | 停止 ]:    systemctl [ start | stop ] <SERVICE_NAME>
@@ -39,8 +38,6 @@ tags:
     +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
     上例中很清楚地表明，我们安装了 215 版本的 systemd。
 
-### 2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置
-
     [root@manage ~]# whereis systemd
     systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
     [root@manage ~]# whereis systemctl
@@ -54,8 +51,6 @@ tags:
     root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
     dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
     注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
-
-    也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。
 
 ### 4. 分析 systemd 启动进程
 
@@ -130,8 +125,6 @@ tags:
     sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
     sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
 
-### 9. 列出所有失败单元
-
     [root@manage ~]# systemctl --failed
     UNIT          LOAD   ACTIVE SUB    DESCRIPTION
     kdump.service loaded failed failed Crash recovery kernel arming
@@ -141,12 +134,8 @@ tags:
     1 loaded units listed. Pass --all to see loaded but inactive units, too.
     To show all installed unit files use 'systemctl list-unit-files'.
 
-### 10. 检查某个单元（如 cron.service）是否启用
-
     [root@manage ~]# systemctl is-enabled crond.service
     enabled
-
-### 11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）
 
     [root@manage ~]# systemctl is-active httpd.service
     [root@manage ~]# systemctl enable    httpd.service
@@ -164,8 +153,6 @@ tags:
     Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
     Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
     使用 Systemctl 控制并管理服务
-
-### 14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态
 
     [root@manage ~]# systemctl start httpd.service
     [root@manage ~]# systemctl restart httpd.service
@@ -193,17 +180,12 @@ tags:
     Hint: Some lines were ellipsized, use -l to show in full.
     注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。
 
-### 15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）
-
-    # 注意：这是一个演示如何增加一个服务
     [root@manage ~]# systemctl mask httpd.service
     ln -s '/dev/null' '/etc/systemd/system/httpd.service'
 
     # 删除服务
     [root@manage ~]# systemctl unmask httpd.service
     rm '/etc/systemd/system/httpd.service'
-
-### 16. 使用 systemctl 命令杀死服务
 
     [root@manage ~]# systemctl kill httpd
     [root@manage ~]# systemctl status httpd
@@ -237,8 +219,6 @@ tags:
     sys-kernel-debug.mount        static
     tmp.mount                     disabled
 
-### 18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态
-
     [root@manage ~]# systemctl start tmp.mount
     [root@manage ~]# systemctl stop tmp.mount
     [root@manage ~]# systemctl restart tmp.mount
@@ -261,8 +241,6 @@ tags:
     [root@manage ~]# systemctl is-active tmp.mount
     [root@manage ~]# systemctl enable tmp.mount
     [root@manage ~]# systemctl disable  tmp.mount
-
-### 20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点
 
     [root@manage ~]# systemctl mask tmp.mount
     ln -s '/dev/null' '/etc/systemd/system/tmp.mount'
@@ -287,8 +265,6 @@ tags:
     systemd-udevd-kernel.socket  static
     11 unit files listed.
 
-### 22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态
-
     [root@manage ~]# systemctl start cups.socket
     [root@manage ~]# systemctl restart cups.socket
     [root@manage ~]# systemctl stop cups.socket
@@ -309,8 +285,6 @@ tags:
 
 # 服务的 CPU 利用率（分配额）
 
-### 25. 获取当前某个服务的 CPU 分配额（如 httpd）
-
     [root@manage ~]# systemctl show -p CPUShares httpd.service
     CPUShares=1024
     [root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。
@@ -325,8 +299,6 @@ tags:
     [root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
     [Service]
     CPUShares=2000
-
-### 27. 检查某个服务的所有配置细节
 
     [root@manage ~]# systemctl show httpd
     Id=httpd.service
@@ -343,8 +315,6 @@ tags:
     SubState=running
     FragmentPath=/usr/lib/systemd/system/httpd.service
     ....
-
-### 28. 分析某个服务（httpd）的关键链
 
     [root@manage ~]# systemd-analyze critical-chain httpd.service
     The time after the unit is active or started is printed after the "@" character.
@@ -366,8 +336,6 @@ tags:
                               └─ boot.mount @4.286s +31ms
                                 └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
                                   └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
-
-### 29. 获取某个服务（httpd）的依赖性列表
 
     [root@manage ~]# systemctl list-dependencies httpd.service
     httpd.service
@@ -411,8 +379,6 @@ tags:
       │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
     ....
 
-### 31. 按 CPU、内存、输入和输出列出控制组
-
     [root@manage ~]# systemd-cgtop
     Path                                                              Tasks   %CPU   Memory  Input/s Output/s
     /                                                                    83    1.0   437.8M        -        -
@@ -445,14 +411,10 @@ tags:
     Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
     The system is going down to rescue mode NOW!
 
-### 33. 进入紧急模式
-
     [root@manage ~]# systemctl emergency
     Welcome to emergency mode! After logging in, type "journalctl -xb" to view
     system logs, "systemctl reboot" to reboot, "systemctl default" to try again
     to boot into default mode.
-
-### 34. 列出当前使用的运行等级
 
     [root@manage ~]# systemctl get-default
     multi-user.target
@@ -469,12 +431,8 @@ tags:
     或
     [root@manage ~]# systemctl isolate multiuser.target
 
-### 37. 设置多用户模式或图形模式为默认运行等级
-
     [root@manage ~]# systemctl set-default runlevel3.target
     [root@manage ~]# systemctl set-default runlevel5.target
-
-### 38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠
 
     [root@manage ~]# systemctl reboot
     [root@manage ~]# systemctl halt

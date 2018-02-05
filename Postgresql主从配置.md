@@ -19,7 +19,6 @@ vi /etc/profile
 
 source /etc/profile
 
-# 从服务器上
 vi /etc/profile
   export PGDATA=/pgdata_backup
 
@@ -32,7 +31,6 @@ source /etc/profile
 mkdir /pgdata
 chown -R postgres:postgres /pgdata/
 
-# 配置一个账号进行主从同步
 su - postgres
 psql [ -p  54321 ]     # 如果修改过端口，需要指定端口
 psql$ CREATE ROLE replica login replication encrypted password 'replica';
@@ -90,24 +88,16 @@ chmod -R 700 /pgdata_backup/
 pg_ctl start
 ```
 
-# 检测配置是否成功
-    # 使用 ps -ef 在主从二台上检测进程状态
     # 在主上应该有 sender 进程，在从上有 receiver 进程
 
-    # 在主上查看复制状态
     $ psql$ select * from pg_stat_replication;
-
-    # 可以看到 sender 的进程信息
 
 # 主从切换命令
 
-# node1 上模拟主库故障
 [postgres@node1 ~]$ pg_ctl stop -m f
 
-# node2 提升备库状态
 [postgres@node2 ~]$ pg_ctl promote
 
-# node2 更新备数据
 [postgres@node2 ~]$ createdb pgbench
 [postgres@node2 ~]$ pgbench -i -s 10 pgbench
 
@@ -127,7 +117,6 @@ recovery_target_timeline = 'latest'
 [postgres@node1 ~]$ pg_ctl promote
 [postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench
 
-# 恢复 node2 为 standby：
 [postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server='host=node1 user=postgres port=5432'
 [postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf
 

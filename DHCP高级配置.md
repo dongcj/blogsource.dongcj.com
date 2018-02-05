@@ -22,8 +22,6 @@ tags:
     # 也可以通过以下命令方式来实现：
     $ dhcrelay -i eth1 -i eth2 192.168.1.1
 
-    # Linux DHCP 配置完成后，重新启动 DHCP 服务。
-
 # 二、DHCP 超网配置
 ---
 

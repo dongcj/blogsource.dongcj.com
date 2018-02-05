@@ -47,8 +47,6 @@ autorestart=true
 
     > 如果使用 pip 安装，需要自已写启动脚本
 
-# 检查安装
-    # 如下即表示正常
     supervisorctl status
     remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
 

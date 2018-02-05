@@ -32,8 +32,6 @@ tags:
     Square 3145 orange .7
 ```
 
-## 格式化
-
 ```bash
 printf "%s\n" "1" "2" "\n3"
 1
@@ -67,7 +65,6 @@ printf "%.1f\n" 255 0xff 0377 3.5
 3.5
 ```
 
-## 格式化
 ```bash
 for i in $( seq 1 10 ); do printf "%03d\t" "$i"; done
 001     002     003     004     005     006     007     008     009     010

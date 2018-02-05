@@ -12,7 +12,6 @@ tags:
 
 > 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS
 
-# 下载源
     $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
 
 # 安装软件
@@ -51,8 +50,6 @@ tags:
     $ systemctl start glusterd
     $ systemctl status glusterd
 
-# 配置信任池
-
     # from server1
     $ gluster peer probe SERVER2
 
@@ -62,7 +59,6 @@ tags:
     # check peer
     $ gluster peer status
 
-# 设置一个 Gluster 卷
     $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
     $ gluster volume start gv0
 
@@ -76,7 +72,6 @@ tags:
     # delete Volume
     $ gluster volume delete gv0
 
-    # detach 命令：
     $ gluster peer detach NAME_OF_PEERNODE
 
 # Test Gluster volume
@@ -102,6 +97,5 @@ tags:
 # 配置 Quorum()
     ......
 
-> 通过 CIFS 从 Linux ／ Windows 计算机进行访问
 > 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS
 

@@ -9,7 +9,6 @@ tags:
   - postgres
 ---
 
-# 安装相关依赖库
     $ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
       openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
     $ yum -y install wget gcc systemtap systemtap-sdt-devel \
@@ -43,7 +42,6 @@ chown postgres /pgdata
 su - postgres
 /usr/local/pgsql/bin/initdb -D /pgdata/
 
-# 数据库参数修改
     $ vim /pgdata/pg_hba.conf
       host    all             all             0.0.0.0/0               trust
 

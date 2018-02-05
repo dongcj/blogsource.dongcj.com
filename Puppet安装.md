@@ -11,8 +11,6 @@ tags:
 ---
 ### /etc/hosts 可以 ping 通对方域名
 
-### 安装 ntp 做时间同步
-
 ### 安装 puppet
 
     $ yum install ruby ruby-libs ruby-rdoc
@@ -30,13 +28,9 @@ tags:
 
 ### service puppetmaster start
 
-    # 启动期间会生成 ca 证书，如果不能生成，可以使用以下命令手动生成：
     $ puppet master --verbose --no-daemonize --cert_name "Puppet CA: `hostname -f`"
 
-    # 查看生成的证书信息
     $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
-
-### 服务端允许请求证书
 
     $ cat > /etc/puppet/autosign.conf <<EOF
     *.xxx.com
@@ -45,16 +39,11 @@ tags:
     $ service puppetmaster restart
     $ puppet cert list --all	--> 查看下证书，此时是没有客户机的，只有自己
 
-### 客户端请求证书
-
     在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
 
     $ puppetd --server bigdata.xxxx.com --test
     或者
     $ puppet agent --no-daemonize --onetime --verbose --debug
-
-    # 再到服务端查看一下证书
-    $ puppet cert list --all	--> 查看下证书，此时生成了客户端的，开头为 + 号
 
 ### 安装 dashboard
 

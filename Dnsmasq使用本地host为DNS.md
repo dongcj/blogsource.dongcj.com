@@ -14,7 +14,6 @@ tags:
 # 使用 dnsmasq 提供外网 dns 服务
     $ apt-get install dnsmasq
 
-## 修改 dnsmasq 主配置文件
     # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
     listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
     addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
@@ -41,7 +40,6 @@ tags:
     $ sudo service networking restart
     $ sudo /etc/init.d/dns-clean restart
 
-    # 修改后要求下面的几个命令输出相同的 IP 地址：
     $ host u1
     $ nslookup u1
     $ getent ahosts u1

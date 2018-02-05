@@ -73,11 +73,18 @@ host <ID2>.<GIT_DOMAIN>
     git config  user.email "xxxx@xx.com"
     git config  user.name "suzie"
 
+## 清除 git 路径中的所有 .git 文件
+
+    find . -name ".git" | xargs rm -Rf
+
+## 打包下载 git 文件中目录
+
+    git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp
+
 ### 使用 ssh config
 > http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/
 
     vi ~/.ssh/config
-
 ```bash
 # 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户
 host svicloud.lb.gogs.pro.svi.pub
@@ -94,11 +101,36 @@ host svicloud.lb.gogs.pro.svi.pub
     IdentityFile ~/.ssh/id_rsa_first
 ```
 
+## Git Shell
+
+```bash
+#!/bin/bash
+
+CURR_COMMIT=$(git rev-parse HEAD);
+CURR_VERSION=$(node -e "console.log(require('./package.json').version);");
+VER_HASH=$(git rev-list -n 1 v$CURR_VERSION);
+
+# Don't want to redo version bump
+if [ $CURR_COMMIT == $VER_HASH ]
+then
+    echo 'Already up to date'
+    exit
+fi
+
+npm version patch;
+
+NEW_VERSION=$(node -e "console.log(require('./package.json').version);");
+
+echo $NEW_VERSION;
+
+git push origin head;
+
+```
+
 ## 清除 git 路径中的所有 .git 文件
 
     $ find . -name ".git" | xargs rm -Rf
 
-## 打包下载 git 文件中目录
     $ git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp
 
 # 常用配置
@@ -238,13 +270,11 @@ git tag -l | xargs git tag -d                       # Delete local tasg.
 git merge origin/master                                   # 合并远程 master 分支至当前分支
 
 git cherry-pick ff44785404a8e                             # 合并提交 ff44785404a8e 的修改
-
 git push origin master                                    # 将当前分支 push 到远程 master 分支
 git push origin :hotfixes/BJVEP933                        # 删除远程仓库的 hotfixes/BJVEP933 分支
 git push --tags                                           # 把所有 tag 推送到远程仓库
 
 git pull origin master                                    # 获取远程分支 master 并 merge 到当前分支
-
 git mv README README2                                     # 重命名文件 README 为 README2
 
 git rebase

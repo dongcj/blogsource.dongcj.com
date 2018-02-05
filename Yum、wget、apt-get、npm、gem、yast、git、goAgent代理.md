@@ -14,10 +14,8 @@ tags:
   - yast
   - git
   - goAgent
-  - 代理
----
-
   - proxy
+---
 
 # yum 配置代理
 
@@ -27,11 +25,8 @@ tags:
       proxy_username=yum-user
       proxy_password=qwerty
 
-    # yum 出现以下错误：
     > UnicodeDecodeError: 'ascii' codec can't decode byte 0xd1 in position 72: ordinal not in range(128)
 
-    # 解决方法：
-    使用光盘中的 GPGKEY：
     $ rpm --import RPM-GPG-KEY-redhat-release
 
 # wget 配置代理
@@ -49,7 +44,6 @@ tags:
 
 # apt-get 配置代理
 
-    # 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
       Acquire {
        Retries "0 ″ ;
        HTTP {
@@ -68,13 +62,11 @@ tags:
 
     $ curl -x 192.168.88.57:808 "www.baidu.com"
 
-    # 或者
     $ vi /root/.bashrc
       export http_proxy = http://PROXYSERVER:18023
 
 # git 配置代理
 
-    # 如果是 git clone http:// 或 git clone https:// 的话直接把代理服务器加到环境变量就可以了：
     $ export http_proxy="http://username:password@squid.vpsee.com:3128/"
     $ export https_proxy="http://username:password@squid.vpsee.com:3128/"
 
@@ -85,8 +77,6 @@ tags:
     1、$ sudo cp path/to/goagent/local/CA.crt /usr/share/ca-certificates/goagent.crt
     2、$ sudo chmod a+r /usr/share/ca-certificates/goagent.crt
     3、$ sudo dpkg-reconfigure ca-certificates
-
-    # 最后一个命令会有一个图形界面，在里面勾选 goagent 的 CA 就可以了。
 
     -
 
@@ -99,8 +89,6 @@ tags:
 
     $ git config --global core.gitproxy /root/git_proxy
 
-    # 然后就可以使用 git 了
-
 -
 
 # yast 配置代理
@@ -112,8 +100,6 @@ tags:
 
 # GoAgent 代理
 
-    # 重建证书目录：
-    （如果不建，则会报：certutil: could not authenticate to token NSS Certificate DB.: An I/O error occurred during security authorization.）
     $ modutil -changepw "NSS Certificate DB" -dbdir $HOME/.pki/nssdb
 
     # 查看证书
@@ -128,8 +114,6 @@ tags:
     # 删除证书
     $ certutil -d sql:$HOME/.pki/nssdb -D -t "C,," -n GoAgent
 
-# npm 代理：
-
     # 设置 :
     $ npm config set proxy=http://proxy.mysite.com:8080
       或在 /root/.npmrc 中设置：
@@ -138,7 +122,8 @@ tags:
     # 取消 :
     $ npm config delete proxy
 
-# gem 代理：
+    # 设置 :
+    $ https_proxy=http://192.168.109.1:1080 go get <PACKAGE>
 
     # 安装时加上 --http-proxy 参数
     $ gem install --http-proxy http://proxy.mysite.com:8080 sass

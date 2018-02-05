@@ -42,13 +42,11 @@ tags:
 
     $ service gearmand start
 
-    # 或者自己启动
     $ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
     # 如果需要使用数据库
     gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-    # 命令行 API 用法：
     $ gearman -w -f wc -- wc -l	// 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
     # 将 /etc/passwd 文件给函数 wc 进行处理
@@ -58,8 +56,6 @@ tags:
           --status
           --workers
           -- ...
-
-# PHP API 用法：
 
 ## 1. Worker:
     <?php
@@ -94,8 +90,6 @@ tags:
     $client->addServer();
 
     echo "sending job\n";
-
-    $result = $client->doNormal("reverse", "Hello World!");		--> 这里可以换成 doBackground 就可以后台
 
     if($result) {
         echo "Success: $result\n";

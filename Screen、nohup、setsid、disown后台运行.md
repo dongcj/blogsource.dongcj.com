@@ -13,7 +13,6 @@ tags:
 ---
 # screen 后台
 
-    screen -S   yourname -> 新建一个叫 yourname 的 session，然后进入
     screen -ls -> 列出当前所有的 session
     screen -r yourname -> 回到 yourname 这个 session
     screen -d yourname -> 远程 detach 某个 session
@@ -22,13 +21,9 @@ tags:
     # 有用的命令，可以做为同步演示用 , 比 script 强大
     screen -x <SESSION_NAME>
 
-    ## 强制退出某个会话
     screen -X -S [session_you_want_to_kill] quit
 
-    # 在在脚本中使用 screen（直接在指定的 screen 中运行命令，并 Detach 出去）
     screen -Sdm   <SCREEN_NAME>   <DO_SOME_COMMAND>
-
-    ctrl A 然后再按 D 退出会话
 
 # nohup 后台
     nohup ping www.ibm.com &

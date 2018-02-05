@@ -55,23 +55,12 @@ tags:
     }
     location ~* /js/.*/\.js
 
-= 开头表示精确匹配 如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。
 ^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配
 ~ 开头表示区分大小写的正则匹配 ;
 ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
 
-顺序优先级： (location =) > (location 完整路径 ) > (location ^~ 路径 ) > (location ~,~* 正则顺序 ) > (location 部分起始路径 ) > (/) 上面的匹配结果
-
-按照上面的 location 写法，以下的匹配示例成立：
-/-> config A 精确完全匹配，即使 /index.html 也匹配不了
-/downloads/download.html -> config B 匹配 B 以后，往下没有任何匹配，采用 B /images/1.gif -> configuration D 匹配到 F，往下匹配到 D，停止往下 /images/abc/def -> config D 最长匹配到 G，往下匹配 D，停止往下
-
 你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -> config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -> configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg
 -> config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：
-
-    # 直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
-    # 这里是直接转发给后端应用服务器了，也可以是一个静态首页
-    # 第一个必选规则
 
         location = / {
             proxy_pass http://tomcat:8080/index
@@ -82,7 +71,6 @@ tags:
     root /webroot/static/; } location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
     root /webroot/res/; }
 
-    # 第三个规则就是通用规则，用来转发动态请求到后端应用服务器
     # 非静态文件请求就默认是动态请求，自己根据实际把握
     # 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
     location / {
@@ -96,24 +84,15 @@ tags:
 # Rewrite 规则
 rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];
 
-如果相对域名或参数字符串起作用，可以使用全局变量匹配，也可以使用 proxy_pass 反向代理。
-
-表明看 rewrite 和 location 功能有点像，都能实现跳转，主要区别在于 rewrite 是在同一域名内更改获取资源的路径，而 location 是对一类路径做控制访问或反向代理，可以 proxy_pass 到其他机器。很多情况下 rewrite 也会写在 location 里，它们的执行顺序是：
-
  - 执行 server 块的 rewrite 指令
  - 执行 location 匹配
  - 执行选定的 location 中的 rewrite 指令
 
-如果其中某步 URI 被重写，则重新循环执行 1-3，直到找到真实存在的文件；循环超过 10 次，则返回 500 Internal Server Error 错误。
-
-## 2.1 flag 标志位
 last : 相当于 Apache 的[L]标记，表示完成 rewrite
 break : 停止执行当前虚拟主机的后续 rewrite 指令集
 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址
 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址
 
-因为 301 和 302 不能简单的只返回状态码，还必须有重定向的 URL，这就是 return 指令无法返回 301,302 的原因了。这里 last 和 break 区别有点难以理解：
-last 一般写在 server 和 if 中，而 break 一般使用在 location 中
 last 不终止重写后的 url 匹配，即新的 url 会再从 server 走一遍匹配流程，而 break 终止重写后的匹配
 break 和 last 都能组织继续执行后面的 rewrite 指令
 
@@ -178,8 +157,6 @@ if 判断指令
     $server_port ： 请求到达服务器的端口号。
     $request_uri ： 包含请求参数的原始 URI，不包含主机名，如：” /foo/bar.php?arg=baz ”。
 
-    $uri ： 不带请求参数的当前 URI，$uri 不包含主机名，如” /foo/bar.html ”。
-    $document_uri ： 与 $uri 相同。
     例：http://localhost:88/test1/test2/test.php
     $host：localhost
     $server_port：88
@@ -236,17 +213,10 @@ http {
         }
 }
 
-对形如 /images/ef/uh7b3/test.png 的请求，重写到 /data?file=test.png，于是匹配到 location /data，先看 /data/images/test.png 文件存不存在，如果存在则正常响应，如果不存在则重写 tryfiles 到新的 image404 location，直接返回 404 状态码。
-例 2：
-
     rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&height=$3? last;
-
-例 3：
-见 ssl 部分页面加密 。
 
 ----------
 
-**参考**:  参考以下
 > http://www.nginx.cn/216.html
 > http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/
 > 老僧系列 nginx 之 rewrite 规则快速上手 http://fantefei.blog.51cto.com/2229719/919431

@@ -19,8 +19,6 @@ yum update kernel*
 yum update
 ```
 
-# 常用源
-## rpmforge 源
     # ( 将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
     rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el<X>.rf.x86_64.rpm
     rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el<X>.rf.i686.rpm
@@ -31,11 +29,9 @@ yum update
 ## elrepo(update kernel)
     rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
 
-## remi 源
     # ( 将链接中的 "X" 换为 7/6/5 即可下载不同版本的 repo)
     rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-## rpmfusion 源
     # redhat/centos 6
     rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
     rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
@@ -44,7 +40,6 @@ yum update
    # redhat/centos 7 only have x86_64 packages
     rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
 
-# 国内镜像站
 ## CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )
 > 地址：http://centos.ustc.edu.cn/
 
@@ -147,11 +142,9 @@ wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 yum makecache
 ```
 
-# yum 排除 32 位安装
     # 删除 32 位组件：
     yum remove \*.i\?86
 
-    # 防止 32 位元组件在未来更新时被安装
     # 编辑 /etc/yum.conf 并加入以下一行：
     exclude = *.i?86
 
