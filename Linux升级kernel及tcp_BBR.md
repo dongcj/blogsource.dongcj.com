@@ -12,21 +12,21 @@ tags:
   - tcp_bbr
 ---
 
-> 快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br>
-> wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
-
 ``` bash
 # 这二个是打开 BBR 必需的
+# 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可
+# 如果不是，则需先按下方升级内核
 echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 
 # 保存生效
 sysctl -p
 
+# 查看 bbr 是否生效
 lsmod | grep bbr
 ```
 
-# Debian、Ubuntu 升级内核
+# 1. Debian、Ubuntu 升级内核
 
 ```bash
 # 直接使用 apt-get 安装内核
@@ -48,8 +48,9 @@ reboot
 uname -r
 
 ```
+<!-- more -->
 
-# RHEL、CentOS 升级内核
+# 2. RHEL、CentOS 升级内核
 ```bash
 yum update -y
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
@@ -82,10 +83,11 @@ net.ipv4.tcp_congestion_control = bbr
 sysctl -p
 ```
 
-## 下载内核二进制包
+# 3. 手动安装
+## 3.1. 下载内核二进制包
 > 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/
 
-## 解压安装
+## 3.2. 解压安装
 ```bash
 ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb
 bzip2 -d data.tar.bz2
@@ -95,7 +97,7 @@ cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/
 depmod -a 4.9.0-11-generic
 ```
 
-## 加入引导
+## 3.3. 加入引导
 ```bash
 dracut -f -v --hostonly -k '/lib/modules/4.9.0-11-generic'  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic
 # 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；
@@ -104,10 +106,10 @@ dracut -f -v --hostonly -k '/lib/modules/4.9.0-11-generic'  /boot/initramfs-4.9.
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
-## 修改引导顺序
+## 3.4. 修改引导顺序
 
-### 查看引导内有哪些内核
 ```bash
+# 查看引导内有哪些内核
 cat /boot/grub2/grub.cfg |grep menuentry
 
 cat /boot/grub2/grub.cfg |grep menuentry

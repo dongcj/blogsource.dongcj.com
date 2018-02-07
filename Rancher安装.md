@@ -14,7 +14,7 @@ tags:
 # 1. 准备步骤
 
 ## 1.1. 服务器时间同步
-> 如果不配置时间同步，可能会导致调度服务有可能不正常, 建议使用 **UTC** 时间
+> 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 **UTC** 时间
 ```bash
 # 直接删除 /etc/localtime 即可使用 UTC 时间
 rm -rf /etc/localtime
@@ -22,6 +22,7 @@ rm -rf /etc/localtime
 
 ## 1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）
 > 如果要支持 aufs，请安装 linux-image-extra 的包
+> 参考链接： [Linux 升级 Kernel 及 tcp_BBR](http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/)
 
 ## 1.3. 所有服务器设置外部 DNS
 ```bash
@@ -60,43 +61,14 @@ systemctl restart docker
 #systemctl restart network-manager
 ```
 
+<!-- more -->
 
 ## 1.4. 设置 hostname
     [root@rancher-server] echo "<HOSTNAME>" >/etc/hostname && hostname <HOSTNAME>
     [root@rancher-server] hostnamectl set-hostname svi1r01n08
 
-
 ## 1.5. install Docker
-```bash
-# 国内 DaoCloud 镜像安装
-curl -sSL https://get.daocloud.io/docker | sh
-
-# Rancher 官方安装脚本
-git clone https://github.com/rancher/install-docker.git
-cd ./install-docker && bash <LATEST__XX>.sh
-
-# Docker 开机自启动
-systemctl  enable docker.service
-```
-
-## 1.6. 配置 docker 加速器（用于国内加速）
-
-```bash
-vi /etc/docker/daemon.json
-# 编辑完后重启 Docker 生效
-```
-
-```json
-{
-  "registry-mirrors": [
-     "https://2lqq34jg.mirror.aliyuncs.com",
-     "https://pee6w651.mirror.aliyuncs.com",
-     "https://registry.docker-cn.com",
-     "http://hub-mirror.c.163.com"
-  ]
-}
-```
-
+> 参考：[Rancher 安装及命令](http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/)
 
 # 2. 安装 Rancher
 ## 2.1. 单机安装
@@ -130,7 +102,6 @@ docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-
   --db-name cattle \
   --advertise-address <IP_of_the_Node>
 
-# The following are default values: 
 db.cattle.database=mysql
 db.cattle.username=cattle
 db.cattle.password=cattle
@@ -167,7 +138,6 @@ docker run -d \
 codedevote/nginx-ssl-proxy-rancher
 ```
 
-
 ## 3.4. registry v2 版本的查询所有镜像
 > https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image
 
@@ -187,12 +157,8 @@ https://github.com/burnettk/delete-docker-registry-image
 # 或者使用 ui 进行操作
 ```
 
-
-
 # 4. 自定义加入 rancher 网络
     在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有 rancher 的网络 IP
-
-
 
 # 5. 查询 DNS 的所有记录
 
@@ -204,14 +170,13 @@ cat /etc/rancher-dns/answers.json
 
 > 注意：在独立的容器中（自建的），DNS 只保留最后一个
 
-
 # 6. Rancher LB `http` redirect to `https`
 
   - 按照如下模式，自定义请求头信息
 
 ![](https://i.imgur.com/TEg1m2a.png)
 
-  - 在 `自定义 Haproxy.cfg` 中增加以下内容
+  - 在 ` 自定义 Haproxy.cfg` 中增加以下内容
 
 ```apache
 frontend http-frontend
@@ -226,14 +191,4 @@ frontend http-frontend
 ```
 balance source
 ```
-
-
-
-
-
-
-
-
-
-
 
